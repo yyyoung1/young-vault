@@ -1,0 +1,195 @@
+[
+  {
+    "id": "mgmt90280",
+    "code": "MGMT90280",
+    "name": "Managerial Decision Analytics",
+    "desc": "Business Analytics · Weeks 1–9",
+    "accent": "#10B981",
+    "modules": [
+      {
+        "file": "week1_linear_programming.html",
+        "week": "Week 1",
+        "title": "Linear Programming",
+        "subtitle": "LP三大要素 · 建模 · 解读",
+        "color": "#10B981"
+      },
+      {
+        "file": "week2_sensitivity_ilp.html",
+        "week": "Week 2",
+        "title": "Sensitivity Analysis & ILP",
+        "subtitle": "敏感性分析 · 整数规划",
+        "color": "#10B981"
+      },
+      {
+        "file": "week3_nlp.html",
+        "week": "Week 3",
+        "title": "LP Applications & NLP",
+        "subtitle": "LP应用 · 非线性规划",
+        "color": "#10B981"
+      },
+      {
+        "file": "week4_probability.html",
+        "week": "Week 4",
+        "title": "Probability Distributions",
+        "subtitle": "离散 · 连续 · Excel公式",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "week5_monte_carlo.html",
+        "week": "Week 5",
+        "title": "Monte Carlo Simulation",
+        "subtitle": "随机模拟 · Uniform · Normal",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "week6_descriptive_data_mining.html",
+        "week": "Week 6",
+        "title": "Descriptive Data Mining",
+        "subtitle": "聚类 · 关联规则 · 文本挖掘",
+        "color": "#6366F1"
+      },
+      {
+        "file": "week7_regression_interactive_guide.html",
+        "week": "Week 7",
+        "title": "Regression Analysis",
+        "subtitle": "回归分析互动指南",
+        "color": "#6366F1"
+      },
+      {
+        "file": "sat_gpa_interaction_regression.html",
+        "week": "Week 7",
+        "title": "Interaction Term Regression",
+        "subtitle": "SAT × GPA 交互项",
+        "color": "#6366F1"
+      },
+      {
+        "file": "week8_time_series_patterns.html",
+        "week": "Week 8",
+        "title": "Time Series Patterns",
+        "subtitle": "时间序列模式",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "week8_2_forecast_methods.html",
+        "week": "Week 8",
+        "title": "Forecast Methods",
+        "subtitle": "预测方法 · Naive · MA · ES",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "week8_3_regression_forecasting.html",
+        "week": "Week 8",
+        "title": "Regression Forecasting",
+        "subtitle": "回归预测时间序列",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "week8_exam_review_checklist.html",
+        "week": "Week 8",
+        "title": "Exam Review Checklist",
+        "subtitle": "考前复习清单",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "week9_predictive_data_mining.html",
+        "week": "Week 9",
+        "title": "Predictive Data Mining",
+        "subtitle": "分类树 · 逻辑回归",
+        "color": "#10B981"
+      },
+      {
+        "file": "week9_full_exam_question.html",
+        "week": "Week 9",
+        "title": "Full Exam Practice",
+        "subtitle": "完整考题练习 · BankChurn",
+        "color": "#10B981"
+      },
+      {
+        "file": "exam_past_papers.html",
+        "week": "Finals",
+        "title": "Past Exam Papers",
+        "subtitle": "历年真题 · 官方答案解析",
+        "color": "#6366F1"
+      }
+    ]
+  },
+  {
+    "id": "mgmt90032",
+    "code": "MGMT90032",
+    "name": "Operations and Process Management",
+    "desc": "Operations Management · Weeks 1–10",
+    "accent": "#6366F1",
+    "modules": [
+      {
+        "file": "mgmt90032_w1_intro.html",
+        "week": "Week 1",
+        "title": "Intro to Operations Mgmt",
+        "subtitle": "转化模型 · 产品vs服务 · 绩效目标",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w2_forecast_inventory.html",
+        "week": "Week 2",
+        "title": "Forecasting & Inventory",
+        "subtitle": "MA · ES · EOQ · ROP · 安全库存",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w3_aggregate_mps.html",
+        "week": "Week 3",
+        "title": "Aggregate Planning & MPS",
+        "subtitle": "AP三策略 · MPS时间栏 · ATP",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w4_mrp_erp.html",
+        "week": "Week 4",
+        "title": "MRP & ERP",
+        "subtitle": "BOM · MRP逻辑 · 批量规则 · ERP",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w5_jit_lean.html",
+        "week": "Week 5",
+        "title": "JIT / Lean",
+        "subtitle": "TPS · 7浪费 · 看板 · SMED",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w6_strategy.html",
+        "week": "Week 6",
+        "title": "Strategy & Product Design",
+        "subtitle": "Order Winners · 并行工程 · DFM",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w7_process_layout.html",
+        "week": "Week 7",
+        "title": "Process & Layout",
+        "subtitle": "流程类型 · 4种布局 · 线平衡",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w8_scm.html",
+        "week": "Week 8",
+        "title": "Supply Chain Management",
+        "subtitle": "SCM · 牛鞭效应 · Fisher模型 · VSM",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w9_quality.html",
+        "week": "Week 9",
+        "title": "Quality Management",
+        "subtitle": "7工具 · TQM · ISO 9000 · Baldrige",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w10_spc_sixsigma.html",
+        "week": "Week 10",
+        "title": "SPC & Six Sigma",
+        "subtitle": "X̄-R图 · 因子表 · DMAIC",
+        "color": "#6366F1"
+      }
+    ]
+  }
+]
