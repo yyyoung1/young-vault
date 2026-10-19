@@ -277,5 +277,98 @@
         "color": "#EC4899"
       }
     ]
+  },
+  {
+    "id": "mgmt90025",
+    "code": "MGMT90025",
+    "name": "People & Change",
+    "desc": "Organizational Change · Weeks 1–12",
+    "accent": "#F59E0B",
+    "modules": [
+      {
+        "file": "mgmt90025_w1_overview.html",
+        "week": "Week 1",
+        "title": "Subject Overview & Four Factors",
+        "subtitle": "Assessment · Todd · Nadler & Tushman · Types of change",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w2_why_how_change.html",
+        "week": "Week 2",
+        "title": "Why Change? …and How?",
+        "subtitle": "Force field · Lewin · OD · Kotter · Stage vs process",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w3_culture_teams.html",
+        "week": "Week 3",
+        "title": "Culture & Teams",
+        "subtitle": "Schein · Sathe · Bate · Katzenbach & Smith · Thomas",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w4_it_innovation.html",
+        "week": "Week 4",
+        "title": "Technology, IT & Innovation",
+        "subtitle": "TAM · Rogers diffusion · SMWTs · Distributed leadership",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w5_mna_downsizing.html",
+        "week": "Week 5",
+        "title": "M&A and Downsizing",
+        "subtitle": "Seo & Hill · Acculturation · Survivor syndrome · Justice",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w6_communication.html",
+        "week": "Week 6",
+        "title": "Change Communication",
+        "subtitle": "Daft & Lengel · Goodman & Truss · Armenakis & Harris · Klein",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w7_strategy.html",
+        "week": "Week 7",
+        "title": "Strategy & Organizational Change",
+        "subtitle": "Mintzberg · Johnson & Scholes · Identity · Liedtka",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w8_leadership.html",
+        "week": "Week 8",
+        "title": "Managing & Leading Change",
+        "subtitle": "Transformational · Power · Influence · Tipping point",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w9_training.html",
+        "week": "Week 9",
+        "title": "Training & Organizational Change",
+        "subtitle": "Needs analysis · Transfer · Kirkpatrick · Learning orgs",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w10_individual_emotions.html",
+        "week": "Week 10",
+        "title": "Individual Differences & Emotions",
+        "subtitle": "Psychological contract · Regulatory focus · Cynicism",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w11_resistance_readiness.html",
+        "week": "Week 11",
+        "title": "Resistance, Cynicism & Readiness",
+        "subtitle": "Kotter & Schlesinger · Commitment · Inertia · Readiness",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w12_review.html",
+        "week": "Week 12",
+        "title": "Tying It All Together & Exam Review",
+        "subtitle": "Theory of Change · Institutionalizing · Exam tips",
+        "color": "#F59E0B"
+      }
+    ]
   }
 ]
