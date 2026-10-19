@@ -124,71 +124,157 @@
         "file": "mgmt90032_w1_intro.html",
         "week": "Week 1",
         "title": "Intro to Operations Mgmt",
-        "subtitle": "转化模型 · 产品vs服务 · 绩效目标",
+        "subtitle": "Operating models · Planned vs Lean · Key decisions · Products vs services",
         "color": "#6366F1"
       },
       {
         "file": "mgmt90032_w2_forecast_inventory.html",
         "week": "Week 2",
         "title": "Forecasting & Inventory",
-        "subtitle": "MA · ES · EOQ · ROP · 安全库存",
+        "subtitle": "Forecast types · EOQ · ROP · Counting systems",
         "color": "#6366F1"
       },
       {
         "file": "mgmt90032_w3_aggregate_mps.html",
         "week": "Week 3",
         "title": "Aggregate Planning & MPS",
-        "subtitle": "AP三策略 · MPS时间栏 · ATP",
+        "subtitle": "AP strategies · Skateboard example · MPS · ATP · Time fences",
         "color": "#6366F1"
       },
       {
         "file": "mgmt90032_w4_mrp_erp.html",
         "week": "Week 4",
         "title": "MRP & ERP",
-        "subtitle": "BOM · MRP逻辑 · 批量规则 · ERP",
+        "subtitle": "Product structure tree · Lot-for-lot · Lot-size · MRP II · ERP",
         "color": "#6366F1"
       },
       {
         "file": "mgmt90032_w5_jit_lean.html",
         "week": "Week 5",
-        "title": "JIT / Lean",
-        "subtitle": "TPS · 7浪费 · 看板 · SMED",
+        "title": "Lean / JIT",
+        "subtitle": "7 wastes · 5S · Kanban · SMED · Planned vs Lean",
         "color": "#6366F1"
       },
       {
         "file": "mgmt90032_w6_strategy.html",
         "week": "Week 6",
-        "title": "Strategy & Product Design",
-        "subtitle": "Order Winners · 并行工程 · DFM",
+        "title": "Competitiveness, Strategy & Product Design",
+        "subtitle": "Sand cone · Mass customisation · QFD · DFM / DFA · PLC",
         "color": "#6366F1"
       },
       {
         "file": "mgmt90032_w7_process_layout.html",
         "week": "Week 7",
-        "title": "Process & Layout",
-        "subtitle": "流程类型 · 4种布局 · 线平衡",
+        "title": "Process Selection & Layout",
+        "subtitle": "5 process types · 4 layouts · Cells · Service blueprint · Line balancing",
         "color": "#6366F1"
       },
       {
         "file": "mgmt90032_w8_scm.html",
         "week": "Week 8",
         "title": "Supply Chain Management",
-        "subtitle": "SCM · 牛鞭效应 · Fisher模型 · VSM",
+        "subtitle": "Design elements · Push/Pull · Bullwhip · Fisher · VSM · SCOR",
         "color": "#6366F1"
       },
       {
         "file": "mgmt90032_w9_quality.html",
         "week": "Week 9",
         "title": "Quality Management",
-        "subtitle": "7工具 · TQM · ISO 9000 · Baldrige",
+        "subtitle": "COQ · QC/QA/TQM · 7 tools · ISO 9000 · Awards",
         "color": "#6366F1"
       },
       {
         "file": "mgmt90032_w10_spc_sixsigma.html",
         "week": "Week 10",
         "title": "SPC & Six Sigma",
-        "subtitle": "X̄-R图 · 因子表 · DMAIC",
+        "subtitle": "X̄-R charts · Factor table · DPMO · DMAIC",
         "color": "#6366F1"
+      }
+    ]
+  },
+  {
+    "id": "mktg90004",
+    "code": "MKTG90004",
+    "name": "Marketing Management",
+    "desc": "Marketing · Weeks 1–11",
+    "accent": "#EC4899",
+    "modules": [
+      {
+        "file": "mktg90004_w1_what_is_marketing.html",
+        "week": "Week 1",
+        "title": "What is Marketing?",
+        "subtitle": "Core process · Customer delivered value · SDGs · Assessments",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w2_consumers.html",
+        "week": "Week 2",
+        "title": "Consumers & Consumption",
+        "subtitle": "Decision process · Involvement · Personal/Social/Cultural/Situational",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w3_environment.html",
+        "week": "Week 3",
+        "title": "The Marketing Environment",
+        "subtitle": "PESTLE · Micro-environment · Porter 5 Forces · SWOT",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w4_stp.html",
+        "week": "Week 4",
+        "title": "Segmentation, Targeting & Positioning",
+        "subtitle": "Segments · Feral · Personas · Perceptual maps · Positioning",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w5_assessment.html",
+        "week": "Week 5",
+        "title": "Assignment Masterclass",
+        "subtitle": "Part A & B structure · Marks · AI rules · Formatting",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w6_product_brand.html",
+        "week": "Week 6",
+        "title": "Product & Brand Strategy",
+        "subtitle": "Product mix · Line stretching · Brand elements · Distinctive assets",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w7_services.html",
+        "week": "Week 7",
+        "title": "Marketing Services & Experiences",
+        "subtitle": "3Ps · Servicescape · Blueprint · Customer journey",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w8_communication.html",
+        "week": "Week 8",
+        "title": "Communication Strategies (IMC)",
+        "subtitle": "IMC steps · Media plan · Appeals · Ethics",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w9_pricing.html",
+        "week": "Week 9",
+        "title": "Pricing Strategies",
+        "subtitle": "6 steps · Pricing methods · Product mix pricing · Price customisation",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w10_distribution.html",
+        "week": "Week 10",
+        "title": "Distribution Decisions",
+        "subtitle": "Channel levels · Omni-channel · Coverage · Vertical integration",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w11_research_metrics.html",
+        "week": "Week 11",
+        "title": "Market Research & Metrics",
+        "subtitle": "Research design · Qual vs Quant · ROMI · Market share",
+        "color": "#EC4899"
       }
     ]
   }
