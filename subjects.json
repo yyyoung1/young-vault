@@ -117,7 +117,7 @@
     "id": "mgmt90032",
     "code": "MGMT90032",
     "name": "Operations and Process Management",
-    "desc": "Operations Management · Weeks 1–10",
+    "desc": "Operations Management · Weeks 1–12",
     "accent": "#6366F1",
     "modules": [
       {
@@ -188,6 +188,13 @@
         "week": "Week 10",
         "title": "SPC & Six Sigma",
         "subtitle": "X̄-R charts · Factor table · DPMO · DMAIC",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w12_exam_review.html",
+        "week": "Week 12",
+        "title": "Final Exam Review",
+        "subtitle": "Exam format · Section 1 model answers · Worked calculations · Formulas",
         "color": "#6366F1"
       }
     ]
