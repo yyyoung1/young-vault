@@ -265,7 +265,7 @@ html.sb-init #sidebar { width: 0; padding: 0; border-right: none; opacity: 0; tr
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes popIn { from { opacity: 0; transform: translateY(-4px) scale(.98); } to { opacity: 1; transform: none; } }
 .view { display: none; }
-.view.active { display: block; animation: fadeUp .5s var(--ease) both; }
+.view.active { display: block; animation: fadeUp .5s var(--ease) backwards; }
 
 /* ===== Home ===== */
 #view-home { padding: 52px 56px 64px; }
@@ -695,6 +695,76 @@ html[data-theme="dark"] .yv-std .slide::before { color: #93c5fd; }
 .yv-std tbody tr:hover td { background: color-mix(in srgb, var(--tabc) 6%, transparent); }
 .yv-std .badge, .yv-std .b-blue { font-weight: 650; }
 .yv-std td:first-child strong, .yv-std td:first-child b { background-image: none !important; padding: 0; }
+
+/* ===== 知识点跳转：相关知识点标签 / 悬停预览 / 右侧分屏 ===== */
+.xrefs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 10px 0 6px; }
+.xrefs-l { font-size: 10.5px; font-weight: 750; letter-spacing: .07em; text-transform: uppercase; color: var(--faint); margin-right: 2px; }
+.xref { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; font-size: 12px; font-weight: 600; line-height: 1.3; padding: 3px 10px 3px 4px; border-radius: 99px; cursor: pointer;
+  color: color-mix(in srgb, var(--xc, var(--accent)) 68%, var(--text)); background: color-mix(in srgb, var(--xc, var(--accent)) 10%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--xc, var(--accent)) 32%, var(--line)); transition: transform .2s var(--ease), box-shadow .2s, background .2s; user-select: none; white-space: nowrap; }
+.xref:hover { transform: translateY(-1px); background: color-mix(in srgb, var(--xc, var(--accent)) 18%, var(--surface)); box-shadow: 0 6px 14px -8px var(--xc, var(--accent)); }
+.xref.on { box-shadow: 0 0 0 2px var(--xc, var(--accent)); }
+.xref .xw { font-size: 10px; font-weight: 800; letter-spacing: .02em; color: #fff; background: var(--xc, var(--accent)); border-radius: 99px; padding: 2px 7px; }
+.xref .xa { font-size: 11px; opacity: .55; margin-left: -2px; }
+h4 .xref { margin-left: auto; font-size: 11px; padding: 2px 8px 2px 3px; }
+td .xref { margin-top: 6px; font-size: 11px; }
+
+#yv-pop { position: fixed; z-index: 450; width: 400px; max-width: calc(100vw - 24px); max-height: 340px; overflow: hidden; pointer-events: none;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow-lg);
+  opacity: 0; transform: translateY(8px) scale(.97); transform-origin: top left; transition: opacity .18s, transform .25s var(--ease); }
+#yv-pop.show { opacity: 1; transform: none; }
+#yv-pop .pp-head { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--pc) 9%, var(--surface)); font-size: 12px; font-weight: 650; color: var(--text); }
+#yv-pop .pp-head b { color: #fff; background: var(--pc); border-radius: 99px; padding: 1px 8px; font-size: 10.5px; }
+#yv-pop .pp-body { padding: 12px 16px 30px; font-size: 12.5px; zoom: .9; max-height: 290px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(#000 72%, transparent); mask-image: linear-gradient(#000 72%, transparent); }
+#yv-pop .pp-body .card { border: none !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; animation: none !important; }
+#yv-pop .pp-body .card::before { display: none; }
+#yv-pop .pp-foot { position: absolute; left: 0; right: 0; bottom: 0; padding: 7px 14px; font-size: 11px; color: var(--muted); background: var(--surface); border-top: 1px solid var(--line); }
+
+#view-module.split.active { justify-content: flex-start; gap: 18px; padding-right: 18px; }
+#view-module.split #module-content { flex: 1 1 0; min-width: 0; }
+#split-pane { display: none; }
+#view-module.split #split-pane { display: flex; flex-direction: column; flex: 0 0 min(47%, 720px); position: sticky; top: 14px; align-self: flex-start;
+  height: calc(100vh - 60px - 28px); background: var(--surface); border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line)); border-radius: 22px;
+  box-shadow: var(--shadow-lg); overflow: hidden; animation: spIn .5s var(--ease); }
+@keyframes spIn { from { opacity: 0; transform: translateX(46px); } to { opacity: 1; transform: none; } }
+.sp-head { display: flex; align-items: center; gap: 10px; padding: 11px 12px 11px 16px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--accent) 9%, var(--surface)); flex-shrink: 0; }
+.sp-week { font-size: 10.5px; font-weight: 800; color: #fff; background: var(--accent); border-radius: 99px; padding: 2px 9px; flex-shrink: 0; }
+.sp-title { font-size: 14px; font-weight: 700; color: var(--text); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sp-btn { border: 1px solid var(--line-2); background: var(--surface); color: var(--muted); border-radius: 10px; padding: 6px 10px; font-size: 12px; cursor: pointer; transition: all .2s; white-space: nowrap; flex-shrink: 0; }
+.sp-btn:hover { color: var(--text); border-color: var(--accent); }
+.sp-btn.sp-open { margin-left: auto; }
+.sp-btn.sp-close { width: 32px; padding: 6px 0; font-size: 14px; }
+.sp-btn.sp-close:hover { background: #ef4444; border-color: #ef4444; color: #fff; }
+#split-content { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; max-width: none; border: none; border-radius: 0; box-shadow: none; padding: 16px 20px 40px; transform: none !important; scroll-behavior: smooth; }
+#split-content .yv-tabs { top: 6px; }
+.sp-flash { animation: spFlash 2.2s var(--ease); }
+@keyframes spFlash { 0%, 30% { box-shadow: 0 0 0 3px var(--tabc), 0 0 0 9px color-mix(in srgb, var(--tabc) 22%, transparent); } 100% { box-shadow: 0 0 0 0 transparent; } }
+
+#return-pill { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; z-index: 210;
+  display: flex; align-items: center; gap: 8px; padding: 10px 16px 10px 12px; border-radius: 99px; border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-lg); font-size: 13px; font-weight: 600; color: var(--text); cursor: pointer; transition: all .4s var(--ease); }
+#return-pill.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+#return-pill .rp-ico { width: 26px; height: 26px; border-radius: 50%; background: var(--rc, var(--accent)); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+#return-pill:hover { transform: translate(-50%, -2px); }
+
+/* 缩写悬停解释 */
+.abbr { text-decoration: underline dotted color-mix(in srgb, var(--tabc, var(--accent)) 70%, transparent); text-underline-offset: 3px; text-decoration-thickness: 1.5px; cursor: help; }
+#yv-tip { position: fixed; z-index: 460; max-width: 280px; padding: 7px 11px; border-radius: 10px; background: #0f172a; color: #f1f5f9; font-size: 12px; line-height: 1.5;
+  box-shadow: 0 10px 24px -8px rgba(0,0,0,.4); pointer-events: none; opacity: 0; transform: translateY(4px); transition: opacity .15s, transform .2s var(--ease); }
+#yv-tip.show { opacity: 1; transform: none; }
+#yv-tip b { color: #fff; }
+#yv-tip span { color: #94e2d5; }
+html[data-theme="dark"] #yv-tip { background: #e8ecf7; color: #0f172a; }
+html[data-theme="dark"] #yv-tip b { color: #0f172a; }
+html[data-theme="dark"] #yv-tip span { color: #0f766e; }
+
+@media (max-width: 900px) {
+  #view-module.split #split-pane { position: fixed; left: 0; right: 0; bottom: 0; top: auto; height: 84vh; flex: none; border-radius: 22px 22px 0 0; z-index: 320; animation: sheetIn .45s var(--ease); }
+  #view-module.split.active { padding-right: 8px; }
+  @keyframes sheetIn { from { transform: translateY(60%); opacity: 0; } to { transform: none; opacity: 1; } }
+}
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
@@ -775,6 +845,7 @@ html[data-theme="dark"] .yv-std .slide::before { color: #93c5fd; }
 
     <section id="view-module" class="view">
       <div class="module-content-wrapper" id="module-content"></div>
+      <aside id="split-pane" aria-label="相关知识点"></aside>
     </section>
 
     <button id="to-top" onclick="scrollToTop()" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
@@ -1056,6 +1127,7 @@ function showView(name) {
   document.getElementById('main').scrollTo({ top: 0, behavior: 'instant' });
   document.getElementById('read-progress').style.width = '0';
   document.getElementById('to-top').classList.remove('show');
+  if (name !== 'module' && typeof closeSplit === 'function') { closeSplit(); rpill.classList.remove('show'); }
   setAccent();
   document.getElementById('zoom-bar').classList.toggle('visible', name === 'module');
   renderBreadcrumb(); renderSidebar(); updateTitle();
@@ -1103,10 +1175,13 @@ async function goModule(id) {
     s.textContent = old.textContent;
     old.replaceWith(s);
   });
+  closeSplit();
+  glossify(contentDiv, mod.subject_id);
   enhanceModule(contentDiv, mod._h);
   contentDiv.classList.toggle('yv-dark', !!subjectById[mod.subject_id].enc);
   lsSet('yv-last', id);
   showView('module');
+  updateReturnPill();
   collapseSidebarOnMobile();
 }
 
@@ -1116,7 +1191,13 @@ function routeFromHash() {
   else if (hash.startsWith('subject/')) goSubject(hash.slice(8));
   else goHome();
 }
-window.addEventListener('hashchange', function() { if (!_navByCode) routeFromHash(); });
+window.addEventListener('hashchange', function() {
+  if (_navByCode) return;
+  const h = location.hash.slice(1);
+  const cur = currentView === 'module' ? 'module/' + currentModuleId : currentView === 'subject' ? 'subject/' + currentSubjectId : '';
+  if (h === cur) return;
+  routeFromHash();
+});
 
 // ===== 搜索 =====
 const searchText = {};   // moduleId -> 纯文本（懒加载）
@@ -1250,11 +1331,13 @@ function enhanceModule(root, hue) {
     p.insertBefore(w, t); w.appendChild(t);
   });
   root.querySelectorAll('.nav').forEach(nav => setupTabs(nav, root));
-  setupQuiz(root); setupRecall(root);
+  setupQuiz(root); setupRecall(root); setupXrefs(root);
   root.querySelectorAll('.deck').forEach(buildDeck);
 }
 
 function scrollModuleTop(root) {
+  if (root.dataset.noTop) return;
+  if (root.id === 'split-content') { if (root.scrollTop > 0) root.scrollTo({ top: 0, behavior: 'smooth' }); return; }
   const main = document.getElementById('main');
   const top = root.getBoundingClientRect().top - main.getBoundingClientRect().top + main.scrollTop;
   if (main.scrollTop > top + 8) main.scrollTo({ top: Math.max(0, top - 12), behavior: 'smooth' });
@@ -1495,6 +1578,188 @@ document.addEventListener('keydown', e => {
     if (j >= 0 && j < btns.length) btns[j].click();
   }, { passive: true });
 })();
+
+// ===== 缩写词典（悬停显示全称 + 中文）=====
+const GLOSS = { mgmt90032: {
+  'O&PM': 'Operations & Process Management｜运营与流程管理', 'OM': 'Operations Management｜运营管理',
+  'EOQ': 'Economic Order Quantity｜经济订货量', 'ROP': 'Reorder Point｜再订货点', 'AP': 'Aggregate Planning｜综合生产计划',
+  'MS': 'Master Scheduling｜主计划编制', 'MPS': 'Master Production Schedule｜主生产计划', 'ATP': 'Available-to-Promise｜可承诺量',
+  'MRP': 'Material Requirements Planning｜物料需求计划', 'MRP II': 'Manufacturing Resource Planning｜制造资源计划',
+  'ERP': 'Enterprise Resource Planning｜企业资源计划', 'BOM': 'Bill of Materials｜物料清单', 'JIT': 'Just-in-Time｜准时制',
+  'WIP': 'Work-in-Process｜在制品', 'SMED': 'Single Minute Exchange of Die｜单分钟换模', 'QFD': 'Quality Function Deployment｜质量功能展开（质量屋）',
+  'DFM': 'Design for Manufacture｜面向制造的设计', 'DFA': 'Design for Assembly｜面向装配的设计', 'PLC': 'Product Life Cycle｜产品生命周期',
+  'SCM': 'Supply Chain Management｜供应链管理', 'SC': 'Supply Chain｜供应链', 'VSM': 'Value Stream Mapping｜价值流图',
+  'SCOR': 'Supply Chain Operations Reference model｜供应链运营参考模型', 'QC': 'Quality Control｜质量控制', 'QA': 'Quality Assurance｜质量保证',
+  'QM': 'Quality Management｜质量管理', 'TQM': 'Total Quality Management｜全面质量管理', 'COQ': 'Cost of Quality｜质量成本',
+  'SPC': 'Statistical Process Control｜统计过程控制', 'UCL': 'Upper Control Limit｜控制上限', 'LCL': 'Lower Control Limit｜控制下限',
+  'DPMO': 'Defects Per Million Opportunities｜每百万机会缺陷数', 'DMAIC': 'Define · Measure · Analyze · Improve · Control｜六西格玛五步法',
+  'MNCs': 'Multinational Corporations｜跨国公司', 'MNC': 'Multinational Corporation｜跨国公司', 'LT': 'Lead Time｜提前期',
+  'ISO': 'International Organization for Standardization｜国际标准化组织', 'MBNQA': 'Malcolm Baldrige National Quality Award｜美国国家质量奖',
+  'MAD': 'Mean Absolute Deviation｜平均绝对偏差', 'MSE': 'Mean Squared Error｜均方误差', 'MAPE': 'Mean Absolute Percentage Error｜平均绝对百分比误差',
+  'VMI': 'Vendor-Managed Inventory｜供应商管理库存', 'POS': 'Point of Sale｜销售点（终端）数据', 'MRO': 'Maintenance, Repair & Operations｜维护维修与运营物料',
+  'EDLP': 'Everyday Low Pricing｜天天低价', 'CPFR': 'Collaborative Planning, Forecasting & Replenishment｜协同计划预测与补货', 'ROI': 'Return on Investment｜投资回报率'
+} };
+function glossify(root, sid) {
+  const g = GLOSS[sid]; if (!g) return;
+  const keys = Object.keys(g).sort((a, b) => b.length - a.length);
+  const re = new RegExp('(?<![A-Za-z0-9&])(' + keys.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')(?![A-Za-z0-9])', 'g');
+  const nodes = [];
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => {
+    if (!n.nodeValue.trim() || n.parentElement.closest('script,style,.nav,button,input,.abbr,.xref,.xrefs,h2,.dk-ui,.sp-head')) return NodeFilter.FILTER_REJECT;
+    re.lastIndex = 0; return re.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
+  while (w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n => {
+    const f = document.createDocumentFragment(); let last = 0, t = n.nodeValue; re.lastIndex = 0; let m;
+    while ((m = re.exec(t))) {
+      if (m.index > last) f.appendChild(document.createTextNode(t.slice(last, m.index)));
+      const s = document.createElement('span'); s.className = 'abbr'; s.dataset.t = g[m[1]]; s.textContent = m[1]; f.appendChild(s);
+      last = m.index + m[1].length;
+    }
+    if (last < t.length) f.appendChild(document.createTextNode(t.slice(last)));
+    n.parentNode.replaceChild(f, n);
+  });
+}
+
+// ===== 相关知识点：芯片 / 预览 / 分屏 =====
+const _docCache = {};
+function moduleDoc(id) {
+  if (_docCache[id]) return _docCache[id];
+  if (contentCache[id] == null) return null;
+  return _docCache[id] = new DOMParser().parseFromString(contentCache[id], 'text/html');
+}
+function findTarget(scope, secId, find) {
+  const sec = scope.querySelector('#' + CSS.escape(secId)); if (!sec) return null;
+  const f = (find || '').toLowerCase();
+  if (!f) return sec.querySelector('.card') || sec;
+  const cards = [...sec.querySelectorAll('.card')];
+  return cards.find(c => [...c.querySelectorAll('h3')].some(h => h.textContent.toLowerCase().includes(f)))
+      || cards.find(c => c.textContent.toLowerCase().includes(f)) || cards[0] || sec;
+}
+function setupXrefs(root) {
+  root.querySelectorAll('.xref').forEach(x => {
+    const m = moduleById[x.dataset.mod]; if (!m) return;
+    x.style.setProperty('--xc', m.color);
+    if (!x.querySelector('.xw')) x.insertAdjacentHTML('afterbegin', '<span class="xw">' + m.week.replace('Week ', 'W') + '</span>');
+    if (!x.querySelector('.xa')) x.insertAdjacentHTML('beforeend', '<span class="xa">↗</span>');
+    x.setAttribute('role', 'button'); x.tabIndex = 0;
+    x.title = '';
+  });
+}
+const pop = document.createElement('div'); pop.id = 'yv-pop'; document.body.appendChild(pop);
+const tip = document.createElement('div'); tip.id = 'yv-tip'; document.body.appendChild(tip);
+let popTimer = 0, popFor = null;
+const canHover = matchMedia('(hover: hover)').matches;
+function placeFloat(el, anchor, gap) {
+  const r = anchor.getBoundingClientRect(), w = el.offsetWidth, h = el.offsetHeight;
+  let left = Math.min(Math.max(12, r.left), innerWidth - w - 12);
+  let top = r.bottom + gap; if (top + h > innerHeight - 12) top = Math.max(12, r.top - h - gap);
+  el.style.left = left + 'px'; el.style.top = top + 'px';
+}
+function showPreview(x) {
+  const m = moduleById[x.dataset.mod], doc = m && moduleDoc(m.id); if (!doc) return;
+  const t = findTarget(doc, x.dataset.sec, x.dataset.find); if (!t) return;
+  const clone = t.cloneNode(true); clone.querySelectorAll('script,input,button,.qblock').forEach(n => n.remove());
+  pop.style.setProperty('--pc', m.color);
+  pop.innerHTML = '<div class="pp-head"><b>' + esc(m.week.replace('Week ', 'W')) + '</b>' + esc(m.title) + '</div><div class="pp-body yv-std" style="--tabc:' + m.color + '"></div><div class="pp-foot">Click to open on the right 点击在右侧打开 →</div>';
+  pop.querySelector('.pp-body').appendChild(clone);
+  placeFloat(pop, x, 8); pop.classList.add('show'); popFor = x;
+}
+function hidePreview() { clearTimeout(popTimer); pop.classList.remove('show'); popFor = null; }
+document.addEventListener('mouseover', e => {
+  if (!canHover) return;
+  const x = e.target.closest && e.target.closest('.xref');
+  if (x && x !== popFor) { clearTimeout(popTimer); popTimer = setTimeout(() => showPreview(x), 260); }
+  else if (!x && popFor) hidePreview();
+  const a = e.target.closest && e.target.closest('.abbr');
+  if (a) { const [en, zh] = a.dataset.t.split('｜'); tip.innerHTML = '<b>' + esc(a.textContent) + '</b> = ' + esc(en) + (zh ? '<br><span>' + esc(zh) + '</span>' : ''); placeFloat(tip, a, 6); tip.classList.add('show'); }
+  else tip.classList.remove('show');
+});
+document.addEventListener('scroll', () => { hidePreview(); tip.classList.remove('show'); }, true);
+document.addEventListener('click', e => {
+  const a = e.target.closest('.abbr');
+  if (a && !canHover) { const [en, zh] = a.dataset.t.split('｜'); tip.innerHTML = '<b>' + esc(a.textContent) + '</b> = ' + esc(en) + (zh ? '<br><span>' + esc(zh) + '</span>' : ''); placeFloat(tip, a, 6); tip.classList.add('show'); setTimeout(() => tip.classList.remove('show'), 2600); }
+  const x = e.target.closest('.xref'); if (!x) return;
+  e.preventDefault(); e.stopPropagation(); hidePreview();
+  openSplit(x.dataset.mod, x.dataset.sec, x.dataset.find, x);
+});
+document.addEventListener('keydown', e => { if ((e.key === 'Enter') && e.target.classList && e.target.classList.contains('xref')) e.target.click(); if (e.key === 'Escape') closeSplit(); });
+
+let splitMod = null, sbAutoCollapsed = false;
+function openSplit(modId, secId, find, chip) {
+  const m = moduleById[modId]; if (!m || contentCache[modId] == null) return;
+  document.querySelectorAll('.xref.on').forEach(c => c.classList.remove('on')); if (chip) chip.classList.add('on');
+  if (modId === currentModuleId) { gotoTarget(document.getElementById('module-content'), secId, find, document.getElementById('main')); return; }
+  const view = document.getElementById('view-module'), pane = document.getElementById('split-pane');
+  pane.style.setProperty('--accent', m.color);
+  pane.style.setProperty('--accent-ink', 'color-mix(in srgb, ' + m.color + ' 70%, var(--text))');
+  pane.style.setProperty('--accent-strong', 'color-mix(in srgb, ' + m.color + ' 74%, #000)');
+  if (splitMod !== modId) {
+    pane.innerHTML = '<div class="sp-head"><span class="sp-week">' + esc(m.week) + '</span><span class="sp-title">' + esc(m.title) + '</span>' +
+      '<button class="sp-btn sp-open" title="在完整页面打开（之后可一键返回）">⤢ Full page 完整页面</button><button class="sp-btn sp-close" title="关闭 (Esc)">✕</button></div>' +
+      '<div class="module-content-wrapper" id="split-content"></div>';
+    const body = pane.querySelector('#split-content');
+    body.innerHTML = contentCache[modId];
+    body.querySelectorAll('script').forEach(old => { const s = document.createElement('script'); s.textContent = old.textContent; old.replaceWith(s); });
+    glossify(body, m.subject_id);
+    enhanceModule(body, m._h);
+    body.classList.toggle('yv-dark', !!subjectById[m.subject_id].enc);
+    pane.querySelector('.sp-close').onclick = closeSplit;
+    pane.querySelector('.sp-open').onclick = () => {
+      const left = document.getElementById('module-content'), btns = [...left.querySelectorAll('.nav button')];
+      returnTo = { id: currentModuleId, tab: btns.findIndex(b => b.classList.contains('on')), scroll: document.getElementById('main').scrollTop };
+      const sb = [...body.querySelectorAll('.nav button')].findIndex(b => b.classList.contains('on'));
+      goModule(modId).then(() => { const b = document.querySelectorAll('#module-content .nav button')[sb]; if (b) b.click(); });
+    };
+    splitMod = modId;
+  }
+  if (!view.classList.contains('split')) {
+    view.classList.add('split');
+    const sb = document.getElementById('sidebar');
+    if (!isMobile() && innerWidth < 1500 && !sb.classList.contains('collapsed')) { sb.classList.add('collapsed'); sbAutoCollapsed = true; }
+  }
+  gotoTarget(pane.querySelector('#split-content'), secId, find, pane.querySelector('#split-content'));
+}
+function gotoTarget(body, secId, find, scroller) {
+  const key = secId.split('sec-')[1];
+  const btn = [...body.querySelectorAll('.nav button')].find(b => (b.getAttribute('onclick') || '').includes("'" + key + "'"));
+  if (btn && !btn.classList.contains('on')) { body.dataset.noTop = '1'; btn.click(); }
+  setTimeout(() => {
+    delete body.dataset.noTop;
+    const card = findTarget(body, secId, find); if (!card) return;
+    const f = (find || '').toLowerCase();
+    const hd = f && [...card.querySelectorAll('h3')].find(h => h.textContent.toLowerCase().includes(f));
+    const t = hd && hd !== card.querySelector('h3') ? hd : card;
+    const sr = scroller.getBoundingClientRect(), tr = t.getBoundingClientRect();
+    const nav = body.querySelector('.yv-tabs'), off = nav ? nav.offsetHeight + 24 : 16;
+    scroller.scrollTo({ top: scroller.scrollTop + tr.top - sr.top - off, behavior: 'smooth' });
+    card.classList.remove('sp-flash'); void card.offsetWidth; card.classList.add('sp-flash');
+  }, 220);
+}
+function closeSplit() {
+  const view = document.getElementById('view-module'); if (!view.classList.contains('split')) return;
+  view.classList.remove('split'); document.getElementById('split-pane').innerHTML = ''; splitMod = null;
+  document.querySelectorAll('.xref.on').forEach(c => c.classList.remove('on'));
+  if (sbAutoCollapsed) { document.getElementById('sidebar').classList.remove('collapsed'); sbAutoCollapsed = false; }
+}
+
+// 从"完整页面"返回原来的考试复习页
+let returnTo = null;
+const rpill = document.createElement('button'); rpill.id = 'return-pill'; document.body.appendChild(rpill);
+function updateReturnPill() {
+  const r = returnTo && moduleById[returnTo.id];
+  if (r && currentView === 'module' && currentModuleId !== returnTo.id) {
+    rpill.style.setProperty('--rc', r.color);
+    rpill.innerHTML = '<span class="rp-ico">↩</span>Back to ' + esc(r.title) + ' 返回';
+    rpill.classList.add('show');
+  } else rpill.classList.remove('show');
+}
+rpill.addEventListener('click', async () => {
+  const r = returnTo; if (!r) return; returnTo = null;
+  await goModule(r.id);
+  const b = document.querySelectorAll('#module-content .nav button')[r.tab]; if (b) b.click();
+  setTimeout(() => document.getElementById('main').scrollTo({ top: r.scroll, behavior: 'instant' }), 60);
+  updateReturnPill();
+});
 
 // ===== 初始化 =====
 renderHomeGrid();
