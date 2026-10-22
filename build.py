@@ -765,6 +765,60 @@ html[data-theme="dark"] #yv-tip span { color: #0f766e; }
   #view-module.split.active { padding-right: 8px; }
   @keyframes sheetIn { from { transform: translateY(60%); opacity: 0; } to { transform: none; opacity: 1; } }
 }
+
+/* ===== 期末复习计划 ===== */
+#view-plan { padding: 44px 48px 80px; }
+.plan-hero { max-width: 980px; margin-bottom: 26px; }
+.exam-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin: 6px 0 18px; }
+.exam-card { position: relative; overflow: hidden; background: var(--surface); border: 1px solid color-mix(in srgb, var(--ec) 35%, var(--line)); border-radius: 18px; padding: 16px 16px 14px; box-shadow: var(--shadow-sm);
+  animation: fadeUp .5s var(--ease) both; }
+.exam-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--ec); }
+.exam-card.past { opacity: .55; }
+.ec-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 8px; }
+.ec-code { font-size: 11px; font-weight: 800; letter-spacing: .06em; color: color-mix(in srgb, var(--ec) 70%, var(--text)); background: color-mix(in srgb, var(--ec) 13%, transparent); padding: 2px 8px; border-radius: 99px; }
+.ec-left { font-size: 12px; font-weight: 750; color: var(--text); }
+.ec-name { font-size: 15px; font-weight: 750; line-height: 1.3; color: var(--text); }
+.ec-when { font-size: 13px; color: var(--muted); margin: 4px 0 10px; font-variant-numeric: tabular-nums; }
+.ec-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.ec-tags span { font-size: 10.5px; font-weight: 600; color: var(--muted); background: var(--surface-2); border: 1px solid var(--line); border-radius: 99px; padding: 2px 8px; }
+.ec-tags span.hot { color: #b91c1c; background: color-mix(in srgb, #ef4444 10%, var(--surface)); border-color: color-mix(in srgb, #ef4444 35%, var(--line)); }
+html[data-theme="dark"] .ec-tags span.hot { color: #fca5a5; }
+.plan-total { max-width: 520px; }
+.plan-legend { margin-top: 14px; font-size: 12.5px; color: var(--muted); background: var(--surface-2); border: 1px dashed var(--line-2); border-radius: 12px; padding: 10px 14px; max-width: 980px; }
+.plan-phase { max-width: 980px; display: flex; align-items: center; gap: 10px; margin: 26px 0 10px; font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--pc); }
+.plan-phase::after { content: ''; flex: 1; height: 2px; border-radius: 2px; background: linear-gradient(90deg, color-mix(in srgb, var(--pc) 45%, transparent), transparent); }
+.plan-day { max-width: 980px; position: relative; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--pc); border-radius: 16px; padding: 12px 16px 10px; margin-bottom: 10px; box-shadow: var(--shadow-sm); transition: opacity .3s, box-shadow .3s, transform .3s var(--ease); }
+.plan-day.past { opacity: .72; }
+.plan-day.today { box-shadow: 0 0 0 3px color-mix(in srgb, var(--pc) 30%, transparent), var(--shadow-md); transform: translateX(4px); }
+.plan-day.examday { background: color-mix(in srgb, #f59e0b 8%, var(--surface)); }
+.plan-day.complete .pd-title { text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--text) 35%, transparent); color: var(--muted); }
+.pd-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+.pd-date { font-size: 12px; font-weight: 800; color: var(--pc); min-width: 92px; font-variant-numeric: tabular-nums; }
+.pd-today { font-size: 10.5px; font-weight: 800; letter-spacing: .06em; color: #fff; background: var(--pc); padding: 2px 8px; border-radius: 99px; animation: popIn .5s var(--ease); }
+.pd-title { font-size: 14px; font-weight: 700; color: var(--text); flex: 1; min-width: 180px; }
+.pd-count { font-size: 12px; font-weight: 700; color: var(--faint); font-variant-numeric: tabular-nums; }
+.plan-day.complete .pd-count { color: #10b981; }
+.plan-task { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 10px; cursor: pointer; font-size: 13.5px; color: var(--text); transition: background .15s; }
+.plan-task:hover { background: var(--surface-2); }
+.pt-box { width: 18px; height: 18px; flex-shrink: 0; border-radius: 6px; border: 2px solid var(--line-2); background: var(--surface); position: relative; transition: all .25s var(--ease); }
+.plan-task.done .pt-box { background: #10b981; border-color: #10b981; transform: scale(1.05); }
+.plan-task.done .pt-box::after { content: ''; position: absolute; left: 4.5px; top: 1px; width: 5px; height: 9px; border: solid #fff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); animation: popIn .25s var(--ease); }
+.plan-task.done .pt-text { color: var(--faint); text-decoration: line-through; }
+.pt-text { flex: 1; line-height: 1.5; }
+.pt-open { flex-shrink: 0; border: 1px solid color-mix(in srgb, var(--mc) 35%, var(--line)); background: color-mix(in srgb, var(--mc) 9%, var(--surface)); color: color-mix(in srgb, var(--mc) 70%, var(--text)); border-radius: 99px; padding: 3px 10px; font-size: 11.5px; font-weight: 650; cursor: pointer; transition: all .2s var(--ease); white-space: nowrap; }
+.pt-open:hover { transform: translateX(2px); background: color-mix(in srgb, var(--mc) 18%, var(--surface)); }
+.home-plan-card { max-width: 640px; margin-top: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; box-shadow: var(--shadow-md); }
+.hp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.hp-title { font-size: 14.5px; font-weight: 750; color: var(--text); }
+.hp-open { margin-left: auto; border: 1px solid var(--line-2); background: var(--surface-2); color: var(--text); border-radius: 10px; padding: 5px 11px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.hp-open:hover { border-color: var(--accent); transform: translateX(2px); }
+.hp-exams { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.hp-ex { font-size: 11.5px; color: var(--muted); background: color-mix(in srgb, var(--ec) 10%, var(--surface)); border: 1px solid color-mix(in srgb, var(--ec) 30%, var(--line)); border-radius: 99px; padding: 3px 10px; }
+.hp-ex b { color: color-mix(in srgb, var(--ec) 70%, var(--text)); margin-right: 3px; }
+.hp-day { border-top: 1px solid var(--line); padding-top: 8px; margin-bottom: 10px; }
+.hp-dlabel { font-size: 12px; font-weight: 700; color: var(--muted); margin: 2px 0 4px; }
+
+@media (max-width: 768px) { #view-plan { padding: 24px 14px 70px; } .plan-day.today { transform: none; } .pt-open { padding: 3px 8px; } }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
@@ -797,6 +851,7 @@ html[data-theme="dark"] #yv-tip span { color: #0f766e; }
   <aside id="sidebar">
     <div class="sidebar-section-label">Navigation</div>
     <button class="sidebar-home-btn" id="sb-home" onclick="goHome()">🏠 Home</button>
+    <button class="sidebar-home-btn" id="sb-plan" onclick="goPlan()">📅 Exam Plan 复习计划</button>
     <div id="sb-subject-section" style="display:none">
       <div class="sidebar-subject-name" id="sb-subject-label"></div>
       <div id="sb-week-list"></div>
@@ -829,8 +884,21 @@ html[data-theme="dark"] #yv-tip span { color: #0f766e; }
         <p class="home-subtitle">Select a subject to start reviewing.</p>
         <div class="home-stats" id="home-stats"></div>
         <div id="continue-wrap"></div>
+        <div id="home-plan"></div>
       </div>
       <div class="subjects-grid" id="subjects-grid"></div>
+    </section>
+
+    <section id="view-plan" class="view">
+      <div class="plan-hero">
+        <div class="hero-eyebrow">Final exams · Semester 2, 2026</div>
+        <h1 class="home-title">Exam Plan 期末复习计划</h1>
+        <p class="home-subtitle">Tick each task when it is done — progress is saved on this device. 每完成一项就打勾（进度只保存在本机浏览器）。</p>
+        <div class="exam-grid" id="plan-exams"></div>
+        <div class="progress-row plan-total"><div class="progress-bar"><i class="plan-prog-fill" style="background:linear-gradient(90deg,#6366f1,#10b981)"></i></div><span class="progress-text plan-prog-text"></span></div>
+        <div class="plan-legend">How to study one module (≈ 1 hour): read every tab → do the quiz until all correct → write 3 lines in your own words. Behind? Do today’s list first, push the rest to the buffer. 学一个模块：读完所有标签 → 测验全对 → 用自己的话写 3 行。落后了就先做"今天"，其余往后挪。</div>
+      </div>
+      <div id="plan-days"></div>
     </section>
 
     <section id="view-subject" class="view">
@@ -1040,11 +1108,13 @@ function renderHomeGrid() {
       <span><div class="cc-label">Continue · 继续学习</div><div class="cc-title">${esc(m.title)}</div><div class="cc-sub">${s.code} · ${esc(m.week)}</div></span>
       <span class="cc-go">→</span></button>`;
   } else wrap.innerHTML = '';
+  renderHomePlan();
 }
 
 function renderBreadcrumb() {
   const bc = document.getElementById('breadcrumb');
   let html = '<button class="breadcrumb-item" onclick="goHome()">Young Vault</button>';
+  if (currentView === 'plan') html += '<span class="breadcrumb-sep">›</span><button class="breadcrumb-item active">Exam Plan 复习计划</button>';
   if (currentView === 'subject' || currentView === 'module') {
     const s = subjectById[currentSubjectId];
     html += '<span class="breadcrumb-sep">›</span>';
@@ -1063,8 +1133,9 @@ function renderBreadcrumb() {
 function renderSidebar() {
   const sbHome = document.getElementById('sb-home');
   const sec = document.getElementById('sb-subject-section');
-  if (currentView === 'home') {
-    sbHome.className = 'sidebar-home-btn active';
+  document.getElementById('sb-plan').className = 'sidebar-home-btn' + (currentView === 'plan' ? ' active' : '');
+  if (currentView === 'home' || currentView === 'plan') {
+    sbHome.className = 'sidebar-home-btn' + (currentView === 'home' ? ' active' : '');
     sec.style.display = 'none';
   } else {
     sbHome.className = 'sidebar-home-btn';
@@ -1115,7 +1186,8 @@ function renderSubjectModules() {
 function updateTitle() {
   let t = 'Young Vault';
   const s = subjectById[currentSubjectId], m = moduleById[currentModuleId];
-  if (currentView === 'module' && m) t = m.title + ' · ' + s.code + ' · Young Vault';
+  if (currentView === 'plan') t = 'Exam Plan · Young Vault';
+  else if (currentView === 'module' && m) t = m.title + ' · ' + s.code + ' · Young Vault';
   else if (currentView === 'subject' && s) t = s.code + ' · Young Vault';
   document.title = t;
 }
@@ -1187,14 +1259,15 @@ async function goModule(id) {
 
 function routeFromHash() {
   const hash = location.hash.slice(1);
-  if (hash.startsWith('module/')) goModule(hash.slice(7));
+  if (hash === 'plan') goPlan();
+  else if (hash.startsWith('module/')) goModule(hash.slice(7));
   else if (hash.startsWith('subject/')) goSubject(hash.slice(8));
   else goHome();
 }
 window.addEventListener('hashchange', function() {
   if (_navByCode) return;
   const h = location.hash.slice(1);
-  const cur = currentView === 'module' ? 'module/' + currentModuleId : currentView === 'subject' ? 'subject/' + currentSubjectId : '';
+  const cur = currentView === 'module' ? 'module/' + currentModuleId : currentView === 'subject' ? 'subject/' + currentSubjectId : currentView === 'plan' ? 'plan' : '';
   if (h === cur) return;
   routeFromHash();
 });
@@ -1425,6 +1498,7 @@ function burst(el) {
       { transform: 'translate(0,0) rotate(0)', opacity: 1 },
       { transform: 'translate(' + Math.cos(a) * v + 'px,' + (Math.sin(a) * v + 90) + 'px) rotate(' + (Math.random() * 540) + 'deg)', opacity: 0 }
     ], { duration: 900 + Math.random() * 500, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => d.remove();
+    setTimeout(() => d.remove(), 1700);
   }
 }
 
@@ -1598,6 +1672,14 @@ const GLOSS = { mgmt90032: {
   'MAD': 'Mean Absolute Deviation｜平均绝对偏差', 'MSE': 'Mean Squared Error｜均方误差', 'MAPE': 'Mean Absolute Percentage Error｜平均绝对百分比误差',
   'VMI': 'Vendor-Managed Inventory｜供应商管理库存', 'POS': 'Point of Sale｜销售点（终端）数据', 'MRO': 'Maintenance, Repair & Operations｜维护维修与运营物料',
   'EDLP': 'Everyday Low Pricing｜天天低价', 'CPFR': 'Collaborative Planning, Forecasting & Replenishment｜协同计划预测与补货', 'ROI': 'Return on Investment｜投资回报率'
+}, mgmt90030: {
+  'TCE': 'Transaction Cost Economics｜交易成本经济学（Williamson）', 'EO': 'Entrepreneurial Orientation｜创业导向（Lumpkin & Dess）',
+  'OPP': 'Obligatory Passage Point｜必经之点（Callon）', 'ILs': 'Institutional Logics｜制度逻辑', 'PLC': 'Product Life Cycle｜产品生命周期',
+  'TQM': 'Total Quality Management｜全面质量管理', 'ISO': 'International Organization for Standardization｜国际标准化组织',
+  'nAch': 'Need for Achievement｜成就需要（McClelland）', 'A&R': 'Artists & Repertoire｜唱片公司的艺人与曲目部门', 'MTV': 'Music Television｜音乐电视台',
+  'T&A': 'Tushman & Anderson (1986)｜技术断裂理论', 'ASCAP': 'American Society of Composers, Authors and Publishers｜美国作曲家作家出版商协会',
+  'EPA': 'Environmental Protection Agency｜美国环保署', 'FDA': 'Food and Drug Administration｜美国食品药品监督管理局', 'UX': 'User Experience｜用户体验',
+  'AI': 'Artificial Intelligence｜人工智能', 'CEO': 'Chief Executive Officer｜首席执行官'
 } };
 function glossify(root, sid) {
   const g = GLOSS[sid]; if (!g) return;
@@ -1760,6 +1842,171 @@ rpill.addEventListener('click', async () => {
   setTimeout(() => document.getElementById('main').scrollTo({ top: r.scroll, behavior: 'instant' }), 60);
   updateReturnPill();
 });
+
+
+// ===== 期末复习计划（打勾进度只存在本机浏览器）=====
+const PLAN_EXAMS = [
+  { sid: 'mktg90004', code: 'MKTG90004', name: 'Marketing Management', date: '2026-11-11', time: '08:30', fmt: 'Digital exam · typed', rule: 'Open book · paper limit TBC', weight: '50%' },
+  { sid: 'mgmt90030', code: 'MGMT90030', name: 'Managing Innovation', date: '2026-11-11', time: '16:30', fmt: 'Digital exam · typed', rule: 'Open book · paper limit TBC', weight: '40%' },
+  { sid: 'mgmt90032', code: 'MGMT90032', name: 'Operations & Process Mgmt', date: '2026-11-13', time: '16:30', fmt: 'Written exam · paper', rule: 'Closed book — memorise!', weight: '50%' },
+  { sid: 'mgmt90025', code: 'MGMT90025', name: 'People & Change', date: '2026-11-16', time: '08:30', fmt: 'Digital exam · typed', rule: 'Max two A4 cheat sheets', weight: '50%' }
+];
+const PLAN_PHASES = {
+  start: { label: 'Start 起步', color: '#64748b' },
+  p1: { label: 'First pass 第一遍', color: '#6366f1' },
+  p2: { label: 'Exam prep 冲刺', color: '#ef4444' },
+  exam: { label: 'EXAM 考试', color: '#f59e0b' },
+  p3: { label: 'Final sprint 最后冲刺', color: '#10b981' }
+};
+const PLAN_DAYS = [
+  { d: '2026-10-23', ph: 'start', title: 'Get oriented + MKTG90004 W1 先看清考什么', tasks: [
+    { t: 'Check outstanding assignments: MKTG Part B & MGMT90030 group video (both due Sun 25 Oct) — finish those first' },
+    { t: 'Read MGMT90032 W12 “Exam Format” tab (closed book, 8 of 10 + 2 calc questions)', m: 'mgmt90032_w12_exam_review' },
+    { t: 'Read MGMT90025 W12 “Exam Info & Tips” tab (4 questions × ~500 words, 2 × A4)', m: 'mgmt90025_w12_review' },
+    { t: 'Read MGMT90030 W12 “Exam & Plan” + “Practice Exam” tabs', m: 'mgmt90030_w12_exam_review' },
+    { t: 'MKTG W1 · read + quiz all correct (incl. “Assessments”: exam 2 hours, 50%)', m: 'mktg90004_w1_what_is_marketing' } ] },
+  { d: '2026-10-24', ph: 'p1', title: 'MKTG90004 · W2–W4', tasks: [
+    { t: 'MKTG W2', m: 'mktg90004_w2_consumers' }, { t: 'MKTG W3', m: 'mktg90004_w3_environment' }, { t: 'MKTG W4', m: 'mktg90004_w4_stp' } ] },
+  { d: '2026-10-25', ph: 'p1', title: 'MKTG90004 · W5–W7 (deadline day)', tasks: [
+    { t: 'Submit any assignment due today first' }, { t: 'MKTG W5 (assessment week, quick)', m: 'mktg90004_w5_assessment' },
+    { t: 'MKTG W6', m: 'mktg90004_w6_product_brand' }, { t: 'MKTG W7', m: 'mktg90004_w7_services' } ] },
+  { d: '2026-10-26', ph: 'p1', title: 'MKTG90004 · W8–W9', tasks: [
+    { t: 'MKTG W8', m: 'mktg90004_w8_communication' }, { t: 'MKTG W9', m: 'mktg90004_w9_pricing' } ] },
+  { d: '2026-10-27', ph: 'p1', title: 'MKTG90004 · W10–W11 + quiz redo', tasks: [
+    { t: 'MKTG W10', m: 'mktg90004_w10_distribution' }, { t: 'MKTG W11', m: 'mktg90004_w11_research_metrics' },
+    { t: 'Redo every MKTG quiz once (use ↺ Reset); note the ones you got wrong' } ] },
+  { d: '2026-10-28', ph: 'p1', title: 'MGMT90030 · W1–W3', tasks: [
+    { t: '90030 W1 (course framework!)', m: 'mgmt90030_w1_intro' }, { t: '90030 W2', m: 'mgmt90030_w2_creativity' }, { t: '90030 W3', m: 'mgmt90030_w3_paradigm_change' } ] },
+  { d: '2026-10-29', ph: 'p1', title: 'MGMT90030 · W4–W5 (core theories)', tasks: [
+    { t: '90030 W4 — selection systems (Wijnberg)', m: 'mgmt90030_w4_value' }, { t: '90030 W5 — Abrahamson four perspectives', m: 'mgmt90030_w5_diffusion' } ] },
+  { d: '2026-10-30', ph: 'p1', title: 'MGMT90030 · W6–W8', tasks: [
+    { t: '90030 W6–7 institutions', m: 'mgmt90030_w6_institutions' }, { t: '90030 W8 agents of change', m: 'mgmt90030_w8_agents_of_change' } ] },
+  { d: '2026-10-31', ph: 'p1', title: 'MGMT90030 · W9–W11', tasks: [
+    { t: '90030 W9', m: 'mgmt90030_w9_exploration_exploitation' }, { t: '90030 W10', m: 'mgmt90030_w10_resource_deployment' }, { t: '90030 W11', m: 'mgmt90030_w11_networks_classification' } ] },
+  { d: '2026-11-01', ph: 'p1', title: 'MGMT90032 · W1–W3 (+ EOQ, AP calcs)', tasks: [
+    { t: '90032 W1', m: 'mgmt90032_w1_intro' }, { t: '90032 W2 — do the EOQ example by hand', m: 'mgmt90032_w2_forecast_inventory' }, { t: '90032 W3 — do the AP + MPS tables by hand', m: 'mgmt90032_w3_aggregate_mps' } ] },
+  { d: '2026-11-02', ph: 'p1', title: 'MGMT90032 · W4–W6 (+ MRP)', tasks: [
+    { t: '90032 W4 — do the MRP component J table by hand', m: 'mgmt90032_w4_mrp_erp' }, { t: '90032 W5', m: 'mgmt90032_w5_jit_lean' }, { t: '90032 W6', m: 'mgmt90032_w6_strategy' } ] },
+  { d: '2026-11-03', ph: 'p1', title: 'MGMT90032 · W7–W8 (+ line balancing)', tasks: [
+    { t: '90032 W7 — do a line-balancing question by hand', m: 'mgmt90032_w7_process_layout' }, { t: '90032 W8', m: 'mgmt90032_w8_scm' } ] },
+  { d: '2026-11-04', ph: 'p1', title: 'MGMT90032 · W9–W10 (+ SPC) · start flashcards', tasks: [
+    { t: '90032 W9', m: 'mgmt90032_w9_quality' }, { t: '90032 W10 — do the X̄/R chart question by hand', m: 'mgmt90032_w10_spc_sixsigma' },
+    { t: '90032 Flashcards — first round (from now on 30 min every day)', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-05', ph: 'p1', title: 'MGMT90025 · W1–W4 (start 2-page cheat sheet)', tasks: [
+    { t: '90025 W1', m: 'mgmt90025_w1_overview' }, { t: '90025 W2', m: 'mgmt90025_w2_why_how_change' }, { t: '90025 W3', m: 'mgmt90025_w3_culture_teams' }, { t: '90025 W4', m: 'mgmt90025_w4_it_innovation' },
+    { t: 'Copy each week’s key frameworks + authors into the A4 cheat-sheet draft' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-06', ph: 'p1', title: 'MGMT90025 · W5–W8', tasks: [
+    { t: '90025 W5', m: 'mgmt90025_w5_mna_downsizing' }, { t: '90025 W6', m: 'mgmt90025_w6_communication' }, { t: '90025 W7', m: 'mgmt90025_w7_strategy' }, { t: '90025 W8', m: 'mgmt90025_w8_leadership' },
+    { t: 'Add to the A4 cheat-sheet draft' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-07', ph: 'p1', title: 'MGMT90025 · W9–W12 (cheat sheet v1)', tasks: [
+    { t: '90025 W9', m: 'mgmt90025_w9_training' }, { t: '90025 W10', m: 'mgmt90025_w10_individual_emotions' }, { t: '90025 W11', m: 'mgmt90025_w11_resistance_readiness' }, { t: '90025 W12 review', m: 'mgmt90025_w12_review' },
+    { t: 'Finish cheat sheet v1 (two A4 sides max)' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-08', ph: 'p2', title: 'MKTG90004 exam prep', tasks: [
+    { t: 'MKTG W12 review lecture + any exam guide / past questions' },
+    { t: 'Build an open-book index: week → key frameworks → page/module' },
+    { t: 'Practise 2–3 answers under time pressure' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-09', ph: 'p2', title: 'MGMT90030 exam prep', tasks: [
+    { t: 'Practice exam: write Tasks 1–3 timed (≈ 30 min each)', m: 'mgmt90030_w12_exam_review' },
+    { t: 'Compare with the answer frames; fill gaps via the 📚 links' },
+    { t: 'Build an open-book index: author → concept → week' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-10', ph: 'p2', title: 'Light review · pack · sleep early', tasks: [
+    { t: 'Skim MKTG index + 90030 index (no new material)' }, { t: 'Pack: student ID, charged laptop + charger, printed notes' }, { t: 'Sleep early — first exam at 08:30' } ] },
+  { d: '2026-11-11', ph: 'exam', title: 'EXAM DAY · MKTG90004 08:30 · MGMT90030 16:30', tasks: [
+    { t: 'MKTG90004 exam 08:30' }, { t: 'Lunch + rest; 1 hour skim of the 90030 index' }, { t: 'MGMT90030 exam 16:30' } ] },
+  { d: '2026-11-12', ph: 'p3', title: 'MGMT90032 full day (closed book)', tasks: [
+    { t: 'Section 2: do all six calculation types timed (line balancing, SPC, MRP, EOQ, AP, MPS)', m: 'mgmt90032_w12_exam_review' },
+    { t: 'Section 1: write the 7 sample answers from memory, then compare' },
+    { t: 'Must-Memorize tab with Recall mode ON until every term is clear' }, { t: 'Flashcards: clear all 52' } ] },
+  { d: '2026-11-13', ph: 'exam', title: 'EXAM · MGMT90032 16:30 (written, closed book)', tasks: [
+    { t: 'Morning: flashcards + Recall mode one last time', m: 'mgmt90032_w12_exam_review' }, { t: 'Bring Casio FX82 calculator + pens' }, { t: 'MGMT90032 exam 16:30' } ] },
+  { d: '2026-11-14', ph: 'p3', title: 'MGMT90025 cheat sheet final + cases', tasks: [
+    { t: 'Finalize the two A4 cheat sheets' }, { t: 'Write the IBM and AGL case answers timed', m: 'mgmt90025_w12_review' } ] },
+  { d: '2026-11-15', ph: 'p3', title: 'MGMT90025 mock exam', tasks: [
+    { t: 'Mock exam: 4 questions × 30 min using only your cheat sheets' }, { t: 'Fix the cheat sheets where you got stuck; sleep early' } ] },
+  { d: '2026-11-16', ph: 'exam', title: 'EXAM · MGMT90025 08:30', tasks: [
+    { t: 'Bring the two A4 sheets + student ID + charged laptop' }, { t: 'MGMT90025 exam 08:30' } ] }
+];
+let planDone = {};
+try { planDone = JSON.parse(lsGet('yv-plan') || '{}'); } catch (e) {}
+const planKey = (d, i) => d + '#' + i;
+const todayStr = () => { const t = new Date(); return t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0'); };
+const daysUntil = ds => Math.round((new Date(ds + 'T00:00:00') - new Date(todayStr() + 'T00:00:00')) / 86400000);
+const fmtDay = ds => new Date(ds + 'T00:00:00').toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short' });
+function planStats() {
+  let n = 0, k = 0;
+  PLAN_DAYS.forEach(day => day.tasks.forEach((t, i) => { n++; if (planDone[planKey(day.d, i)]) k++; }));
+  return { n, k };
+}
+function togglePlanTask(key, el) {
+  planDone[key] = !planDone[key]; if (!planDone[key]) delete planDone[key];
+  lsSet('yv-plan', JSON.stringify(planDone));
+  document.querySelectorAll('[data-pk="' + key + '"]').forEach(b => b.classList.toggle('done', !!planDone[key]));
+  updatePlanProgress();
+}
+function updatePlanProgress() {
+  const { n, k } = planStats();
+  document.querySelectorAll('.plan-prog-fill').forEach(f => f.style.width = (n ? k / n * 100 : 0) + '%');
+  document.querySelectorAll('.plan-prog-text').forEach(f => f.textContent = k + ' / ' + n + ' tasks 已完成');
+  document.querySelectorAll('.plan-day').forEach(dc => {
+    const tasks = [...dc.querySelectorAll('.plan-task')], dn = tasks.filter(t => t.classList.contains('done')).length;
+    const c = dc.querySelector('.pd-count'); if (c) c.textContent = dn + '/' + tasks.length;
+    dc.classList.toggle('complete', tasks.length > 0 && dn === tasks.length);
+  });
+}
+function examChip(e) {
+  const s = subjectById[e.sid], col = (s && s.accent) || '#6366f1', left = daysUntil(e.date);
+  const when = left > 1 ? left + ' days' : left === 1 ? 'tomorrow' : left === 0 ? 'TODAY' : 'done';
+  return `<div class="exam-card${left < 0 ? ' past' : ''}" style="--ec:${col}">
+    <div class="ec-top"><span class="ec-code">${e.code}</span><span class="ec-left">${left >= 0 ? '⏳ ' : '✓ '}${when}</span></div>
+    <div class="ec-name">${esc(e.name)}</div>
+    <div class="ec-when">${fmtDay(e.date)} · ${e.time}</div>
+    <div class="ec-tags"><span>${e.fmt}</span><span class="${/Closed/.test(e.rule) ? 'hot' : ''}">${e.rule}</span><span>${e.weight}</span></div>
+  </div>`;
+}
+function taskHtml(day, t, i) {
+  const key = planKey(day.d, i), mod = t.m && moduleById[t.m];
+  const link = mod ? `<button class="pt-open" style="--mc:${mod.color}" onclick="event.stopPropagation();goModule('${mod.id}')">${esc(subjectById[mod.subject_id].code)} · ${esc(mod.week.replace('Week ', 'W'))} →</button>` : '';
+  return `<div class="plan-task${planDone[key] ? ' done' : ''}" data-pk="${key}" onclick="togglePlanTask('${key}', this)" role="checkbox" tabindex="0">
+    <span class="pt-box"></span><span class="pt-text">${esc(t.t)}</span>${link}</div>`;
+}
+function renderPlan() {
+  const today = todayStr();
+  document.getElementById('plan-exams').innerHTML = PLAN_EXAMS.map(examChip).join('');
+  let html = '', lastPh = '';
+  PLAN_DAYS.forEach(day => {
+    const ph = PLAN_PHASES[day.ph];
+    if (day.ph !== lastPh) { html += `<div class="plan-phase" style="--pc:${ph.color}">${ph.label}</div>`; lastPh = day.ph; }
+    const rel = day.d < today ? ' past' : day.d === today ? ' today' : '';
+    html += `<div class="plan-day${rel}${day.ph === 'exam' ? ' examday' : ''}" style="--pc:${ph.color}" id="pd-${day.d}">
+      <div class="pd-head"><span class="pd-date">${fmtDay(day.d)}</span>${day.d === today ? '<span class="pd-today">TODAY 今天</span>' : ''}<span class="pd-title">${esc(day.title)}</span><span class="pd-count"></span></div>
+      <div class="pd-tasks">${day.tasks.map((t, i) => taskHtml(day, t, i)).join('')}</div></div>`;
+  });
+  document.getElementById('plan-days').innerHTML = html;
+  updatePlanProgress();
+}
+function renderHomePlan() {
+  const box = document.getElementById('home-plan'); if (!box) return;
+  const today = todayStr();
+  const next = PLAN_EXAMS.filter(e => daysUntil(e.date) >= 0);
+  const day = PLAN_DAYS.find(d => d.d === today) || PLAN_DAYS.find(d => d.d > today);
+  if (!next.length && !day) { box.innerHTML = ''; return; }
+  const { n, k } = planStats();
+  box.innerHTML = `<div class="home-plan-card">
+    <div class="hp-head"><span class="hp-title">📅 Exam plan 期末复习计划</span><button class="hp-open" onclick="goPlan()">Open full plan 完整计划 →</button></div>
+    <div class="hp-exams">${next.map(e => { const s = subjectById[e.sid]; const l = daysUntil(e.date); return `<span class="hp-ex" style="--ec:${(s && s.accent) || '#6366f1'}"><b>${l === 0 ? 'TODAY' : l + 'd'}</b> ${e.code}</span>`; }).join('')}</div>
+    ${day ? `<div class="hp-day"><div class="hp-dlabel">${day.d === today ? 'Today 今天' : 'Next 下一天'} · ${fmtDay(day.d)} — ${esc(day.title)}</div>${day.tasks.map((t, i) => taskHtml(day, t, i)).join('')}</div>` : ''}
+    <div class="progress-row"><div class="progress-bar"><i class="plan-prog-fill" style="width:${n ? k / n * 100 : 0}%;background:linear-gradient(90deg,#6366f1,#10b981)"></i></div><span class="progress-text plan-prog-text">${k} / ${n} tasks 已完成</span></div>
+  </div>`;
+}
+function goPlan() {
+  currentSubjectId = null; currentModuleId = null;
+  _navByCode = true; location.hash = 'plan'; _navByCode = false;
+  renderPlan();
+  showView('plan');
+  collapseSidebarOnMobile();
+  setTimeout(() => { const t = document.querySelector('.plan-day.today') || document.querySelector('.plan-day:not(.past)'); if (t) t.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 350);
+}
+document.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && e.target.classList && e.target.classList.contains('plan-task')) { e.preventDefault(); e.target.click(); } });
 
 // ===== 初始化 =====
 renderHomeGrid();

@@ -1,5 +1,356 @@
 [
   {
+    "id": "mktg90004",
+    "code": "MKTG90004",
+    "name": "Marketing Management",
+    "desc": "Marketing · Weeks 1–11",
+    "accent": "#EC4899",
+    "modules": [
+      {
+        "file": "mktg90004_w1_what_is_marketing.html",
+        "week": "Week 1",
+        "title": "What is Marketing?",
+        "subtitle": "Core process · Customer delivered value · SDGs · Assessments",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w2_consumers.html",
+        "week": "Week 2",
+        "title": "Consumers & Consumption",
+        "subtitle": "Decision process · Involvement · Personal/Social/Cultural/Situational",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w3_environment.html",
+        "week": "Week 3",
+        "title": "The Marketing Environment",
+        "subtitle": "PESTLE · Micro-environment · Porter 5 Forces · SWOT",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w4_stp.html",
+        "week": "Week 4",
+        "title": "Segmentation, Targeting & Positioning",
+        "subtitle": "Segments · Feral · Personas · Perceptual maps · Positioning",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w5_assessment.html",
+        "week": "Week 5",
+        "title": "Assignment Masterclass",
+        "subtitle": "Part A & B structure · Marks · AI rules · Formatting",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w6_product_brand.html",
+        "week": "Week 6",
+        "title": "Product & Brand Strategy",
+        "subtitle": "Product mix · Line stretching · Brand elements · Distinctive assets",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w7_services.html",
+        "week": "Week 7",
+        "title": "Marketing Services & Experiences",
+        "subtitle": "3Ps · Servicescape · Blueprint · Customer journey",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w8_communication.html",
+        "week": "Week 8",
+        "title": "Communication Strategies (IMC)",
+        "subtitle": "IMC steps · Media plan · Appeals · Ethics",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w9_pricing.html",
+        "week": "Week 9",
+        "title": "Pricing Strategies",
+        "subtitle": "6 steps · Pricing methods · Product mix pricing · Price customisation",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w10_distribution.html",
+        "week": "Week 10",
+        "title": "Distribution Decisions",
+        "subtitle": "Channel levels · Omni-channel · Coverage · Vertical integration",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w11_research_metrics.html",
+        "week": "Week 11",
+        "title": "Market Research & Metrics",
+        "subtitle": "Research design · Qual vs Quant · ROMI · Market share",
+        "color": "#EC4899"
+      }
+    ]
+  },
+  {
+    "id": "mgmt90030",
+    "code": "MGMT90030",
+    "name": "Managing Innovation",
+    "desc": "Innovation · Weeks 1–12",
+    "accent": "#0EA5E9",
+    "modules": [
+      {
+        "file": "mgmt90030_w1_intro.html",
+        "week": "Week 1",
+        "title": "Introduction",
+        "subtitle": "Assessment · Nested approach · Homeostasis → successful innovation",
+        "color": "#0EA5E9"
+      },
+      {
+        "file": "mgmt90030_w2_creativity.html",
+        "week": "Week 2",
+        "title": "Innovation & Creativity",
+        "subtitle": "Lacan’s 4 positions · Optimal distinctiveness · Idea journey",
+        "color": "#0EA5E9"
+      },
+      {
+        "file": "mgmt90030_w3_paradigm_change.html",
+        "week": "Week 3",
+        "title": "Innovation & Paradigm Change",
+        "subtitle": "Inertia · Gaze & Heidegger · Competence enhancing / destroying",
+        "color": "#0EA5E9"
+      },
+      {
+        "file": "mgmt90030_w4_value.html",
+        "week": "Week 4",
+        "title": "Innovation & Value",
+        "subtitle": "Lemons · Search/experience/credence · Selection systems · Wijnberg",
+        "color": "#0EA5E9"
+      },
+      {
+        "file": "mgmt90030_w5_diffusion.html",
+        "week": "Week 5",
+        "title": "Innovation & Diffusion",
+        "subtitle": "Diffusion curves · Abrahamson 4 perspectives · Risk & legitimacy",
+        "color": "#0EA5E9"
+      },
+      {
+        "file": "mgmt90030_w6_institutions.html",
+        "week": "Week 6–7",
+        "title": "Innovation & Institutions",
+        "subtitle": "Translation · Thin/thick diffusion · Isomorphism · Institutional logics",
+        "color": "#0EA5E9"
+      },
+      {
+        "file": "mgmt90030_w8_agents_of_change.html",
+        "week": "Week 8",
+        "title": "Innovation & Agents of Change",
+        "subtitle": "Entrepreneurial orientation · Legitimacy · Institutional entrepreneurship",
+        "color": "#0EA5E9"
+      },
+      {
+        "file": "mgmt90030_w9_exploration_exploitation.html",
+        "week": "Week 9",
+        "title": "Exploration vs Exploitation",
+        "subtitle": "March traps · Absorptive capacity · Proximity · Dominant design",
+        "color": "#0EA5E9"
+      },
+      {
+        "file": "mgmt90030_w10_resource_deployment.html",
+        "week": "Week 10",
+        "title": "Innovation & Resource Deployment",
+        "subtitle": "Music industry value · Before/in/after selection · Transparency inverse U",
+        "color": "#0EA5E9"
+      },
+      {
+        "file": "mgmt90030_w11_networks_classification.html",
+        "week": "Week 11",
+        "title": "Networks & Classification",
+        "subtitle": "Markets/hierarchies/networks · Hub-and-spoke · Hollywood · Genres",
+        "color": "#0EA5E9"
+      },
+      {
+        "file": "mgmt90030_w12_exam_review.html",
+        "week": "Week 12",
+        "title": "Review & Exam Preparation",
+        "subtitle": "Practice exam (mRNA) · Answer frames · Week recap",
+        "color": "#0EA5E9"
+      }
+    ]
+  },
+  {
+    "id": "mgmt90032",
+    "code": "MGMT90032",
+    "name": "Operations and Process Management",
+    "desc": "Operations Management · Weeks 1–12",
+    "accent": "#6366F1",
+    "modules": [
+      {
+        "file": "mgmt90032_w1_intro.html",
+        "week": "Week 1",
+        "title": "Intro to Operations Mgmt",
+        "subtitle": "Operating models · Planned vs Lean · Key decisions · Products vs services",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w2_forecast_inventory.html",
+        "week": "Week 2",
+        "title": "Forecasting & Inventory",
+        "subtitle": "Forecast types · EOQ · ROP · Counting systems",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w3_aggregate_mps.html",
+        "week": "Week 3",
+        "title": "Aggregate Planning & MPS",
+        "subtitle": "AP strategies · Skateboard example · MPS · ATP · Time fences",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w4_mrp_erp.html",
+        "week": "Week 4",
+        "title": "MRP & ERP",
+        "subtitle": "Product structure tree · Lot-for-lot · Lot-size · MRP II · ERP",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w5_jit_lean.html",
+        "week": "Week 5",
+        "title": "Lean / JIT",
+        "subtitle": "7 wastes · 5S · Kanban · SMED · Planned vs Lean",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w6_strategy.html",
+        "week": "Week 6",
+        "title": "Competitiveness, Strategy & Product Design",
+        "subtitle": "Sand cone · Mass customisation · QFD · DFM / DFA · PLC",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w7_process_layout.html",
+        "week": "Week 7",
+        "title": "Process Selection & Layout",
+        "subtitle": "5 process types · 4 layouts · Cells · Service blueprint · Line balancing",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w8_scm.html",
+        "week": "Week 8",
+        "title": "Supply Chain Management",
+        "subtitle": "Design elements · Push/Pull · Bullwhip · Fisher · VSM · SCOR",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w9_quality.html",
+        "week": "Week 9",
+        "title": "Quality Management",
+        "subtitle": "COQ · QC/QA/TQM · 7 tools · ISO 9000 · Awards",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w10_spc_sixsigma.html",
+        "week": "Week 10",
+        "title": "SPC & Six Sigma",
+        "subtitle": "X̄-R charts · Factor table · DPMO · DMAIC",
+        "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w12_exam_review.html",
+        "week": "Week 12",
+        "title": "Final Exam Review",
+        "subtitle": "Exam format · Section 1 model answers · Worked calculations · Formulas",
+        "color": "#6366F1"
+      }
+    ]
+  },
+  {
+    "id": "mgmt90025",
+    "code": "MGMT90025",
+    "name": "People & Change",
+    "desc": "Organizational Change · Weeks 1–12",
+    "accent": "#F59E0B",
+    "modules": [
+      {
+        "file": "mgmt90025_w1_overview.html",
+        "week": "Week 1",
+        "title": "Subject Overview & Four Factors",
+        "subtitle": "Assessment · Todd · Nadler & Tushman · Types of change",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w2_why_how_change.html",
+        "week": "Week 2",
+        "title": "Why Change? …and How?",
+        "subtitle": "Force field · Lewin · OD · Kotter · Stage vs process",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w3_culture_teams.html",
+        "week": "Week 3",
+        "title": "Culture & Teams",
+        "subtitle": "Schein · Sathe · Bate · Katzenbach & Smith · Thomas",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w4_it_innovation.html",
+        "week": "Week 4",
+        "title": "Technology, IT & Innovation",
+        "subtitle": "TAM · Rogers diffusion · SMWTs · Distributed leadership",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w5_mna_downsizing.html",
+        "week": "Week 5",
+        "title": "M&A and Downsizing",
+        "subtitle": "Seo & Hill · Acculturation · Survivor syndrome · Justice",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w6_communication.html",
+        "week": "Week 6",
+        "title": "Change Communication",
+        "subtitle": "Daft & Lengel · Goodman & Truss · Armenakis & Harris · Klein",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w7_strategy.html",
+        "week": "Week 7",
+        "title": "Strategy & Organizational Change",
+        "subtitle": "Mintzberg · Johnson & Scholes · Identity · Liedtka",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w8_leadership.html",
+        "week": "Week 8",
+        "title": "Managing & Leading Change",
+        "subtitle": "Transformational · Power · Influence · Tipping point",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w9_training.html",
+        "week": "Week 9",
+        "title": "Training & Organizational Change",
+        "subtitle": "Needs analysis · Transfer · Kirkpatrick · Learning orgs",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w10_individual_emotions.html",
+        "week": "Week 10",
+        "title": "Individual Differences & Emotions",
+        "subtitle": "Psychological contract · Regulatory focus · Cynicism",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w11_resistance_readiness.html",
+        "week": "Week 11",
+        "title": "Resistance, Cynicism & Readiness",
+        "subtitle": "Kotter & Schlesinger · Commitment · Inertia · Readiness",
+        "color": "#F59E0B"
+      },
+      {
+        "file": "mgmt90025_w12_review.html",
+        "week": "Week 12",
+        "title": "Tying It All Together & Exam Review",
+        "subtitle": "Theory of Change · Institutionalizing · Exam tips",
+        "color": "#F59E0B"
+      }
+    ]
+  },
+  {
     "id": "mgmt90280",
     "code": "MGMT90280",
     "name": "Managerial Decision Analytics",
@@ -110,271 +461,6 @@
         "title": "Past Exam Papers",
         "subtitle": "历年真题 · 官方答案解析",
         "color": "#6366F1"
-      }
-    ]
-  },
-  {
-    "id": "mgmt90032",
-    "code": "MGMT90032",
-    "name": "Operations and Process Management",
-    "desc": "Operations Management · Weeks 1–12",
-    "accent": "#6366F1",
-    "modules": [
-      {
-        "file": "mgmt90032_w1_intro.html",
-        "week": "Week 1",
-        "title": "Intro to Operations Mgmt",
-        "subtitle": "Operating models · Planned vs Lean · Key decisions · Products vs services",
-        "color": "#6366F1"
-      },
-      {
-        "file": "mgmt90032_w2_forecast_inventory.html",
-        "week": "Week 2",
-        "title": "Forecasting & Inventory",
-        "subtitle": "Forecast types · EOQ · ROP · Counting systems",
-        "color": "#6366F1"
-      },
-      {
-        "file": "mgmt90032_w3_aggregate_mps.html",
-        "week": "Week 3",
-        "title": "Aggregate Planning & MPS",
-        "subtitle": "AP strategies · Skateboard example · MPS · ATP · Time fences",
-        "color": "#6366F1"
-      },
-      {
-        "file": "mgmt90032_w4_mrp_erp.html",
-        "week": "Week 4",
-        "title": "MRP & ERP",
-        "subtitle": "Product structure tree · Lot-for-lot · Lot-size · MRP II · ERP",
-        "color": "#6366F1"
-      },
-      {
-        "file": "mgmt90032_w5_jit_lean.html",
-        "week": "Week 5",
-        "title": "Lean / JIT",
-        "subtitle": "7 wastes · 5S · Kanban · SMED · Planned vs Lean",
-        "color": "#6366F1"
-      },
-      {
-        "file": "mgmt90032_w6_strategy.html",
-        "week": "Week 6",
-        "title": "Competitiveness, Strategy & Product Design",
-        "subtitle": "Sand cone · Mass customisation · QFD · DFM / DFA · PLC",
-        "color": "#6366F1"
-      },
-      {
-        "file": "mgmt90032_w7_process_layout.html",
-        "week": "Week 7",
-        "title": "Process Selection & Layout",
-        "subtitle": "5 process types · 4 layouts · Cells · Service blueprint · Line balancing",
-        "color": "#6366F1"
-      },
-      {
-        "file": "mgmt90032_w8_scm.html",
-        "week": "Week 8",
-        "title": "Supply Chain Management",
-        "subtitle": "Design elements · Push/Pull · Bullwhip · Fisher · VSM · SCOR",
-        "color": "#6366F1"
-      },
-      {
-        "file": "mgmt90032_w9_quality.html",
-        "week": "Week 9",
-        "title": "Quality Management",
-        "subtitle": "COQ · QC/QA/TQM · 7 tools · ISO 9000 · Awards",
-        "color": "#6366F1"
-      },
-      {
-        "file": "mgmt90032_w10_spc_sixsigma.html",
-        "week": "Week 10",
-        "title": "SPC & Six Sigma",
-        "subtitle": "X̄-R charts · Factor table · DPMO · DMAIC",
-        "color": "#6366F1"
-      },
-      {
-        "file": "mgmt90032_w12_exam_review.html",
-        "week": "Week 12",
-        "title": "Final Exam Review",
-        "subtitle": "Exam format · Section 1 model answers · Worked calculations · Formulas",
-        "color": "#6366F1"
-      }
-    ]
-  },
-  {
-    "id": "mktg90004",
-    "code": "MKTG90004",
-    "name": "Marketing Management",
-    "desc": "Marketing · Weeks 1–11",
-    "accent": "#EC4899",
-    "modules": [
-      {
-        "file": "mktg90004_w1_what_is_marketing.html",
-        "week": "Week 1",
-        "title": "What is Marketing?",
-        "subtitle": "Core process · Customer delivered value · SDGs · Assessments",
-        "color": "#EC4899"
-      },
-      {
-        "file": "mktg90004_w2_consumers.html",
-        "week": "Week 2",
-        "title": "Consumers & Consumption",
-        "subtitle": "Decision process · Involvement · Personal/Social/Cultural/Situational",
-        "color": "#EC4899"
-      },
-      {
-        "file": "mktg90004_w3_environment.html",
-        "week": "Week 3",
-        "title": "The Marketing Environment",
-        "subtitle": "PESTLE · Micro-environment · Porter 5 Forces · SWOT",
-        "color": "#EC4899"
-      },
-      {
-        "file": "mktg90004_w4_stp.html",
-        "week": "Week 4",
-        "title": "Segmentation, Targeting & Positioning",
-        "subtitle": "Segments · Feral · Personas · Perceptual maps · Positioning",
-        "color": "#EC4899"
-      },
-      {
-        "file": "mktg90004_w5_assessment.html",
-        "week": "Week 5",
-        "title": "Assignment Masterclass",
-        "subtitle": "Part A & B structure · Marks · AI rules · Formatting",
-        "color": "#EC4899"
-      },
-      {
-        "file": "mktg90004_w6_product_brand.html",
-        "week": "Week 6",
-        "title": "Product & Brand Strategy",
-        "subtitle": "Product mix · Line stretching · Brand elements · Distinctive assets",
-        "color": "#EC4899"
-      },
-      {
-        "file": "mktg90004_w7_services.html",
-        "week": "Week 7",
-        "title": "Marketing Services & Experiences",
-        "subtitle": "3Ps · Servicescape · Blueprint · Customer journey",
-        "color": "#EC4899"
-      },
-      {
-        "file": "mktg90004_w8_communication.html",
-        "week": "Week 8",
-        "title": "Communication Strategies (IMC)",
-        "subtitle": "IMC steps · Media plan · Appeals · Ethics",
-        "color": "#EC4899"
-      },
-      {
-        "file": "mktg90004_w9_pricing.html",
-        "week": "Week 9",
-        "title": "Pricing Strategies",
-        "subtitle": "6 steps · Pricing methods · Product mix pricing · Price customisation",
-        "color": "#EC4899"
-      },
-      {
-        "file": "mktg90004_w10_distribution.html",
-        "week": "Week 10",
-        "title": "Distribution Decisions",
-        "subtitle": "Channel levels · Omni-channel · Coverage · Vertical integration",
-        "color": "#EC4899"
-      },
-      {
-        "file": "mktg90004_w11_research_metrics.html",
-        "week": "Week 11",
-        "title": "Market Research & Metrics",
-        "subtitle": "Research design · Qual vs Quant · ROMI · Market share",
-        "color": "#EC4899"
-      }
-    ]
-  },
-  {
-    "id": "mgmt90025",
-    "code": "MGMT90025",
-    "name": "People & Change",
-    "desc": "Organizational Change · Weeks 1–12",
-    "accent": "#F59E0B",
-    "modules": [
-      {
-        "file": "mgmt90025_w1_overview.html",
-        "week": "Week 1",
-        "title": "Subject Overview & Four Factors",
-        "subtitle": "Assessment · Todd · Nadler & Tushman · Types of change",
-        "color": "#F59E0B"
-      },
-      {
-        "file": "mgmt90025_w2_why_how_change.html",
-        "week": "Week 2",
-        "title": "Why Change? …and How?",
-        "subtitle": "Force field · Lewin · OD · Kotter · Stage vs process",
-        "color": "#F59E0B"
-      },
-      {
-        "file": "mgmt90025_w3_culture_teams.html",
-        "week": "Week 3",
-        "title": "Culture & Teams",
-        "subtitle": "Schein · Sathe · Bate · Katzenbach & Smith · Thomas",
-        "color": "#F59E0B"
-      },
-      {
-        "file": "mgmt90025_w4_it_innovation.html",
-        "week": "Week 4",
-        "title": "Technology, IT & Innovation",
-        "subtitle": "TAM · Rogers diffusion · SMWTs · Distributed leadership",
-        "color": "#F59E0B"
-      },
-      {
-        "file": "mgmt90025_w5_mna_downsizing.html",
-        "week": "Week 5",
-        "title": "M&A and Downsizing",
-        "subtitle": "Seo & Hill · Acculturation · Survivor syndrome · Justice",
-        "color": "#F59E0B"
-      },
-      {
-        "file": "mgmt90025_w6_communication.html",
-        "week": "Week 6",
-        "title": "Change Communication",
-        "subtitle": "Daft & Lengel · Goodman & Truss · Armenakis & Harris · Klein",
-        "color": "#F59E0B"
-      },
-      {
-        "file": "mgmt90025_w7_strategy.html",
-        "week": "Week 7",
-        "title": "Strategy & Organizational Change",
-        "subtitle": "Mintzberg · Johnson & Scholes · Identity · Liedtka",
-        "color": "#F59E0B"
-      },
-      {
-        "file": "mgmt90025_w8_leadership.html",
-        "week": "Week 8",
-        "title": "Managing & Leading Change",
-        "subtitle": "Transformational · Power · Influence · Tipping point",
-        "color": "#F59E0B"
-      },
-      {
-        "file": "mgmt90025_w9_training.html",
-        "week": "Week 9",
-        "title": "Training & Organizational Change",
-        "subtitle": "Needs analysis · Transfer · Kirkpatrick · Learning orgs",
-        "color": "#F59E0B"
-      },
-      {
-        "file": "mgmt90025_w10_individual_emotions.html",
-        "week": "Week 10",
-        "title": "Individual Differences & Emotions",
-        "subtitle": "Psychological contract · Regulatory focus · Cynicism",
-        "color": "#F59E0B"
-      },
-      {
-        "file": "mgmt90025_w11_resistance_readiness.html",
-        "week": "Week 11",
-        "title": "Resistance, Cynicism & Readiness",
-        "subtitle": "Kotter & Schlesinger · Commitment · Inertia · Readiness",
-        "color": "#F59E0B"
-      },
-      {
-        "file": "mgmt90025_w12_review.html",
-        "week": "Week 12",
-        "title": "Tying It All Together & Exam Review",
-        "subtitle": "Theory of Change · Institutionalizing · Exam tips",
-        "color": "#F59E0B"
       }
     ]
   }
