@@ -858,6 +858,11 @@ html[data-theme="dark"] .ec-tags span.hot { color: #fca5a5; }
 #plan-toast button { border: none; background: #6366f1; color: #fff; border-radius: 8px; padding: 4px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
 html[data-theme="dark"] #plan-toast { background: #e8ecf7; color: #0f172a; }
 @media (max-width: 768px) { .pt-acts { flex-wrap: wrap; } .plan-task { flex-wrap: wrap; } .pt-acts select { max-width: 96px; } }
+.pt-zh { display: block; font-size: 12px; color: color-mix(in srgb, #0d9488 75%, var(--text)); line-height: 1.5; margin-top: 1px; }
+html[data-theme="dark"] .pt-zh { color: #5fd3c6; }
+.plan-task.done .pt-zh { color: var(--faint); }
+.plan-task[data-id^="r:"] .pt-text { font-style: normal; }
+.plan-task[data-id^="r:"] .pt-box { border-style: dashed; }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
@@ -1896,10 +1901,10 @@ rpill.addEventListener('click', async () => {
 
 // ===== 期末复习计划（打勾进度只存在本机浏览器）=====
 const PLAN_EXAMS = [
-  { sid: 'mktg90004', code: 'MKTG90004', name: 'Marketing Management', date: '2026-11-11', time: '08:30', fmt: 'LMS quiz · LockDown Browser', rule: '2 × A4 notes (double sided)', weight: '50% · 25 MCQ + 3 short + 1 long' },
-  { sid: 'mgmt90030', code: 'MGMT90030', name: 'Managing Innovation', date: '2026-11-11', time: '16:30', fmt: 'Digital exam · typed', rule: 'Open book · paper limit TBC', weight: '40%' },
-  { sid: 'mgmt90032', code: 'MGMT90032', name: 'Operations & Process Mgmt', date: '2026-11-13', time: '16:30', fmt: 'Written exam · paper', rule: 'Closed book — memorise!', weight: '50%' },
-  { sid: 'mgmt90025', code: 'MGMT90025', name: 'People & Change', date: '2026-11-16', time: '08:30', fmt: 'Digital exam · typed', rule: 'Max two A4 cheat sheets', weight: '50%' }
+  { sid: 'mktg90004', code: 'MKTG90004', name: 'Marketing Management', date: '2026-11-11', time: '08:30', fmt: 'LMS quiz · LockDown Browser 机考', rule: '2 × A4 notes, double sided 两张双面 A4', weight: '50% · 25 MCQ + 3 short + 1 long 选择+简答+长答' },
+  { sid: 'mgmt90030', code: 'MGMT90030', name: 'Managing Innovation', date: '2026-11-11', time: '16:30', fmt: 'Digital exam · typed 机考打字', rule: 'Open book · paper limit TBC 开卷，带纸限制待定', weight: '40%' },
+  { sid: 'mgmt90032', code: 'MGMT90032', name: 'Operations & Process Mgmt', date: '2026-11-13', time: '16:30', fmt: 'Written exam · paper 纸笔考试', rule: 'Closed book — memorise! 闭卷，要背', weight: '50%' },
+  { sid: 'mgmt90025', code: 'MGMT90025', name: 'People & Change', date: '2026-11-16', time: '08:30', fmt: 'Digital exam · typed 机考打字', rule: 'Max two A4 cheat sheets 最多两张 A4', weight: '50%' }
 ];
 const PLAN_PHASES = {
   start: { label: 'Start 起步', color: '#64748b' },
@@ -1910,90 +1915,90 @@ const PLAN_PHASES = {
 };
 const PLAN_DAYS = [
   { d: 'start', ph: 'start', title: 'Start 起步 — see what each exam looks like first 先看清每门考什么', tasks: [
-    { t: 'Check outstanding assignments: MKTG90004 Part B & MGMT90030 group video (both due Sun 25 Oct) — finish those first' },
-    { t: 'Read MGMT90032 W12 “Exam Format” tab (closed book, 8 of 10 + 2 calc questions)', m: 'mgmt90032_w12_exam_review' },
-    { t: 'Read MGMT90025 W12 “Exam Info & Tips” tab (4 questions × ~500 words, 2 × A4)', m: 'mgmt90025_w12_review' },
-    { t: 'Read MGMT90030 W12 “Exam & Plan” + “Practice Exam” tabs', m: 'mgmt90030_w12_exam_review' },
-    { t: 'Read MKTG90004 W12 “Exam Structure” + “What’s Examinable” (skip the 🚫 parts while studying)', m: 'mktg90004_w12_exam_review' } ] },
-  { d: '2026-10-23', ph: 'p1', title: 'MKTG90004 · W1–W4', tasks: [
-    { t: 'MKTG90004 W1 · read + quiz all correct', m: 'mktg90004_w1_what_is_marketing' },
-    { t: 'MKTG90004 W2', m: 'mktg90004_w2_consumers' }, { t: 'MKTG90004 W3 (MCQ only — read quickly)', m: 'mktg90004_w3_environment' }, { t: 'MKTG90004 W4', m: 'mktg90004_w4_stp' } ] },
-  { d: '2026-10-24', ph: 'p1', title: 'MKTG90004 · W5–W7', tasks: [
-    { t: 'MKTG90004 W5 (assessment week, quick)', m: 'mktg90004_w5_assessment' },
-    { t: 'MKTG90004 W6', m: 'mktg90004_w6_product_brand' }, { t: 'MKTG90004 W7', m: 'mktg90004_w7_services' } ] },
-  { d: '2026-10-25', ph: 'p1', title: 'MKTG90004 · W8–W9 (deadline day)', tasks: [
-    { t: 'Submit any assignment due today first' },
-    { t: 'MKTG90004 W8', m: 'mktg90004_w8_communication' }, { t: 'MKTG90004 W9', m: 'mktg90004_w9_pricing' } ] },
-  { d: '2026-10-26', ph: 'p1', title: 'MKTG90004 · W10–W11 + quiz redo', tasks: [
-    { t: 'MKTG90004 W10', m: 'mktg90004_w10_distribution' }, { t: 'MKTG90004 W11 (MCQ only — research part, skip metrics)', m: 'mktg90004_w11_research_metrics' },
-    { t: 'Redo every MKTG90004 quiz once (use ↺ Reset); note the ones you got wrong' } ] },
-  { d: '2026-10-27', ph: 'p1', title: 'MGMT90032 · W1–W3 (+ EOQ, AP, MPS calcs) — closed book, learn it early', tasks: [
-    { t: '90032 W1 — Planned vs Lean big picture', m: 'mgmt90032_w1_intro' },
-    { t: '90032 W2 — do the EOQ example by hand', m: 'mgmt90032_w2_forecast_inventory' },
-    { t: '90032 W3 — do the AP + MPS tables by hand', m: 'mgmt90032_w3_aggregate_mps' } ] },
-  { d: '2026-10-28', ph: 'p1', title: 'MGMT90032 · W4–W6 (+ MRP)', tasks: [
-    { t: '90032 W4 — do the MRP component J table by hand', m: 'mgmt90032_w4_mrp_erp' },
-    { t: '90032 W5', m: 'mgmt90032_w5_jit_lean' }, { t: '90032 W6', m: 'mgmt90032_w6_strategy' } ] },
-  { d: '2026-10-29', ph: 'p1', title: 'MGMT90032 · W7–W8 (+ line balancing)', tasks: [
-    { t: '90032 W7 — do a line-balancing question by hand', m: 'mgmt90032_w7_process_layout' },
-    { t: '90032 W8', m: 'mgmt90032_w8_scm' } ] },
-  { d: '2026-10-30', ph: 'p1', title: 'MGMT90032 · W9–W10 (+ SPC) · start flashcards', tasks: [
-    { t: '90032 W9', m: 'mgmt90032_w9_quality' }, { t: '90032 W10 — do the X̄/R chart question by hand', m: 'mgmt90032_w10_spc_sixsigma' },
-    { t: '90032 W12 — read “Section 1 Answers” and do the Flashcards once (from now on 30 min every day)', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-10-31', ph: 'p1', title: 'MGMT90030 · W1–W3', tasks: [
-    { t: '90030 W1 (course framework!)', m: 'mgmt90030_w1_intro' }, { t: '90030 W2', m: 'mgmt90030_w2_creativity' }, { t: '90030 W3', m: 'mgmt90030_w3_paradigm_change' },
-    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-01', ph: 'p1', title: 'MGMT90030 · W4–W5 (core theories)', tasks: [
-    { t: '90030 W4 — selection systems (Wijnberg)', m: 'mgmt90030_w4_value' }, { t: '90030 W5 — Abrahamson four perspectives', m: 'mgmt90030_w5_diffusion' },
-    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-02', ph: 'p1', title: 'MGMT90030 · W6–W8', tasks: [
-    { t: '90030 W6–7 institutions', m: 'mgmt90030_w6_institutions' }, { t: '90030 W8 agents of change', m: 'mgmt90030_w8_agents_of_change' },
-    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-03', ph: 'p1', title: 'MGMT90030 · W9–W11', tasks: [
-    { t: '90030 W9', m: 'mgmt90030_w9_exploration_exploitation' }, { t: '90030 W10', m: 'mgmt90030_w10_resource_deployment' }, { t: '90030 W11', m: 'mgmt90030_w11_networks_classification' },
-    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-04', ph: 'p1', title: 'MGMT90025 · W1–W4 (start 2-page cheat sheet)', tasks: [
-    { t: '90025 W1', m: 'mgmt90025_w1_overview' }, { t: '90025 W2', m: 'mgmt90025_w2_why_how_change' }, { t: '90025 W3', m: 'mgmt90025_w3_culture_teams' }, { t: '90025 W4', m: 'mgmt90025_w4_it_innovation' },
-    { t: 'Copy each week’s key frameworks + authors into the A4 cheat-sheet draft' },
-    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-05', ph: 'p1', title: 'MGMT90025 · W5–W8', tasks: [
-    { t: '90025 W5', m: 'mgmt90025_w5_mna_downsizing' }, { t: '90025 W6', m: 'mgmt90025_w6_communication' }, { t: '90025 W7', m: 'mgmt90025_w7_strategy' }, { t: '90025 W8', m: 'mgmt90025_w8_leadership' },
-    { t: 'Add to the A4 cheat-sheet draft' },
-    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-06', ph: 'p1', title: 'MGMT90025 · W9–W12 (cheat sheet v1)', tasks: [
-    { t: '90025 W9', m: 'mgmt90025_w9_training' }, { t: '90025 W10', m: 'mgmt90025_w10_individual_emotions' }, { t: '90025 W11', m: 'mgmt90025_w11_resistance_readiness' }, { t: '90025 W12 review', m: 'mgmt90025_w12_review' },
-    { t: 'Finish cheat sheet v1 (two A4 sides max)' },
-    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-07', ph: 'p1', title: 'Buffer day 缓冲日 — catch up on anything unticked', tasks: [
+    { t: 'Check outstanding assignments: MKTG90004 Part B & MGMT90030 group video (both due Sun 25 Oct) — finish those first', zh: '先确认作业：MKTG90004 Part B 和 MGMT90030 小组视频（都是 10/25 截止），没交的先做' },
+    { t: 'Read MGMT90032 W12 “Exam Format” tab (closed book, 8 of 10 + 2 calc questions)', zh: '读 MGMT90032 第 12 周"考试形式"（闭卷，10 选 8 + 2 道计算题）', m: 'mgmt90032_w12_exam_review' },
+    { t: 'Read MGMT90025 W12 “Exam Info & Tips” tab (4 questions × ~500 words, 2 × A4)', zh: '读 MGMT90025 第 12 周"考试信息"（4 题 × 约 500 词，两张 A4）', m: 'mgmt90025_w12_review' },
+    { t: 'Read MGMT90030 W12 “Exam & Plan” + “Practice Exam” tabs', zh: '读 MGMT90030 第 12 周"考试"和"练习题"两页', m: 'mgmt90030_w12_exam_review' },
+    { t: 'Read MKTG90004 W12 “Exam Structure” + “What’s Examinable” (skip the 🚫 parts while studying)', zh: '读 MKTG90004 第 12 周"考试结构"和"考与不考"（学习时跳过 🚫 部分）', m: 'mktg90004_w12_exam_review' } ] },
+  { d: '2026-10-23', ph: 'p1', title: 'MKTG90004 · W1–W4 营销第 1–4 周', tasks: [
+    { t: 'MKTG90004 W1 · read + quiz all correct', zh: '学第 1 周：读完所有标签 + 测验全对', m: 'mktg90004_w1_what_is_marketing' },
+    { t: 'MKTG90004 W2', zh: '学第 2 周：读完所有标签 + 测验全对', m: 'mktg90004_w2_consumers' }, { t: 'MKTG90004 W3 (MCQ only — read quickly)', zh: '学第 3 周（只考选择题，快速看）', m: 'mktg90004_w3_environment' }, { t: 'MKTG90004 W4', zh: '学第 4 周：读完所有标签 + 测验全对', m: 'mktg90004_w4_stp' }, { id: 'r:2026-10-23', t: 'Review & sort (10 min): put today’s key points into your MKTG90004 cheat-sheet draft', zh: '复盘整理（10 分钟）：把今天的要点记进 MKTG90004 cheat sheet 草稿' } ] },
+  { d: '2026-10-24', ph: 'p1', title: 'MKTG90004 · W5–W7 营销第 5–7 周', tasks: [
+    { t: 'MKTG90004 W5 (assessment week, quick)', zh: '学第 5 周（作业周，快速看）', m: 'mktg90004_w5_assessment' },
+    { t: 'MKTG90004 W6', zh: '学第 6 周：读完所有标签 + 测验全对', m: 'mktg90004_w6_product_brand' }, { t: 'MKTG90004 W7', zh: '学第 7 周：读完所有标签 + 测验全对', m: 'mktg90004_w7_services' }, { id: 'r:2026-10-24', t: 'Review & sort (10 min): put today’s key points into your MKTG90004 cheat-sheet draft', zh: '复盘整理（10 分钟）：把今天的要点记进 MKTG90004 cheat sheet 草稿' } ] },
+  { d: '2026-10-25', ph: 'p1', title: 'MKTG90004 · W8–W9 (deadline day) 营销第 8–9 周（作业截止日）', tasks: [
+    { t: 'Submit any assignment due today first', zh: '先交今天截止的作业' },
+    { t: 'MKTG90004 W8', zh: '学第 8 周：读完所有标签 + 测验全对', m: 'mktg90004_w8_communication' }, { t: 'MKTG90004 W9', zh: '学第 9 周：读完所有标签 + 测验全对', m: 'mktg90004_w9_pricing' }, { id: 'r:2026-10-25', t: 'Review & sort (10 min): put today’s key points into your MKTG90004 cheat-sheet draft', zh: '复盘整理（10 分钟）：把今天的要点记进 MKTG90004 cheat sheet 草稿' } ] },
+  { d: '2026-10-26', ph: 'p1', title: 'MKTG90004 · W10–W11 + quiz redo 营销第 10–11 周 + 重做测验', tasks: [
+    { t: 'MKTG90004 W10', zh: '学第 10 周：读完所有标签 + 测验全对', m: 'mktg90004_w10_distribution' }, { t: 'MKTG90004 W11 (MCQ only — research part, skip metrics)', zh: '学第 11 周（只考选择题：看市场调研部分，跳过指标）', m: 'mktg90004_w11_research_metrics' },
+    { t: 'Redo every MKTG90004 quiz once (use ↺ Reset); note the ones you got wrong', zh: '把 MKTG90004 每个测验重做一遍（点 ↺ 重做），记下做错的' }, { id: 'r:2026-10-26', t: 'Review & sort (10 min): put today’s key points into your MKTG90004 cheat-sheet draft', zh: '复盘整理（10 分钟）：把今天的要点记进 MKTG90004 cheat sheet 草稿' } ] },
+  { d: '2026-10-27', ph: 'p1', title: 'MGMT90032 · W1–W3 (+ EOQ, AP, MPS calcs) 运营第 1–3 周 + 计算题（闭卷，早学）', tasks: [
+    { t: '90032 W1 — Planned vs Lean big picture', zh: '学第 1 周：计划型 vs 精益型大图', m: 'mgmt90032_w1_intro' },
+    { t: '90032 W2 — do the EOQ example by hand', zh: '学第 2 周，并手算一遍 EOQ 例题', m: 'mgmt90032_w2_forecast_inventory' },
+    { t: '90032 W3 — do the AP + MPS tables by hand', zh: '学第 3 周，并手算综合计划（AP）和主生产计划（MPS）表', m: 'mgmt90032_w3_aggregate_mps' }, { id: 'r:2026-10-27', t: 'Review & sort (10 min): write today’s formulas and lists into your 90032 summary; redo one example from memory', zh: '复盘整理（10 分钟）：把今天的公式和清单整理进 90032 总结，凭记忆重做一道例题' } ] },
+  { d: '2026-10-28', ph: 'p1', title: 'MGMT90032 · W4–W6 (+ MRP) 运营第 4–6 周 + MRP', tasks: [
+    { t: '90032 W4 — do the MRP component J table by hand', zh: '学第 4 周，并手算 MRP 零件 J 那张表', m: 'mgmt90032_w4_mrp_erp' },
+    { t: '90032 W5', zh: '学第 5 周：读完所有标签 + 测验全对', m: 'mgmt90032_w5_jit_lean' }, { t: '90032 W6', zh: '学第 6 周：读完所有标签 + 测验全对', m: 'mgmt90032_w6_strategy' }, { id: 'r:2026-10-28', t: 'Review & sort (10 min): write today’s formulas and lists into your 90032 summary; redo one example from memory', zh: '复盘整理（10 分钟）：把今天的公式和清单整理进 90032 总结，凭记忆重做一道例题' } ] },
+  { d: '2026-10-29', ph: 'p1', title: 'MGMT90032 · W7–W8 (+ line balancing) 运营第 7–8 周 + 生产线平衡', tasks: [
+    { t: '90032 W7 — do a line-balancing question by hand', zh: '学第 7 周，并手算一道生产线平衡题', m: 'mgmt90032_w7_process_layout' },
+    { t: '90032 W8', zh: '学第 8 周：读完所有标签 + 测验全对', m: 'mgmt90032_w8_scm' }, { id: 'r:2026-10-29', t: 'Review & sort (10 min): write today’s formulas and lists into your 90032 summary; redo one example from memory', zh: '复盘整理（10 分钟）：把今天的公式和清单整理进 90032 总结，凭记忆重做一道例题' } ] },
+  { d: '2026-10-30', ph: 'p1', title: 'MGMT90032 · W9–W10 (+ SPC) 运营第 9–10 周 + 控制图，开始闪卡', tasks: [
+    { t: '90032 W9', zh: '学第 9 周：读完所有标签 + 测验全对', m: 'mgmt90032_w9_quality' }, { t: '90032 W10 — do the X̄/R chart question by hand', zh: '学第 10 周，并手算一遍 X̄/R 控制图题', m: 'mgmt90032_w10_spc_sixsigma' },
+    { t: '90032 W12 — read “Section 1 Answers” and do the Flashcards once (from now on 30 min every day)', zh: '读第 12 周"Section 1 参考答案"，过一遍闪卡（从今天起每天 30 分钟）', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-10-30', t: 'Review & sort (10 min): write today’s formulas and lists into your 90032 summary; redo one example from memory', zh: '复盘整理（10 分钟）：把今天的公式和清单整理进 90032 总结，凭记忆重做一道例题' } ] },
+  { d: '2026-10-31', ph: 'p1', title: 'MGMT90030 · W1–W3 创新第 1–3 周', tasks: [
+    { t: '90030 W1 (course framework!)', zh: '学第 1 周（全课框架，最重要！）', m: 'mgmt90030_w1_intro' }, { t: '90030 W2', zh: '学第 2 周：读完所有标签 + 测验全对', m: 'mgmt90030_w2_creativity' }, { t: '90030 W3', zh: '学第 3 周：读完所有标签 + 测验全对', m: 'mgmt90030_w3_paradigm_change' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', zh: '90032 闪卡或一道计算题，30 分钟（间隔复习）', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-10-31', t: 'Review & sort (10 min): put today’s key points into your MGMT90030 notes draft (author → concept → example)', zh: '复盘整理（10 分钟）：把今天的要点记进 MGMT90030 笔记草稿（作者 → 概念 → 例子）' } ] },
+  { d: '2026-11-01', ph: 'p1', title: 'MGMT90030 · W4–W5 (core theories) 创新第 4–5 周（核心理论）', tasks: [
+    { t: '90030 W4 — selection systems (Wijnberg)', zh: '学第 4 周：选择系统（Wijnberg），核心理论', m: 'mgmt90030_w4_value' }, { t: '90030 W5 — Abrahamson four perspectives', zh: '学第 5 周：Abrahamson 四种视角，核心理论', m: 'mgmt90030_w5_diffusion' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', zh: '90032 闪卡或一道计算题，30 分钟（间隔复习）', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-11-01', t: 'Review & sort (10 min): put today’s key points into your MGMT90030 notes draft (author → concept → example)', zh: '复盘整理（10 分钟）：把今天的要点记进 MGMT90030 笔记草稿（作者 → 概念 → 例子）' } ] },
+  { d: '2026-11-02', ph: 'p1', title: 'MGMT90030 · W6–W8 创新第 6–8 周', tasks: [
+    { t: '90030 W6–7 institutions', zh: '学第 6–7 周：制度与制度逻辑', m: 'mgmt90030_w6_institutions' }, { t: '90030 W8 agents of change', zh: '学第 8 周：创业者与变革推动者', m: 'mgmt90030_w8_agents_of_change' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', zh: '90032 闪卡或一道计算题，30 分钟（间隔复习）', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-11-02', t: 'Review & sort (10 min): put today’s key points into your MGMT90030 notes draft (author → concept → example)', zh: '复盘整理（10 分钟）：把今天的要点记进 MGMT90030 笔记草稿（作者 → 概念 → 例子）' } ] },
+  { d: '2026-11-03', ph: 'p1', title: 'MGMT90030 · W9–W11 创新第 9–11 周', tasks: [
+    { t: '90030 W9', zh: '学第 9 周：读完所有标签 + 测验全对', m: 'mgmt90030_w9_exploration_exploitation' }, { t: '90030 W10', zh: '学第 10 周：读完所有标签 + 测验全对', m: 'mgmt90030_w10_resource_deployment' }, { t: '90030 W11', zh: '学第 11 周：读完所有标签 + 测验全对', m: 'mgmt90030_w11_networks_classification' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', zh: '90032 闪卡或一道计算题，30 分钟（间隔复习）', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-11-03', t: 'Review & sort (10 min): put today’s key points into your MGMT90030 notes draft (author → concept → example)', zh: '复盘整理（10 分钟）：把今天的要点记进 MGMT90030 笔记草稿（作者 → 概念 → 例子）' } ] },
+  { d: '2026-11-04', ph: 'p1', title: 'MGMT90025 · W1–W4 变革第 1–4 周（开始写两页 cheat sheet）', tasks: [
+    { t: '90025 W1', zh: '学第 1 周：读完所有标签 + 测验全对', m: 'mgmt90025_w1_overview' }, { t: '90025 W2', zh: '学第 2 周：读完所有标签 + 测验全对', m: 'mgmt90025_w2_why_how_change' }, { t: '90025 W3', zh: '学第 3 周：读完所有标签 + 测验全对', m: 'mgmt90025_w3_culture_teams' }, { t: '90025 W4', zh: '学第 4 周：读完所有标签 + 测验全对', m: 'mgmt90025_w4_it_innovation' },
+    { t: 'Copy each week’s key frameworks + authors into the A4 cheat-sheet draft', zh: '把每周的关键框架和作者抄进 A4 cheat sheet 草稿' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', zh: '90032 闪卡或一道计算题，30 分钟（间隔复习）', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-11-04', t: 'Review & sort (10 min): put today’s key points into your MGMT90025 cheat-sheet draft', zh: '复盘整理（10 分钟）：把今天的要点记进 MGMT90025 cheat sheet 草稿' } ] },
+  { d: '2026-11-05', ph: 'p1', title: 'MGMT90025 · W5–W8 变革第 5–8 周', tasks: [
+    { t: '90025 W5', zh: '学第 5 周：读完所有标签 + 测验全对', m: 'mgmt90025_w5_mna_downsizing' }, { t: '90025 W6', zh: '学第 6 周：读完所有标签 + 测验全对', m: 'mgmt90025_w6_communication' }, { t: '90025 W7', zh: '学第 7 周：读完所有标签 + 测验全对', m: 'mgmt90025_w7_strategy' }, { t: '90025 W8', zh: '学第 8 周：读完所有标签 + 测验全对', m: 'mgmt90025_w8_leadership' },
+    { t: 'Add to the A4 cheat-sheet draft', zh: '继续往 A4 cheat sheet 草稿里加内容' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', zh: '90032 闪卡或一道计算题，30 分钟（间隔复习）', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-11-05', t: 'Review & sort (10 min): put today’s key points into your MGMT90025 cheat-sheet draft', zh: '复盘整理（10 分钟）：把今天的要点记进 MGMT90025 cheat sheet 草稿' } ] },
+  { d: '2026-11-06', ph: 'p1', title: 'MGMT90025 · W9–W12 变革第 9–12 周（cheat sheet 第一版）', tasks: [
+    { t: '90025 W9', zh: '学第 9 周：读完所有标签 + 测验全对', m: 'mgmt90025_w9_training' }, { t: '90025 W10', zh: '学第 10 周：读完所有标签 + 测验全对', m: 'mgmt90025_w10_individual_emotions' }, { t: '90025 W11', zh: '学第 11 周：读完所有标签 + 测验全对', m: 'mgmt90025_w11_resistance_readiness' }, { t: '90025 W12 review', zh: '学第 12 周复习课（考试信息、案例题）', m: 'mgmt90025_w12_review' },
+    { t: 'Finish cheat sheet v1 (two A4 sides max)', zh: '完成 cheat sheet 第一版（最多两页 A4）' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', zh: '90032 闪卡或一道计算题，30 分钟（间隔复习）', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-11-06', t: 'Review & sort (10 min): put today’s key points into your MGMT90025 cheat-sheet draft', zh: '复盘整理（10 分钟）：把今天的要点记进 MGMT90025 cheat sheet 草稿' } ] },
+  { d: '2026-11-07', ph: 'p1', title: 'Buffer day — catch up on anything unticked 缓冲日：补完没打勾的', tasks: [
     { t: 'Go back through the plan and finish every unticked task 补完之前没打勾的' },
-    { t: 'Re-do the quizzes you got wrong (all subjects)' },
-    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-08', ph: 'p2', title: 'MKTG90004 exam prep', tasks: [
-    { t: 'MKTG90004 W12: re-read “What’s Examinable” and “How to Answer”', m: 'mktg90004_w12_exam_review' },
-    { t: 'Write the two example questions timed: DAG short answer (18 min) + customer journey long answer (36 min)', m: 'mktg90004_w12_exam_review' },
-    { t: 'Make your 2 × A4 double-sided notes (follow the “2 × A4 Notes” tab)' },
-    { t: 'MCQ practice: redo every MKTG90004 weekly quiz (Section 1 = 25 MCQ)' },
-    { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-09', ph: 'p2', title: 'MGMT90030 exam prep', tasks: [
-    { t: 'Practice exam: write Tasks 1–3 timed (≈ 30 min each)', m: 'mgmt90030_w12_exam_review' },
-    { t: 'Compare with the answer frames; fill gaps via the 📚 links' },
-    { t: 'Build an open-book index: author → concept → week' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-10', ph: 'p2', title: 'Light review · pack · sleep early', tasks: [
-    { t: 'Skim your MKTG90004 2 × A4 notes + 90030 index (no new material)' }, { t: 'Check LockDown Browser works; pack student ID, pen, charged laptop + charger, the 2 × A4 notes' }, { t: 'Sleep early — first exam at 08:30' } ] },
-  { d: '2026-11-11', ph: 'exam', title: 'EXAM DAY · MKTG90004 08:30 · MGMT90030 16:30', tasks: [
-    { t: 'MKTG90004 exam 08:30' }, { t: 'Lunch + rest; 1 hour skim of the 90030 index' }, { t: 'MGMT90030 exam 16:30' } ] },
-  { d: '2026-11-12', ph: 'p3', title: 'MGMT90032 full day (closed book)', tasks: [
-    { t: 'Section 2: do all six calculation types timed (line balancing, SPC, MRP, EOQ, AP, MPS)', m: 'mgmt90032_w12_exam_review' },
-    { t: 'Section 1: write the 7 sample answers from memory, then compare' },
-    { t: 'Must-Memorize tab with Recall mode ON until every term is clear' }, { t: 'Flashcards: clear all 52' } ] },
-  { d: '2026-11-13', ph: 'exam', title: 'EXAM · MGMT90032 16:30 (written, closed book)', tasks: [
-    { t: 'Morning: flashcards + Recall mode one last time', m: 'mgmt90032_w12_exam_review' }, { t: 'Bring Casio FX82 calculator + pens' }, { t: 'MGMT90032 exam 16:30' } ] },
-  { d: '2026-11-14', ph: 'p3', title: 'MGMT90025 cheat sheet final + cases', tasks: [
-    { t: 'Finalize the two A4 cheat sheets' }, { t: 'Write the IBM and AGL case answers timed', m: 'mgmt90025_w12_review' } ] },
-  { d: '2026-11-15', ph: 'p3', title: 'MGMT90025 mock exam', tasks: [
-    { t: 'Mock exam: 4 questions × 30 min using only your cheat sheets' }, { t: 'Fix the cheat sheets where you got stuck; sleep early' } ] },
-  { d: '2026-11-16', ph: 'exam', title: 'EXAM · MGMT90025 08:30', tasks: [
-    { t: 'Bring the two A4 sheets + student ID + charged laptop' }, { t: 'MGMT90025 exam 08:30' } ] }
+    { t: 'Re-do the quizzes you got wrong (all subjects)', zh: '重做所有科目里做错的测验' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', zh: '90032 闪卡或一道计算题，30 分钟（间隔复习）', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-11-07', t: 'Review & sort (10 min): what still feels shaky? Add it to your cheat sheet or notes', zh: '复盘整理（10 分钟）：哪里还不熟？补进 cheat sheet 或笔记' } ] },
+  { d: '2026-11-08', ph: 'p2', title: 'MKTG90004 exam prep 营销考前冲刺', tasks: [
+    { t: 'MKTG90004 W12: re-read “What’s Examinable” and “How to Answer”', zh: '重读第 12 周"考与不考"和"答题方法"', m: 'mktg90004_w12_exam_review' },
+    { t: 'Write the two example questions timed: DAG short answer (18 min) + customer journey long answer (36 min)', zh: '限时写两道例题：独特资产矩阵短答（18 分钟）+ 顾客旅程长答（36 分钟）', m: 'mktg90004_w12_exam_review' },
+    { t: 'Make your 2 × A4 double-sided notes (follow the “2 × A4 Notes” tab)', zh: '做好 2 张双面 A4 笔记（按"2 × A4 Notes"标签的分配）' },
+    { t: 'MCQ practice: redo every MKTG90004 weekly quiz (Section 1 = 25 MCQ)', zh: '练选择题：把 MKTG90004 每周测验重做一遍（Section 1 = 25 道选择题）' },
+    { t: '90032 flashcards 30 min', zh: '90032 闪卡 30 分钟', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-11-08', t: 'Review & sort (10 min): what still feels shaky? Add it to your cheat sheet or notes', zh: '复盘整理（10 分钟）：哪里还不熟？补进 cheat sheet 或笔记' } ] },
+  { d: '2026-11-09', ph: 'p2', title: 'MGMT90030 exam prep 创新考前冲刺', tasks: [
+    { t: 'Practice exam: write Tasks 1–3 timed (≈ 30 min each)', zh: '练习题：限时写 Task 1–3（每题约 30 分钟）', m: 'mgmt90030_w12_exam_review' },
+    { t: 'Compare with the answer frames; fill gaps via the 📚 links', zh: '对照答题框架，用 📚 链接补漏' },
+    { t: 'Build an open-book index: author → concept → week', zh: '做开卷索引：作者 → 概念 → 第几周' }, { t: '90032 flashcards 30 min', zh: '90032 闪卡 30 分钟', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-11-09', t: 'Review & sort (10 min): what still feels shaky? Add it to your cheat sheet or notes', zh: '复盘整理（10 分钟）：哪里还不熟？补进 cheat sheet 或笔记' } ] },
+  { d: '2026-11-10', ph: 'p2', title: 'Light review · pack · sleep early 轻复习 · 收拾东西 · 早睡', tasks: [
+    { t: 'Skim your MKTG90004 2 × A4 notes + 90030 index (no new material)', zh: '快速看 MKTG90004 的 2 张 A4 和 90030 索引（不学新内容）' }, { t: 'Check LockDown Browser works; pack student ID, pen, charged laptop + charger, the 2 × A4 notes', zh: '检查 LockDown Browser 能用；带学生证、笔、充满电的电脑和充电器、2 张 A4 笔记' }, { t: 'Sleep early — first exam at 08:30', zh: '早睡，第一场 08:30' }, { id: 'r:2026-11-10', t: 'Review & sort (10 min): what still feels shaky? Add it to your cheat sheet or notes', zh: '复盘整理（10 分钟）：哪里还不熟？补进 cheat sheet 或笔记' } ] },
+  { d: '2026-11-11', ph: 'exam', title: 'EXAM DAY · MKTG90004 08:30 · MGMT90030 16:30 考试日：两门', tasks: [
+    { t: 'MKTG90004 exam 08:30', zh: 'MKTG90004 考试 08:30' }, { t: 'Lunch + rest; 1 hour skim of the 90030 index', zh: '午饭和休息；花 1 小时快速看 90030 索引' }, { t: 'MGMT90030 exam 16:30', zh: 'MGMT90030 考试 16:30' } ] },
+  { d: '2026-11-12', ph: 'p3', title: 'MGMT90032 full day (closed book) 运营全天冲刺（闭卷）', tasks: [
+    { t: 'Section 2: do all six calculation types timed (line balancing, SPC, MRP, EOQ, AP, MPS)', zh: 'Section 2：六类计算题各限时做一遍（生产线平衡、SPC、MRP、EOQ、AP、MPS）', m: 'mgmt90032_w12_exam_review' },
+    { t: 'Section 1: write the 7 sample answers from memory, then compare', zh: 'Section 1：凭记忆写 7 道例题答案，再对照' },
+    { t: 'Must-Memorize tab with Recall mode ON until every term is clear', zh: '"必背清单"开背诵模式，直到每个词都熟' }, { t: 'Flashcards: clear all 52', zh: '闪卡：52 张全部记住' }, { id: 'r:2026-11-12', t: 'Review & sort (10 min): what still feels shaky? Add it to your cheat sheet or notes', zh: '复盘整理（10 分钟）：哪里还不熟？补进 cheat sheet 或笔记' } ] },
+  { d: '2026-11-13', ph: 'exam', title: 'EXAM · MGMT90032 16:30 (written, closed book) 考试：运营（笔试闭卷）', tasks: [
+    { t: 'Morning: flashcards + Recall mode one last time', zh: '上午：最后过一遍闪卡和背诵模式', m: 'mgmt90032_w12_exam_review' }, { t: 'Bring Casio FX82 calculator + pens', zh: '带 Casio FX82 计算器和笔' }, { t: 'MGMT90032 exam 16:30', zh: 'MGMT90032 考试 16:30' } ] },
+  { d: '2026-11-14', ph: 'p3', title: 'MGMT90025 cheat sheet final + cases 变革：cheat sheet 定稿 + 案例题', tasks: [
+    { t: 'Finalize the two A4 cheat sheets', zh: '两张 A4 cheat sheet 定稿' }, { t: 'Write the IBM and AGL case answers timed', zh: '限时写 IBM 和 AGL 两个案例题', m: 'mgmt90025_w12_review' }, { id: 'r:2026-11-14', t: 'Review & sort (10 min): what still feels shaky? Add it to your cheat sheet or notes', zh: '复盘整理（10 分钟）：哪里还不熟？补进 cheat sheet 或笔记' } ] },
+  { d: '2026-11-15', ph: 'p3', title: 'MGMT90025 mock exam 变革模拟考', tasks: [
+    { t: 'Mock exam: 4 questions × 30 min using only your cheat sheets', zh: '模拟考：4 道题 × 30 分钟，只用 cheat sheet' }, { t: 'Fix the cheat sheets where you got stuck; sleep early', zh: '哪里卡住就改 cheat sheet；早点睡' }, { id: 'r:2026-11-15', t: 'Review & sort (10 min): what still feels shaky? Add it to your cheat sheet or notes', zh: '复盘整理（10 分钟）：哪里还不熟？补进 cheat sheet 或笔记' } ] },
+  { d: '2026-11-16', ph: 'exam', title: 'EXAM · MGMT90025 08:30 考试：变革', tasks: [
+    { t: 'Bring the two A4 sheets + student ID + charged laptop', zh: '带两张 A4、学生证、充满电的电脑' }, { t: 'MGMT90025 exam 08:30', zh: 'MGMT90025 考试 08:30' } ] }
 ];
 // ===== 计划状态：可编辑、可拖动、可添加（全部存在本机浏览器）=====
 const PLAN_KEY = 'yv-plan3';
@@ -2003,9 +2008,13 @@ const fmtDay = ds => ds === 'start' ? 'START' : new Date(ds + 'T00:00:00').toLoc
 const defId = (d, i) => 'd:' + d + ':' + i;
 function defaultLayout() {
   const days = {};
-  PLAN_DAYS.forEach(d => { days[d.d] = d.tasks.map((t, i) => ({ id: defId(d.d, i), t: t.t, m: t.m || null })); });
+  PLAN_DAYS.forEach(d => { days[d.d] = d.tasks.map((t, i) => ({ id: t.id || defId(d.d, i), t: t.t, m: t.m || null })); });
   return days;
 }
+// 默认任务的中文：用户没改过英文时显示中文辅助
+const PLAN_DEFAULTS = {};
+PLAN_DAYS.forEach(d => d.tasks.forEach((t, i) => { PLAN_DEFAULTS[t.id || defId(d.d, i)] = t; }));
+function taskZh(t) { const def = PLAN_DEFAULTS[t.id]; return t.zh || (def && def.t === t.t ? def.zh : ''); }
 let planState = null;
 try { planState = JSON.parse(lsGet(PLAN_KEY) || 'null'); } catch (e) {}
 if (!planState || typeof planState !== 'object') {
@@ -2022,6 +2031,14 @@ if (!planState || typeof planState !== 'object') {
   } catch (e) {}
 }
 planState.done = planState.done || {}; planState.notes = planState.notes || {};
+// 补丁 4：已自定义的计划也加上每天的"复盘整理"（只加一次，删了不会再加回来）
+if ((planState.patch || 0) < 4) {
+  if (planState.custom && planState.days) {
+    const has = new Set(); Object.values(planState.days).forEach(a => a.forEach(t => has.add(t.id)));
+    PLAN_DAYS.forEach(d => d.tasks.forEach(t => { if (t.id && t.id.startsWith('r:') && !has.has(t.id)) (planState.days[d.d] = planState.days[d.d] || []).push({ id: t.id, t: t.t, m: null }); }));
+  }
+  planState.patch = 4; lsSet(PLAN_KEY, JSON.stringify(planState));
+}
 function savePlan() { lsSet(PLAN_KEY, JSON.stringify(planState)); }
 function planLayout() {
   if (!planState.custom || !planState.days) return defaultLayout();
@@ -2148,7 +2165,7 @@ function taskHtml(t, opts) {
       <select data-act="move" title="Move to another day 移到其他天">${dayOptions}</select>
       <button type="button" data-act="edit" title="Edit 编辑">✎</button><button type="button" data-act="del" title="Delete 删除">🗑</button></span>` : '';
   return `<div class="plan-task${done}${t.mine ? ' mine' : ''}" data-id="${esc(t.id)}" role="checkbox" tabindex="0"${opts && opts.edit ? ' draggable="true"' : ''}>
-    ${opts && opts.edit ? '<span class="pt-grip" title="Drag 拖动">⋮⋮</span>' : ''}<span class="pt-box"></span><span class="pt-text">${esc(t.t)}</span>${link}${acts}</div>`;
+    ${opts && opts.edit ? '<span class="pt-grip" title="Drag 拖动">⋮⋮</span>' : ''}<span class="pt-box"></span><span class="pt-text">${esc(t.t)}${taskZh(t) ? '<span class="pt-zh">' + esc(taskZh(t)) + '</span>' : ''}</span>${link}${acts}</div>`;
 }
 function planEditing() { return document.getElementById('view-plan').classList.contains('editing'); }
 function renderPlan() {
