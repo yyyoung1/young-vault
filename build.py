@@ -3,6 +3,7 @@
 生成单文件 index.html。有密码的科目，内容用 AES-256-GCM 加密后再嵌入。"""
 
 import base64
+import hashlib
 import json
 import os
 import sys
@@ -25,11 +26,52 @@ def load_json(name, default=None):
         return json.load(f)
 
 
-def encrypt_modules(contents, password):
-    """contents: {module_id: html}，返回前端可解密的 {salt, iv, iter, data}（base64）。"""
-    salt, iv = os.urandom(16), os.urandom(12)
+def subject_key(sid, password):
+    """每个科目用固定的盐（由科目 id 算出）派生密钥，这样图片包不用每次 build 都重新加密。"""
+    salt = hashlib.sha256(("young-vault:" + sid).encode()).digest()[:16]
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=PBKDF2_ITER)
-    key = kdf.derive(password.encode("utf-8"))
+    return salt, kdf.derive(password.encode("utf-8"))
+
+
+FIG_DIR = os.path.join(BASE_DIR, "_figs")   # 明文图片（不进 git）
+IMG_OUT = os.path.join(BASE_DIR, "img")     # 加密后的图片包（进 git）
+
+
+def write_fig_bundle(mid, key):
+    """把 _figs/<模块>/ 里的图片打成一个加密 JSON：img/<模块>.json。内容没变就不重写。"""
+    src_dir, out = os.path.join(FIG_DIR, mid), os.path.join(IMG_OUT, mid + ".json")
+    if not os.path.isdir(src_dir):
+        if os.path.exists(out):
+            os.remove(out)
+        return 0
+    imgs = {}
+    for fn in sorted(os.listdir(src_dir)):
+        ext = os.path.splitext(fn)[1].lower()
+        mime = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp"}.get(ext)
+        if mime:
+            with open(os.path.join(src_dir, fn), "rb") as f:
+                imgs[os.path.splitext(fn)[0]] = f"data:{mime};base64," + base64.b64encode(f.read()).decode()
+    plain = json.dumps(imgs, sort_keys=True).encode("utf-8")
+    h = hashlib.sha256(key + plain).hexdigest()[:24]
+    if os.path.exists(out):
+        try:
+            with open(out, encoding="utf-8") as f:
+                if json.load(f).get("h") == h:
+                    return len(imgs)
+        except (ValueError, OSError):
+            pass
+    iv = os.urandom(12)
+    data = AESGCM(key).encrypt(iv, plain, None)
+    os.makedirs(IMG_OUT, exist_ok=True)
+    with open(out, "w", encoding="utf-8") as f:
+        json.dump({"h": h, "iv": base64.b64encode(iv).decode(), "data": base64.b64encode(data).decode()}, f)
+    return len(imgs)
+
+
+def encrypt_modules(contents, password, sid):
+    """contents: {module_id: html}，返回前端可解密的 {salt, iv, iter, data}（base64）。"""
+    salt, key = subject_key(sid, password)
+    iv = os.urandom(12)
     plain = json.dumps(contents, ensure_ascii=False).encode("utf-8")
     data = AESGCM(key).encrypt(iv, plain, None)  # 密文 + 16 字节 tag，WebCrypto 同格式
     b64 = lambda b: base64.b64encode(b).decode()
@@ -76,7 +118,11 @@ for subj in SUBJECT_DEFS:
     entry = {k: subj[k] for k in ("id", "code", "name", "desc", "accent")}
     pw = PASSWORDS.get(subj["id"])
     if pw:
-        entry["enc"] = encrypt_modules(contents, pw)
+        entry["enc"] = encrypt_modules(contents, pw, subj["id"])
+        _, key = subject_key(subj["id"], pw)
+        nfig = sum(write_fig_bundle(mid, key) for mid in contents)
+        if nfig:
+            print(f"   {subj['id']}: {nfig} figures encrypted into img/")
     else:
         for mod in mods:
             mod["content"] = contents[mod["id"]]
@@ -869,6 +915,112 @@ html[data-theme="dark"] .pt-zh { color: #5fd3c6; }
 /* recall mode: hide the Chinese gloss of a line until its hidden terms are revealed */
 .recall-on :is(li,td,p,div):has(> .cz:not(.rev), > b > .cz:not(.rev), > strong > .cz:not(.rev)) > .zh { filter: blur(6px); transition: filter .2s; cursor: pointer; }
 .recall-on :is(li,td,p,div):has(> .cz:not(.rev), > b > .cz:not(.rev), > strong > .cz:not(.rev)) > .zh:hover { filter: none; }
+
+/* ===== 课件配图（截图 + 重画的网页图） ===== */
+.yv-fig { margin: 14px 0 16px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); }
+.yv-fig .yv-shot { display: block; width: 100%; height: auto; min-height: 120px; aspect-ratio: 16 / 9; object-fit: contain; background: #fff; cursor: zoom-in; }
+.yv-fig.ready .yv-shot { aspect-ratio: auto; min-height: 0; }
+.yv-fig:not(.ready):not(.yv-dia) .yv-shot { background: linear-gradient(100deg, var(--surface-2) 30%, var(--surface-3) 50%, var(--surface-2) 70%) 0 0 / 300% 100%; animation: yvShimmer 1.4s linear infinite; }
+.yv-fig.fail .yv-shot { animation: none; }
+.yv-fig.fail .yv-shot::after { content: '图片加载失败，请刷新'; }
+@keyframes yvShimmer { to { background-position: -300% 0; } }
+.yv-fig figcaption { padding: 9px 13px 10px; font-size: 13px; line-height: 1.55; color: var(--muted); border-top: 1px solid var(--line); background: var(--surface-2); }
+.yv-fig figcaption b { color: var(--text); font-weight: 600; }
+.yv-fig figcaption .src { display: inline-block; margin-right: 8px; padding: 1px 8px; border-radius: 99px; font-size: 11.5px; font-weight: 600; color: #fff; background: var(--c1, #6366f1); }
+.yv-std .yv-fig figcaption .zh { display: block; margin-top: 2px; }
+.yv-dia > .dg { padding: 16px; }
+.yv-dia { container-type: inline-size; }
+
+/* 重画的图：通用节点 */
+.dg { --dc: var(--c1, #6366f1); font-size: 13.5px; }
+.dg .n { position: relative; background: color-mix(in srgb, var(--dc) 11%, var(--surface)); border: 1px solid color-mix(in srgb, var(--dc) 40%, transparent); border-radius: 12px; padding: 9px 10px; text-align: center; line-height: 1.35; min-width: 0; }
+.dg .n b { display: block; color: var(--text); font-weight: 650; }
+.dg .n small { display: block; color: var(--muted); font-size: 11.5px; margin-top: 3px; }
+.yv-std .dg .n .zh { display: block; font-size: 12px; margin-top: 3px; }
+.dg .n.hero { background: var(--dc); border-color: var(--dc); }
+.dg .n.hero b, .dg .n.hero small { color: #fff; }
+.yv-std .dg .n.hero .zh { color: #fff; opacity: .92; }
+.dg .n.tot { border-width: 2px; }
+.dg .ar { color: var(--muted); font-size: 17px; display: flex; align-items: center; justify-content: center; }
+/* 流程（横向；手机和 .v 时竖向） */
+.dg-flow { display: flex; align-items: stretch; }
+.dg-flow > .n { flex: 1 1 0; }
+.dg-flow > .ar { flex: 0 0 22px; }
+.dg-flow.v, .dg-flow.v > .n { flex-direction: column; }
+.dg-flow.v > .ar { flex-basis: 20px; transform: rotate(90deg); }
+.dg-flow.v > .n { flex: none; max-width: 460px; width: 100%; margin: 0 auto; }
+@container (max-width: 620px) {
+  .dg-flow:not(.mini) { flex-direction: column; }
+  .dg-flow:not(.mini) > .ar { flex-basis: 20px; transform: rotate(90deg); }
+  .dg-flow:not(.mini) > .n { flex: none; }
+}
+/* 顾客让渡价值 */
+.dg-cdv { display: grid; grid-template-columns: 1fr 26px minmax(130px, 170px); gap: 6px; align-items: center; }
+.dg-cdv .rows { display: grid; gap: 7px; min-width: 0; }
+.dg-cdv .lab { font-size: 12.5px; font-weight: 600; color: var(--text); }
+.dg-cdv .lab small { display: block; font-weight: 400; color: var(--muted); }
+.dg-flow.mini { gap: 0; }
+.dg-flow.mini > .n { padding: 6px 4px; font-size: 11.5px; flex: 1 1 0; overflow-wrap: break-word; }
+.dg-flow.mini > .n b { font-weight: 600; }
+.dg-flow.mini > .ar { flex: 0 0 13px; font-size: 12px; }
+.dg-cdv .ar.big { font-size: 26px; }
+@container (max-width: 680px) { .dg-cdv { grid-template-columns: 1fr; } .dg-cdv .ar.big { transform: rotate(90deg); } }
+@container (max-width: 480px) { .dg-flow.mini { flex-wrap: wrap; gap: 5px; } .dg-flow.mini > .ar { display: none; } .dg-flow.mini > .n { flex: 1 1 28%; } }
+/* 循环（购买角色） */
+.dg-cycle { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.dg-cycle .loop { grid-column: 1 / -1; text-align: center; font-size: 12.5px; color: var(--muted); }
+@container (max-width: 560px) { .dg-cycle { grid-template-columns: repeat(3, 1fr); } }
+/* 十字（五力、产品组合） */
+.dg-cross { display: grid; grid-template-columns: 1fr 1.25fr 1fr; grid-template-areas: ". top ." "left mid right" ". bot ."; gap: 10px; align-items: center; max-width: 640px; margin: 0 auto; }
+.dg-cross .top { grid-area: top; } .dg-cross .left { grid-area: left; } .dg-cross .mid { grid-area: mid; padding: 16px 10px; } .dg-cross .right { grid-area: right; } .dg-cross .bot { grid-area: bot; }
+/* 2×2 矩阵（SWOT） */
+.dg-mx { display: grid; grid-template-columns: auto 1fr 1fr; gap: 8px; max-width: 620px; margin: 0 auto; }
+.dg-mx .h { font-size: 12.5px; font-weight: 650; text-align: center; align-self: end; color: var(--text); }
+.dg-mx .h.side { align-self: center; text-align: right; max-width: 120px; }
+.dg-mx .h small { display: block; font-weight: 400; color: var(--muted); }
+.yv-std .dg-mx .h .zh { display: block; }
+.dg-mx .n { padding: 22px 10px; font-size: 15px; }
+/* 金字塔 */
+.dg-pyr { display: grid; gap: 4px; max-width: 640px; margin: 0 auto; }
+.dg-pyr .lv { width: var(--w); margin: 0 auto; display: flex; gap: 6px; }
+.dg-pyr .lv .n { flex: 1; }
+.dg-pyr .q { text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+@container (max-width: 520px) { .dg-pyr .lv { width: calc(46% + var(--w) * .54); } .dg-pyr .n { padding: 8px 5px; font-size: 12.5px; } }
+.dg .n b { overflow-wrap: break-word; }
+/* 树（定价方法） */
+.dg-tree .root { max-width: 320px; margin: 0 auto 14px; }
+.dg-tree .kids { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; position: relative; }
+.dg-tree .kids::before { content: ''; position: absolute; left: 12%; right: 12%; top: -8px; border-top: 2px solid var(--line-2); }
+@container (max-width: 560px) { .dg-tree .kids { grid-template-columns: 1fr 1fr; } }
+/* 填空模板（定位声明） */
+.dg-fill { display: grid; gap: 10px; font-size: 16px; line-height: 1.6; max-width: 620px; margin: 0 auto; color: var(--text); }
+.dg-fill u { text-decoration: none; display: inline-block; min-width: 110px; border-bottom: 2px solid var(--c1, #6366f1); color: var(--muted); font-size: 12.5px; text-align: center; }
+.yv-std .dg-fill .zh { font-size: 12.5px; }
+/* SVG 图（韦恩图、三角形） */
+.dg-svg { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto; }
+.dg-svg circle, .dg-svg polygon { stroke-width: 1.5; }
+.dg-svg text { text-anchor: middle; }
+.dg-svg .ven { fill: var(--text); font-size: 14px; font-weight: 700; }
+.dg-svg .ven.sm { font-size: 12.5px; }
+.dg-svg .ven.hot { fill: #c2410c; font-size: 15px; }
+.dg-svg .vzh { fill: #0d9488; font-size: 12px; }
+html[data-theme="dark"] .dg-svg .vzh { fill: #5fd3c6; }
+.dg-svg .vsub { fill: var(--muted); font-size: 10.5px; font-style: italic; }
+.dg-svg .vbox { fill: var(--surface); stroke: var(--line-2); stroke-width: 1.5; }
+
+/* 图片放大查看 */
+#yv-lightbox { position: fixed; inset: 0; z-index: 9999; display: none; flex-direction: column; background: rgba(8, 10, 20, .88); backdrop-filter: blur(4px); }
+#yv-lightbox.open { display: flex; animation: yvFade .2s ease; }
+@keyframes yvFade { from { opacity: 0; } }
+#yv-lightbox .lb-scroll { flex: 1; overflow: auto; display: flex; align-items: center; justify-content: center; padding: 48px 16px 8px; }
+#yv-lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; background: #fff; border-radius: 8px; cursor: zoom-in; box-shadow: 0 10px 40px rgba(0,0,0,.5); }
+#yv-lightbox.zoom .lb-scroll { align-items: flex-start; justify-content: flex-start; }
+#yv-lightbox.zoom img { max-width: none; max-height: none; width: min(2200px, 220vw); cursor: zoom-out; }
+#yv-lightbox .lb-cap { max-width: 900px; margin: 0 auto; padding: 8px 18px 16px; color: #e5e7eb; font-size: 13px; line-height: 1.55; }
+#yv-lightbox .lb-cap .src { display: inline-block; margin-right: 8px; padding: 1px 8px; border-radius: 99px; background: #6366f1; color: #fff; font-size: 11.5px; font-weight: 600; }
+#yv-lightbox .lb-cap .zh { display: block; color: #5fd3c6; }
+#yv-lightbox .lb-x { position: absolute; top: 10px; right: 12px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(255,255,255,.15); color: #fff; font-size: 16px; cursor: pointer; }
+html.lb-lock, html.lb-lock body { overflow: hidden; }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
@@ -1012,6 +1164,7 @@ function ssSet(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
 
 // ===== 解密 =====
 const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+const figKeys = {};
 async function tryUnlock(id, pw) {
   const e = subjectById[id].enc;
   try {
@@ -1022,6 +1175,7 @@ async function tryUnlock(id, pw) {
     const buf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64d(e.iv) }, key, b64d(e.data));
     Object.assign(contentCache, JSON.parse(new TextDecoder().decode(buf)));
     unlocked[id] = true;
+    figKeys[id] = key;
     return true;
   } catch (err) { return false; }
 }
@@ -1467,7 +1621,54 @@ function enhanceModule(root, hue) {
   root.querySelectorAll('.nav').forEach(nav => setupTabs(nav, root));
   setupQuiz(root); setupRecall(root); setupXrefs(root);
   root.querySelectorAll('.deck').forEach(buildDeck);
+  setupFigs(root);
 }
+
+// ===== 课件配图：打开模块时才下载该模块的加密图片包（img/<模块>.json），用科目密钥解密 =====
+const figBundles = {};
+function loadFigBundle(mid) {
+  if (figBundles[mid]) return figBundles[mid];
+  const mod = moduleById[mid], key = mod && figKeys[mod.subject_id];
+  if (!key) return Promise.resolve(null);
+  figBundles[mid] = fetch('img/' + mid + '.json', { cache: 'no-cache' })
+    .then(r => r.ok ? r.json() : null)
+    .then(async e => {
+      if (!e) return null;
+      const buf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64d(e.iv) }, key, b64d(e.data));
+      return JSON.parse(new TextDecoder().decode(buf));
+    })
+    .catch(() => { delete figBundles[mid]; return null; });
+  return figBundles[mid];
+}
+function setupFigs(root) {
+  root.querySelectorAll('img.yv-shot[data-fig]').forEach(async img => {
+    const fig = img.closest('.yv-fig');
+    img.onclick = () => img.src && openLightbox(img);
+    if (img.getAttribute('src')) return;
+    const [mid, name] = img.dataset.fig.split('/');
+    const b = await loadFigBundle(mid);
+    if (b && b[name]) { img.src = b[name]; img.onload = () => fig && fig.classList.add('ready'); }
+    else if (fig) fig.classList.add('fail');
+  });
+}
+// 点击图片放大查看；再点一下切换"原始大小"，Esc 或点背景关闭
+const lb = document.createElement('div'); lb.id = 'yv-lightbox';
+lb.innerHTML = '<button class="lb-x" aria-label="Close">✕</button><div class="lb-scroll"><img alt=""></div><div class="lb-cap"></div>';
+document.body.appendChild(lb);
+function openLightbox(img) {
+  const big = lb.querySelector('img'); big.src = img.src; big.alt = img.alt;
+  lb.classList.remove('zoom');
+  const cap = img.closest('.yv-fig') && img.closest('.yv-fig').querySelector('figcaption');
+  lb.querySelector('.lb-cap').innerHTML = cap ? cap.innerHTML : '';
+  lb.classList.add('open'); document.documentElement.classList.add('lb-lock');
+}
+function closeLightbox() { lb.classList.remove('open', 'zoom'); document.documentElement.classList.remove('lb-lock'); }
+lb.addEventListener('click', e => {
+  if (e.target.tagName === 'IMG') { lb.classList.toggle('zoom'); return; }
+  if (e.target.closest('.lb-cap')) return;
+  closeLightbox();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) { e.stopPropagation(); closeLightbox(); } }, true);
 
 function scrollModuleTop(root) {
   if (root.dataset.noTop) return;
