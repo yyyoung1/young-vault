@@ -1021,6 +1021,21 @@ html[data-theme="dark"] .dg-svg .vzh { fill: #5fd3c6; }
 #yv-lightbox .lb-cap .zh { display: block; color: #5fd3c6; }
 #yv-lightbox .lb-x { position: absolute; top: 10px; right: 12px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(255,255,255,.15); color: #fff; font-size: 16px; cursor: pointer; }
 html.lb-lock, html.lb-lock body { overflow: hidden; }
+
+/* ===== 测验：锁定后的对错显示、错题标记 ===== */
+.yv-std .qblock.locked .q-opts label { cursor: default; transform: none; }
+.yv-std .qblock.locked .q-opts label:hover { border-color: var(--line); color: var(--muted); }
+.yv-std .qblock.locked .q-opts label.opt-right { border-color: #10b981; color: var(--text); background: color-mix(in srgb, #10b981 13%, var(--surface)); }
+.yv-std .qblock.locked .q-opts label.opt-wrong { border-color: #ef4444; color: var(--text); background: color-mix(in srgb, #ef4444 12%, var(--surface)); }
+.yv-std .qblock.locked .q-opts label.opt-right::after { content: '✓ 正确答案'; margin-left: auto; padding-left: 10px; color: #059669; font-weight: 700; font-size: 12px; white-space: nowrap; }
+.yv-std .qblock.locked .q-opts label.opt-wrong::after { content: '✗ 你的选择'; margin-left: auto; padding-left: 10px; color: #dc2626; font-weight: 700; font-size: 12px; white-space: nowrap; }
+.yv-std .q-fb.warn { border-radius: 12px; padding: 8px 12px; font-size: 13px; color: #92400e; background: #fef3c7; }
+.yv-std .q-fb .q-expl { margin-top: 5px; color: var(--text); opacity: .9; }
+.yv-std .q-wrongtag { display: inline-block; margin-bottom: 8px; padding: 2px 10px; border-radius: 99px; font-size: 11.5px; font-weight: 700; color: #b91c1c; background: color-mix(in srgb, #ef4444 14%, var(--surface)); }
+.yv-std .qb-wrong { color: #dc2626; font-weight: 700; }
+.sb-wrong { margin-left: auto; padding-left: 6px; color: #ef4444; font-size: 11.5px; font-weight: 700; white-space: nowrap; }
+.sb-wrong + .sb-done { margin-left: 0; padding-left: 5px; }
+.card-wrong { float: right; margin-left: 8px; color: #dc2626; font-weight: 700; text-transform: none; letter-spacing: 0; }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
@@ -1237,7 +1252,32 @@ function forgetPasswords() {
 let readSet = new Set();
 try { readSet = new Set(JSON.parse(lsGet('yv-read') || '[]')); } catch (e) {}
 function markRead(id) { if (!readSet.has(id)) { readSet.add(id); lsSet('yv-read', JSON.stringify([...readSet])); } }
-const readCount = s => s.modules.filter(m => readSet.has(m.id)).length;
+let quizState = {};
+try { quizState = JSON.parse(lsGet('yv-quiz') || '{}') || {}; } catch (e) {}
+const saveQuiz = () => lsSet('yv-quiz', JSON.stringify(quizState));
+function quizInfo(id) {
+  const st = quizState[id]; if (!st || !st.n) return null;
+  return { n: st.n, done: Object.keys(st.a || {}).length, wrong: Object.keys(st.w || {}).length };
+}
+function isDone(id) {
+  const q = quizInfo(id); if (q) return q.done >= q.n;
+  const m = moduleById[id], s = m && subjectById[m.subject_id];
+  if (s && s.enc) return false;          // 加密科目的模块都有测验：没做完就不算完成
+  return readSet.has(id);
+}
+const readCount = s => s.modules.filter(m => isDone(m.id)).length;
+function sbMarks(id) {
+  const q = quizInfo(id); let h = '';
+  if (q && q.wrong) h += '<span class="sb-wrong" title="' + q.wrong + ' 道错题待复习">✗' + q.wrong + '</span>';
+  if (isDone(id)) h += '<span class="sb-done" title="测验已全部完成">✓</span>';
+  return h;
+}
+function cardMarks(id) {
+  const q = quizInfo(id); let h = '';
+  if (isDone(id)) h += '<span class="card-done">✓ 已完成</span>';
+  if (q && q.wrong) h += '<span class="card-wrong">✗ ' + q.wrong + ' 错题</span>';
+  return h;
+}
 
 // ===== 缩放 =====
 const ZOOM_STEPS = [50, 75, 100, 125, 150, 175, 200];
@@ -1303,14 +1343,14 @@ function renderHomeGrid() {
         <div class="subject-card-desc">${s.desc} · ${total} modules</div>
         <div class="sc-foot"><div class="progress-row">
           <div class="progress-bar"><i style="width:${total ? done/total*100 : 0}%;background:${s.accent}"></i></div>
-          <span class="progress-text">已读 ${done}/${total}</span>
+          <span class="progress-text">完成 ${done}/${total}</span>
         </div></div>
         <span class="sc-arrow">→</span>
       </div>`;
   });
   document.getElementById('subjects-grid').innerHTML = html;
   document.getElementById('home-stats').innerHTML =
-    `<span class="stat-chip"><b>${SUBJECTS.length}</b> subjects</span><span class="stat-chip"><b>${totalMods}</b> modules</span><span class="stat-chip"><b>${totalRead}</b> read 已读</span>`;
+    `<span class="stat-chip"><b>${SUBJECTS.length}</b> subjects</span><span class="stat-chip"><b>${totalMods}</b> modules</span><span class="stat-chip"><b>${totalRead}</b> done 已完成</span>`;
   const h = new Date().getHours();
   document.getElementById('hero-eyebrow').textContent =
     (h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening') + ' · ' +
@@ -1362,7 +1402,7 @@ function renderSidebar() {
       html += `<div class="sidebar-week-header">${g.week}</div>`;
       for (const m of g.modules) {
         const active = m.id === currentModuleId ? ' active' : '';
-        const done = readSet.has(m.id) ? '<span class="sb-done">✓</span>' : '';
+        const done = sbMarks(m.id);
         html += `<button class="sidebar-module-btn${active}" style="--mc:${m.color}" onclick="goModule('${m.id}')">
           <div class="sb-texts"><span class="sb-en">${m.title}</span><span class="sb-zh">${m.subtitle}</span></div>${done}
         </button>`;
@@ -1380,11 +1420,11 @@ function renderSubjectModules() {
   document.getElementById('subj-desc').textContent = s.desc;
   const done = readCount(s), total = s.modules.length;
   document.getElementById('subj-progress').innerHTML =
-    `<div class="progress-bar"><i style="width:${total ? done/total*100 : 0}%;background:${s.accent}"></i></div><span class="progress-text">已读 ${done}/${total}</span>`;
+    `<div class="progress-bar"><i style="width:${total ? done/total*100 : 0}%;background:${s.accent}"></i></div><span class="progress-text">完成 ${done}/${total}</span>`;
   let html = '', n = 0;
   const groups = groupByWeek(s.modules), flat = groups.every(g => g.modules.length === 1);
   const card = m => {
-    const dn = readSet.has(m.id) ? '<span class="card-done">✓ 已读</span>' : '';
+    const dn = cardMarks(m.id);
     return `<div class="module-card" style="--card-color:${m.color};--i:${n++}" onclick="goModule('${m.id}')" role="button" tabindex="0">
         <div class="module-card-week">${m.week}${dn}</div>
         <div class="module-card-title">${m.title}</div>
@@ -1707,41 +1747,99 @@ function setupTabs(nav, root) {
 }
 
 // 测验：进度条 + 计分 + 重做
+// ===== 测验：每题只能答一次；答完锁定并显示正确答案和解析；状态保存在本机；答错的题记入错题 =====
+function parseCheck(btn) {
+  const code = btn.getAttribute('onclick') || '';
+  if (!/^\s*\w+_check\(/.test(code)) return null;
+  let out = null;
+  try { new Function('__c', code.replace(/^\s*\w+_check\(/, '__c('))((q, c, e) => { out = { q, c, e: e || '' }; }); } catch (err) {}
+  return out;
+}
 function setupQuiz(root) {
+  const mid = root.id === 'split-content' ? root.dataset.mid : currentModuleId;
+  const all = [...root.querySelectorAll('.qblock')];
+  if (!all.length) return;
+  const st = (mid && (quizState[mid] = quizState[mid] || {})) || {};
+  st.a = st.a || {}; st.w = st.w || {}; st.n = all.length;
+  const persist = () => { if (mid) { saveQuiz(); renderSidebar(); } };
+  persist();
+  const labelOf = (b, v) => { const i = b.querySelector('input[value="' + v + '"]'); return i && i.closest('label'); };
+  const tagWrong = (b, on) => {
+    let t = b.querySelector('.q-wrongtag');
+    if (on && !t) { t = document.createElement('div'); t.className = 'q-wrongtag'; t.textContent = '✗ 错题 · 第二遍重点复习'; b.insertBefore(t, b.firstChild); }
+    if (!on && t) t.remove();
+  };
+  const lock = (b, info, pick) => {
+    const ok = pick === info.c;
+    b.querySelectorAll('input').forEach(i => { i.disabled = true; i.checked = i.value === pick; });
+    const right = labelOf(b, info.c), mine = labelOf(b, pick);
+    if (right) right.classList.add('opt-right');
+    if (!ok && mine) mine.classList.add('opt-wrong');
+    const fb = b.querySelector('.q-fb');
+    const ans = right ? right.textContent.trim() : info.c;
+    fb.className = 'q-fb ' + (ok ? 'ok' : 'err');
+    fb.innerHTML = (ok ? '✅ Correct! 答对了' : '❌ Not quite. 答错了 — Correct answer 正确答案：<b>' + esc(ans) + '</b>') +
+      (info.e ? '<div class="q-expl">' + esc(info.e) + '</div>' : '');
+    b.classList.add('locked');
+    const btn = b.querySelector('.q-check'); if (btn) btn.hidden = true;
+  };
+  const unlock = b => {
+    b.classList.remove('locked');
+    b.querySelectorAll('input').forEach(i => { i.disabled = false; i.checked = false; });
+    b.querySelectorAll('.opt-right, .opt-wrong').forEach(l => l.classList.remove('opt-right', 'opt-wrong'));
+    const fb = b.querySelector('.q-fb'); if (fb) { fb.className = 'q-fb'; fb.textContent = ''; }
+    const btn = b.querySelector('.q-check'); if (btn) btn.hidden = false;
+  };
+  const info = new Map();
+  all.forEach(b => {
+    const btn = [...b.querySelectorAll('button')].find(x => /_check\(/.test(x.getAttribute('onclick') || ''));
+    const inf = btn && parseCheck(btn);
+    if (!inf) return;
+    info.set(b, inf);
+    btn.removeAttribute('onclick'); btn.classList.add('q-check');
+    btn.addEventListener('click', () => {
+      const sel = b.querySelector('input:checked');
+      const fb = b.querySelector('.q-fb');
+      if (!sel) { fb.className = 'q-fb warn'; fb.textContent = 'Please select an answer first. 请先选择一个答案。'; return; }
+      st.a[inf.q] = sel.value;
+      if (sel.value === inf.c) delete st.w[inf.q]; else st.w[inf.q] = 1;
+      lock(b, inf, sel.value); tagWrong(b, !!st.w[inf.q]);
+      persist(); b.dispatchEvent(new Event('yv-answer', { bubbles: true }));
+    });
+    if (st.a[inf.q] != null) lock(b, inf, st.a[inf.q]);
+    tagWrong(b, !!st.w[inf.q]);
+  });
   root.querySelectorAll('.sec').forEach(sec => {
-    const blocks = [...sec.querySelectorAll('.qblock')];
+    const blocks = [...sec.querySelectorAll('.qblock')].filter(b => info.has(b));
     if (!blocks.length) return;
     const bar = document.createElement('div'); bar.className = 'quiz-bar';
-    bar.innerHTML = '<div class="qb-track"><div class="qb-ok"></div><div class="qb-err"></div></div><span class="qb-text"></span><button type="button">↺ Reset 重做</button>';
+    bar.innerHTML = '<div class="qb-track"><div class="qb-ok"></div><div class="qb-err"></div></div><span class="qb-text"></span><button type="button">↺ Redo 重做</button>';
     blocks[0].parentNode.insertBefore(bar, blocks[0]);
     const okEl = bar.querySelector('.qb-ok'), errEl = bar.querySelector('.qb-err'), txt = bar.querySelector('.qb-text');
-    let wasPerfect = false;
+    let wasPerfect = null;
     const upd = () => {
-      let ok = 0, err = 0;
+      let ok = 0, err = 0, wrongTotal = 0;
       blocks.forEach(b => {
-        const f = b.querySelector('.q-fb');
-        const isOk = !!f && f.classList.contains('ok'), isErr = !!f && f.classList.contains('err');
+        const inf = info.get(b), pick = st.a[inf.q];
+        const isOk = pick != null && pick === inf.c, isErr = pick != null && pick !== inf.c;
         b.classList.toggle('is-ok', isOk); b.classList.toggle('is-err', isErr);
-        if (isOk) ok++; if (isErr) err++;
+        if (isOk) ok++; if (isErr) err++; if (st.w[inf.q]) wrongTotal++;
       });
       const n = blocks.length;
       okEl.style.width = ok / n * 100 + '%'; errEl.style.left = ok / n * 100 + '%'; errEl.style.width = err / n * 100 + '%';
       const perfect = ok === n;
       bar.classList.toggle('perfect', perfect);
-      txt.innerHTML = perfect ? '🎉 <b>' + n + ' / ' + n + '</b> Perfect! 全对' : '<b>' + ok + '</b> / ' + n + ' correct 答对 · ' + (ok + err) + ' answered 已答';
-      if (perfect && !wasPerfect) burst(bar);
+      txt.innerHTML = (perfect ? '🎉 <b>' + n + ' / ' + n + '</b> Perfect! 全对' : '<b>' + ok + '</b> / ' + n + ' correct 答对 · ' + (ok + err) + ' answered 已答') +
+        (wrongTotal ? ' · <span class="qb-wrong">✗ ' + wrongTotal + ' 错题待复习</span>' : '');
+      if (perfect && wasPerfect === false) burst(bar);
       wasPerfect = perfect;
     };
-    blocks.forEach(b => {
-      const f = b.querySelector('.q-fb');
-      if (f) new MutationObserver(upd).observe(f, { attributes: true, attributeFilter: ['class'] });
-    });
+    sec.addEventListener('yv-answer', upd);
     bar.querySelector('button').addEventListener('click', () => {
-      blocks.forEach(b => {
-        b.querySelectorAll('input').forEach(i => { i.checked = false; });
-        const f = b.querySelector('.q-fb'); if (f) { f.className = 'q-fb'; f.textContent = ''; }
-      });
-      wasPerfect = false; upd();
+      if (!blocks.some(b => st.a[info.get(b).q] != null)) return;
+      if (!confirm('重做这一组测验？已答记录会清空；错题标记会保留，直到你重新答对。')) return;
+      blocks.forEach(b => { delete st.a[info.get(b).q]; unlock(b); });
+      persist(); wasPerfect = false; upd();
     });
     upd();
   });
@@ -2045,6 +2143,7 @@ function openSplit(modId, secId, find, chip) {
     body.innerHTML = contentCache[modId];
     body.querySelectorAll('script').forEach(old => { const s = document.createElement('script'); s.textContent = old.textContent; old.replaceWith(s); });
     glossify(body, m.subject_id);
+    body.dataset.mid = modId;
     enhanceModule(body, m._h);
     body.classList.toggle('yv-dark', !!subjectById[m.subject_id].enc);
     pane.querySelector('.sp-close').onclick = closeSplit;
