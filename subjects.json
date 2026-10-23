@@ -3,7 +3,7 @@
     "id": "mktg90004",
     "code": "MKTG90004",
     "name": "Marketing Management",
-    "desc": "Marketing · Weeks 1–11",
+    "desc": "Marketing · Weeks 1–12",
     "accent": "#EC4899",
     "modules": [
       {
@@ -81,6 +81,13 @@
         "week": "Week 11",
         "title": "Market Research & Metrics",
         "subtitle": "Research design · Qual vs Quant · ROMI · Market share",
+        "color": "#EC4899"
+      },
+      {
+        "file": "mktg90004_w12_exam_review.html",
+        "week": "Week 12",
+        "title": "Course Review & Exam Revision",
+        "subtitle": "Exam structure · What’s examinable · Example questions · 2 × A4 notes",
         "color": "#EC4899"
       }
     ]

@@ -1849,7 +1849,7 @@ rpill.addEventListener('click', async () => {
 
 // ===== 期末复习计划（打勾进度只存在本机浏览器）=====
 const PLAN_EXAMS = [
-  { sid: 'mktg90004', code: 'MKTG90004', name: 'Marketing Management', date: '2026-11-11', time: '08:30', fmt: 'Digital exam · typed', rule: 'Open book · paper limit TBC', weight: '50%' },
+  { sid: 'mktg90004', code: 'MKTG90004', name: 'Marketing Management', date: '2026-11-11', time: '08:30', fmt: 'LMS quiz · LockDown Browser', rule: '2 × A4 notes (double sided)', weight: '50% · 25 MCQ + 3 short + 1 long' },
   { sid: 'mgmt90030', code: 'MGMT90030', name: 'Managing Innovation', date: '2026-11-11', time: '16:30', fmt: 'Digital exam · typed', rule: 'Open book · paper limit TBC', weight: '40%' },
   { sid: 'mgmt90032', code: 'MGMT90032', name: 'Operations & Process Mgmt', date: '2026-11-13', time: '16:30', fmt: 'Written exam · paper', rule: 'Closed book — memorise!', weight: '50%' },
   { sid: 'mgmt90025', code: 'MGMT90025', name: 'People & Change', date: '2026-11-16', time: '08:30', fmt: 'Digital exam · typed', rule: 'Max two A4 cheat sheets', weight: '50%' }
@@ -1863,21 +1863,22 @@ const PLAN_PHASES = {
 };
 const PLAN_DAYS = [
   { d: '2026-10-23', ph: 'start', title: 'Get oriented + MKTG90004 W1 先看清考什么', tasks: [
-    { t: 'Check outstanding assignments: MKTG Part B & MGMT90030 group video (both due Sun 25 Oct) — finish those first' },
+    { t: 'Check outstanding assignments: MKTG90004 Part B & MGMT90030 group video (both due Sun 25 Oct) — finish those first' },
     { t: 'Read MGMT90032 W12 “Exam Format” tab (closed book, 8 of 10 + 2 calc questions)', m: 'mgmt90032_w12_exam_review' },
     { t: 'Read MGMT90025 W12 “Exam Info & Tips” tab (4 questions × ~500 words, 2 × A4)', m: 'mgmt90025_w12_review' },
     { t: 'Read MGMT90030 W12 “Exam & Plan” + “Practice Exam” tabs', m: 'mgmt90030_w12_exam_review' },
-    { t: 'MKTG W1 · read + quiz all correct (incl. “Assessments”: exam 2 hours, 50%)', m: 'mktg90004_w1_what_is_marketing' } ] },
+    { t: 'MKTG90004 W1 · read + quiz all correct (incl. “Assessments”: exam 2 hours, 50%)', m: 'mktg90004_w1_what_is_marketing' },
+    { t: 'NEW: MKTG90004 W12 — read “Exam Structure” + “What’s Examinable” (skip the 🚫 parts while studying)', m: 'mktg90004_w12_exam_review' } ] },
   { d: '2026-10-24', ph: 'p1', title: 'MKTG90004 · W2–W4', tasks: [
-    { t: 'MKTG W2', m: 'mktg90004_w2_consumers' }, { t: 'MKTG W3', m: 'mktg90004_w3_environment' }, { t: 'MKTG W4', m: 'mktg90004_w4_stp' } ] },
+    { t: 'MKTG90004 W2', m: 'mktg90004_w2_consumers' }, { t: 'MKTG90004 W3 (MCQ only — read quickly)', m: 'mktg90004_w3_environment' }, { t: 'MKTG90004 W4', m: 'mktg90004_w4_stp' } ] },
   { d: '2026-10-25', ph: 'p1', title: 'MKTG90004 · W5–W7 (deadline day)', tasks: [
-    { t: 'Submit any assignment due today first' }, { t: 'MKTG W5 (assessment week, quick)', m: 'mktg90004_w5_assessment' },
-    { t: 'MKTG W6', m: 'mktg90004_w6_product_brand' }, { t: 'MKTG W7', m: 'mktg90004_w7_services' } ] },
+    { t: 'Submit any assignment due today first' }, { t: 'MKTG90004 W5 (assessment week, quick)', m: 'mktg90004_w5_assessment' },
+    { t: 'MKTG90004 W6', m: 'mktg90004_w6_product_brand' }, { t: 'MKTG90004 W7', m: 'mktg90004_w7_services' } ] },
   { d: '2026-10-26', ph: 'p1', title: 'MKTG90004 · W8–W9', tasks: [
-    { t: 'MKTG W8', m: 'mktg90004_w8_communication' }, { t: 'MKTG W9', m: 'mktg90004_w9_pricing' } ] },
+    { t: 'MKTG90004 W8', m: 'mktg90004_w8_communication' }, { t: 'MKTG90004 W9', m: 'mktg90004_w9_pricing' } ] },
   { d: '2026-10-27', ph: 'p1', title: 'MKTG90004 · W10–W11 + quiz redo', tasks: [
-    { t: 'MKTG W10', m: 'mktg90004_w10_distribution' }, { t: 'MKTG W11', m: 'mktg90004_w11_research_metrics' },
-    { t: 'Redo every MKTG quiz once (use ↺ Reset); note the ones you got wrong' } ] },
+    { t: 'MKTG90004 W10', m: 'mktg90004_w10_distribution' }, { t: 'MKTG90004 W11 (MCQ only — research part, skip metrics)', m: 'mktg90004_w11_research_metrics' },
+    { t: 'Redo every MKTG90004 quiz once (use ↺ Reset); note the ones you got wrong' } ] },
   { d: '2026-10-28', ph: 'p1', title: 'MGMT90030 · W1–W3', tasks: [
     { t: '90030 W1 (course framework!)', m: 'mgmt90030_w1_intro' }, { t: '90030 W2', m: 'mgmt90030_w2_creativity' }, { t: '90030 W3', m: 'mgmt90030_w3_paradigm_change' } ] },
   { d: '2026-10-29', ph: 'p1', title: 'MGMT90030 · W4–W5 (core theories)', tasks: [
@@ -1905,15 +1906,17 @@ const PLAN_DAYS = [
     { t: '90025 W9', m: 'mgmt90025_w9_training' }, { t: '90025 W10', m: 'mgmt90025_w10_individual_emotions' }, { t: '90025 W11', m: 'mgmt90025_w11_resistance_readiness' }, { t: '90025 W12 review', m: 'mgmt90025_w12_review' },
     { t: 'Finish cheat sheet v1 (two A4 sides max)' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
   { d: '2026-11-08', ph: 'p2', title: 'MKTG90004 exam prep', tasks: [
-    { t: 'MKTG W12 review lecture + any exam guide / past questions' },
-    { t: 'Build an open-book index: week → key frameworks → page/module' },
-    { t: 'Practise 2–3 answers under time pressure' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
+    { t: 'MKTG90004 W12: re-read “What’s Examinable” and “How to Answer”', m: 'mktg90004_w12_exam_review' },
+    { t: 'Write the two example questions timed: DAG short answer (18 min) + customer journey long answer (36 min)', m: 'mktg90004_w12_exam_review' },
+    { t: 'Make your 2 × A4 double-sided notes (follow the “2 × A4 Notes” tab)' },
+    { t: 'MCQ practice: redo every MKTG90004 weekly quiz (Section 1 = 25 MCQ)' },
+    { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
   { d: '2026-11-09', ph: 'p2', title: 'MGMT90030 exam prep', tasks: [
     { t: 'Practice exam: write Tasks 1–3 timed (≈ 30 min each)', m: 'mgmt90030_w12_exam_review' },
     { t: 'Compare with the answer frames; fill gaps via the 📚 links' },
     { t: 'Build an open-book index: author → concept → week' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
   { d: '2026-11-10', ph: 'p2', title: 'Light review · pack · sleep early', tasks: [
-    { t: 'Skim MKTG index + 90030 index (no new material)' }, { t: 'Pack: student ID, charged laptop + charger, printed notes' }, { t: 'Sleep early — first exam at 08:30' } ] },
+    { t: 'Skim your MKTG90004 2 × A4 notes + 90030 index (no new material)' }, { t: 'Check LockDown Browser works; pack student ID, pen, charged laptop + charger, the 2 × A4 notes' }, { t: 'Sleep early — first exam at 08:30' } ] },
   { d: '2026-11-11', ph: 'exam', title: 'EXAM DAY · MKTG90004 08:30 · MGMT90030 16:30', tasks: [
     { t: 'MKTG90004 exam 08:30' }, { t: 'Lunch + rest; 1 hour skim of the 90030 index' }, { t: 'MGMT90030 exam 16:30' } ] },
   { d: '2026-11-12', ph: 'p3', title: 'MGMT90032 full day (closed book)', tasks: [
