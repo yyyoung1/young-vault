@@ -863,6 +863,12 @@ html[data-theme="dark"] .pt-zh { color: #5fd3c6; }
 .plan-task.done .pt-zh { color: var(--faint); }
 .plan-task[data-id^="r:"] .pt-text { font-style: normal; }
 .plan-task[data-id^="r:"] .pt-box { border-style: dashed; }
+.yv-std .zh-line { display: block; margin-top: 3px; font-size: .93em; line-height: 1.6; }
+.yv-std td .zh-line, .yv-std th .zh-line { font-size: 12.5px; }
+.yv-std .slide .zh-line, .yv-std .tip .zh-line, .yv-std .warn .zh-line, .yv-std .formula .zh-line { margin-top: 6px; font-family: var(--font-sans); }
+/* recall mode: hide the Chinese gloss of a line until its hidden terms are revealed */
+.recall-on :is(li,td,p,div):has(> .cz:not(.rev), > b > .cz:not(.rev), > strong > .cz:not(.rev)) > .zh { filter: blur(6px); transition: filter .2s; cursor: pointer; }
+.recall-on :is(li,td,p,div):has(> .cz:not(.rev), > b > .cz:not(.rev), > strong > .cz:not(.rev)) > .zh:hover { filter: none; }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
