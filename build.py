@@ -1862,49 +1862,65 @@ const PLAN_PHASES = {
   p3: { label: 'Final sprint 最后冲刺', color: '#10b981' }
 };
 const PLAN_DAYS = [
-  { d: '2026-10-23', ph: 'start', title: 'Get oriented + MKTG90004 W1 先看清考什么', tasks: [
+  { d: 'start', ph: 'start', title: 'Start 起步 — see what each exam looks like first 先看清每门考什么', tasks: [
     { t: 'Check outstanding assignments: MKTG90004 Part B & MGMT90030 group video (both due Sun 25 Oct) — finish those first' },
     { t: 'Read MGMT90032 W12 “Exam Format” tab (closed book, 8 of 10 + 2 calc questions)', m: 'mgmt90032_w12_exam_review' },
     { t: 'Read MGMT90025 W12 “Exam Info & Tips” tab (4 questions × ~500 words, 2 × A4)', m: 'mgmt90025_w12_review' },
     { t: 'Read MGMT90030 W12 “Exam & Plan” + “Practice Exam” tabs', m: 'mgmt90030_w12_exam_review' },
-    { t: 'MKTG90004 W1 · read + quiz all correct (incl. “Assessments”: exam 2 hours, 50%)', m: 'mktg90004_w1_what_is_marketing' },
-    { t: 'NEW: MKTG90004 W12 — read “Exam Structure” + “What’s Examinable” (skip the 🚫 parts while studying)', m: 'mktg90004_w12_exam_review' } ] },
-  { d: '2026-10-24', ph: 'p1', title: 'MKTG90004 · W2–W4', tasks: [
+    { t: 'Read MKTG90004 W12 “Exam Structure” + “What’s Examinable” (skip the 🚫 parts while studying)', m: 'mktg90004_w12_exam_review' } ] },
+  { d: '2026-10-23', ph: 'p1', title: 'MKTG90004 · W1–W4', tasks: [
+    { t: 'MKTG90004 W1 · read + quiz all correct', m: 'mktg90004_w1_what_is_marketing' },
     { t: 'MKTG90004 W2', m: 'mktg90004_w2_consumers' }, { t: 'MKTG90004 W3 (MCQ only — read quickly)', m: 'mktg90004_w3_environment' }, { t: 'MKTG90004 W4', m: 'mktg90004_w4_stp' } ] },
-  { d: '2026-10-25', ph: 'p1', title: 'MKTG90004 · W5–W7 (deadline day)', tasks: [
-    { t: 'Submit any assignment due today first' }, { t: 'MKTG90004 W5 (assessment week, quick)', m: 'mktg90004_w5_assessment' },
+  { d: '2026-10-24', ph: 'p1', title: 'MKTG90004 · W5–W7', tasks: [
+    { t: 'MKTG90004 W5 (assessment week, quick)', m: 'mktg90004_w5_assessment' },
     { t: 'MKTG90004 W6', m: 'mktg90004_w6_product_brand' }, { t: 'MKTG90004 W7', m: 'mktg90004_w7_services' } ] },
-  { d: '2026-10-26', ph: 'p1', title: 'MKTG90004 · W8–W9', tasks: [
+  { d: '2026-10-25', ph: 'p1', title: 'MKTG90004 · W8–W9 (deadline day)', tasks: [
+    { t: 'Submit any assignment due today first' },
     { t: 'MKTG90004 W8', m: 'mktg90004_w8_communication' }, { t: 'MKTG90004 W9', m: 'mktg90004_w9_pricing' } ] },
-  { d: '2026-10-27', ph: 'p1', title: 'MKTG90004 · W10–W11 + quiz redo', tasks: [
+  { d: '2026-10-26', ph: 'p1', title: 'MKTG90004 · W10–W11 + quiz redo', tasks: [
     { t: 'MKTG90004 W10', m: 'mktg90004_w10_distribution' }, { t: 'MKTG90004 W11 (MCQ only — research part, skip metrics)', m: 'mktg90004_w11_research_metrics' },
     { t: 'Redo every MKTG90004 quiz once (use ↺ Reset); note the ones you got wrong' } ] },
-  { d: '2026-10-28', ph: 'p1', title: 'MGMT90030 · W1–W3', tasks: [
-    { t: '90030 W1 (course framework!)', m: 'mgmt90030_w1_intro' }, { t: '90030 W2', m: 'mgmt90030_w2_creativity' }, { t: '90030 W3', m: 'mgmt90030_w3_paradigm_change' } ] },
-  { d: '2026-10-29', ph: 'p1', title: 'MGMT90030 · W4–W5 (core theories)', tasks: [
-    { t: '90030 W4 — selection systems (Wijnberg)', m: 'mgmt90030_w4_value' }, { t: '90030 W5 — Abrahamson four perspectives', m: 'mgmt90030_w5_diffusion' } ] },
-  { d: '2026-10-30', ph: 'p1', title: 'MGMT90030 · W6–W8', tasks: [
-    { t: '90030 W6–7 institutions', m: 'mgmt90030_w6_institutions' }, { t: '90030 W8 agents of change', m: 'mgmt90030_w8_agents_of_change' } ] },
-  { d: '2026-10-31', ph: 'p1', title: 'MGMT90030 · W9–W11', tasks: [
-    { t: '90030 W9', m: 'mgmt90030_w9_exploration_exploitation' }, { t: '90030 W10', m: 'mgmt90030_w10_resource_deployment' }, { t: '90030 W11', m: 'mgmt90030_w11_networks_classification' } ] },
-  { d: '2026-11-01', ph: 'p1', title: 'MGMT90032 · W1–W3 (+ EOQ, AP calcs)', tasks: [
-    { t: '90032 W1', m: 'mgmt90032_w1_intro' }, { t: '90032 W2 — do the EOQ example by hand', m: 'mgmt90032_w2_forecast_inventory' }, { t: '90032 W3 — do the AP + MPS tables by hand', m: 'mgmt90032_w3_aggregate_mps' } ] },
-  { d: '2026-11-02', ph: 'p1', title: 'MGMT90032 · W4–W6 (+ MRP)', tasks: [
-    { t: '90032 W4 — do the MRP component J table by hand', m: 'mgmt90032_w4_mrp_erp' }, { t: '90032 W5', m: 'mgmt90032_w5_jit_lean' }, { t: '90032 W6', m: 'mgmt90032_w6_strategy' } ] },
-  { d: '2026-11-03', ph: 'p1', title: 'MGMT90032 · W7–W8 (+ line balancing)', tasks: [
-    { t: '90032 W7 — do a line-balancing question by hand', m: 'mgmt90032_w7_process_layout' }, { t: '90032 W8', m: 'mgmt90032_w8_scm' } ] },
-  { d: '2026-11-04', ph: 'p1', title: 'MGMT90032 · W9–W10 (+ SPC) · start flashcards', tasks: [
+  { d: '2026-10-27', ph: 'p1', title: 'MGMT90032 · W1–W3 (+ EOQ, AP, MPS calcs) — closed book, learn it early', tasks: [
+    { t: '90032 W1 — Planned vs Lean big picture', m: 'mgmt90032_w1_intro' },
+    { t: '90032 W2 — do the EOQ example by hand', m: 'mgmt90032_w2_forecast_inventory' },
+    { t: '90032 W3 — do the AP + MPS tables by hand', m: 'mgmt90032_w3_aggregate_mps' } ] },
+  { d: '2026-10-28', ph: 'p1', title: 'MGMT90032 · W4–W6 (+ MRP)', tasks: [
+    { t: '90032 W4 — do the MRP component J table by hand', m: 'mgmt90032_w4_mrp_erp' },
+    { t: '90032 W5', m: 'mgmt90032_w5_jit_lean' }, { t: '90032 W6', m: 'mgmt90032_w6_strategy' } ] },
+  { d: '2026-10-29', ph: 'p1', title: 'MGMT90032 · W7–W8 (+ line balancing)', tasks: [
+    { t: '90032 W7 — do a line-balancing question by hand', m: 'mgmt90032_w7_process_layout' },
+    { t: '90032 W8', m: 'mgmt90032_w8_scm' } ] },
+  { d: '2026-10-30', ph: 'p1', title: 'MGMT90032 · W9–W10 (+ SPC) · start flashcards', tasks: [
     { t: '90032 W9', m: 'mgmt90032_w9_quality' }, { t: '90032 W10 — do the X̄/R chart question by hand', m: 'mgmt90032_w10_spc_sixsigma' },
-    { t: '90032 Flashcards — first round (from now on 30 min every day)', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-05', ph: 'p1', title: 'MGMT90025 · W1–W4 (start 2-page cheat sheet)', tasks: [
+    { t: '90032 W12 — read “Section 1 Answers” and do the Flashcards once (from now on 30 min every day)', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-10-31', ph: 'p1', title: 'MGMT90030 · W1–W3', tasks: [
+    { t: '90030 W1 (course framework!)', m: 'mgmt90030_w1_intro' }, { t: '90030 W2', m: 'mgmt90030_w2_creativity' }, { t: '90030 W3', m: 'mgmt90030_w3_paradigm_change' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-01', ph: 'p1', title: 'MGMT90030 · W4–W5 (core theories)', tasks: [
+    { t: '90030 W4 — selection systems (Wijnberg)', m: 'mgmt90030_w4_value' }, { t: '90030 W5 — Abrahamson four perspectives', m: 'mgmt90030_w5_diffusion' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-02', ph: 'p1', title: 'MGMT90030 · W6–W8', tasks: [
+    { t: '90030 W6–7 institutions', m: 'mgmt90030_w6_institutions' }, { t: '90030 W8 agents of change', m: 'mgmt90030_w8_agents_of_change' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-03', ph: 'p1', title: 'MGMT90030 · W9–W11', tasks: [
+    { t: '90030 W9', m: 'mgmt90030_w9_exploration_exploitation' }, { t: '90030 W10', m: 'mgmt90030_w10_resource_deployment' }, { t: '90030 W11', m: 'mgmt90030_w11_networks_classification' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-04', ph: 'p1', title: 'MGMT90025 · W1–W4 (start 2-page cheat sheet)', tasks: [
     { t: '90025 W1', m: 'mgmt90025_w1_overview' }, { t: '90025 W2', m: 'mgmt90025_w2_why_how_change' }, { t: '90025 W3', m: 'mgmt90025_w3_culture_teams' }, { t: '90025 W4', m: 'mgmt90025_w4_it_innovation' },
-    { t: 'Copy each week’s key frameworks + authors into the A4 cheat-sheet draft' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-06', ph: 'p1', title: 'MGMT90025 · W5–W8', tasks: [
+    { t: 'Copy each week’s key frameworks + authors into the A4 cheat-sheet draft' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-05', ph: 'p1', title: 'MGMT90025 · W5–W8', tasks: [
     { t: '90025 W5', m: 'mgmt90025_w5_mna_downsizing' }, { t: '90025 W6', m: 'mgmt90025_w6_communication' }, { t: '90025 W7', m: 'mgmt90025_w7_strategy' }, { t: '90025 W8', m: 'mgmt90025_w8_leadership' },
-    { t: 'Add to the A4 cheat-sheet draft' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
-  { d: '2026-11-07', ph: 'p1', title: 'MGMT90025 · W9–W12 (cheat sheet v1)', tasks: [
+    { t: 'Add to the A4 cheat-sheet draft' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-06', ph: 'p1', title: 'MGMT90025 · W9–W12 (cheat sheet v1)', tasks: [
     { t: '90025 W9', m: 'mgmt90025_w9_training' }, { t: '90025 W10', m: 'mgmt90025_w10_individual_emotions' }, { t: '90025 W11', m: 'mgmt90025_w11_resistance_readiness' }, { t: '90025 W12 review', m: 'mgmt90025_w12_review' },
-    { t: 'Finish cheat sheet v1 (two A4 sides max)' }, { t: '90032 flashcards 30 min', m: 'mgmt90032_w12_exam_review' } ] },
+    { t: 'Finish cheat sheet v1 (two A4 sides max)' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
+  { d: '2026-11-07', ph: 'p1', title: 'Buffer day 缓冲日 — catch up on anything unticked', tasks: [
+    { t: 'Go back through the plan and finish every unticked task 补完之前没打勾的' },
+    { t: 'Re-do the quizzes you got wrong (all subjects)' },
+    { t: '90032 flashcards / one calc question — 30 min (spaced review)', m: 'mgmt90032_w12_exam_review' } ] },
   { d: '2026-11-08', ph: 'p2', title: 'MKTG90004 exam prep', tasks: [
     { t: 'MKTG90004 W12: re-read “What’s Examinable” and “How to Answer”', m: 'mktg90004_w12_exam_review' },
     { t: 'Write the two example questions timed: DAG short answer (18 min) + customer journey long answer (36 min)', m: 'mktg90004_w12_exam_review' },
@@ -1934,6 +1950,12 @@ const PLAN_DAYS = [
 ];
 let planDone = {};
 try { planDone = JSON.parse(lsGet('yv-plan') || '{}'); } catch (e) {}
+if (lsGet('yv-plan-v') !== '2') {
+  const old = '2026-10-23#', map = { 0: 'start#0', 1: 'start#1', 2: 'start#2', 3: 'start#3', 4: old + 0, 5: 'start#4', 6: old + 1, 7: old + 2, 8: old + 3 };
+  const moved = {};
+  Object.keys(planDone).forEach(k => { if (k.startsWith(old)) { const t = map[k.slice(old.length)]; if (t) moved[t] = true; } else moved[k] = planDone[k]; });
+  planDone = moved; lsSet('yv-plan', JSON.stringify(planDone)); lsSet('yv-plan-v', '2');
+}
 const planKey = (d, i) => d + '#' + i;
 const todayStr = () => { const t = new Date(); return t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0'); };
 const daysUntil = ds => Math.round((new Date(ds + 'T00:00:00') - new Date(todayStr() + 'T00:00:00')) / 86400000);
@@ -1982,9 +2004,10 @@ function renderPlan() {
   PLAN_DAYS.forEach(day => {
     const ph = PLAN_PHASES[day.ph];
     if (day.ph !== lastPh) { html += `<div class="plan-phase" style="--pc:${ph.color}">${ph.label}</div>`; lastPh = day.ph; }
-    const rel = day.d < today ? ' past' : day.d === today ? ' today' : '';
+    const isStart = day.d === 'start';
+    const rel = isStart ? '' : day.d < today ? ' past' : day.d === today ? ' today' : '';
     html += `<div class="plan-day${rel}${day.ph === 'exam' ? ' examday' : ''}" style="--pc:${ph.color}" id="pd-${day.d}">
-      <div class="pd-head"><span class="pd-date">${fmtDay(day.d)}</span>${day.d === today ? '<span class="pd-today">TODAY 今天</span>' : ''}<span class="pd-title">${esc(day.title)}</span><span class="pd-count"></span></div>
+      <div class="pd-head"><span class="pd-date">${isStart ? 'START' : fmtDay(day.d)}</span>${day.d === today ? '<span class="pd-today">TODAY 今天</span>' : ''}<span class="pd-title">${esc(day.title)}</span><span class="pd-count"></span></div>
       <div class="pd-tasks">${day.tasks.map((t, i) => taskHtml(day, t, i)).join('')}</div></div>`;
   });
   document.getElementById('plan-days').innerHTML = html;
@@ -1994,12 +2017,15 @@ function renderHomePlan() {
   const box = document.getElementById('home-plan'); if (!box) return;
   const today = todayStr();
   const next = PLAN_EXAMS.filter(e => daysUntil(e.date) >= 0);
-  const day = PLAN_DAYS.find(d => d.d === today) || PLAN_DAYS.find(d => d.d > today);
+  const day = PLAN_DAYS.find(d => d.d === today) || PLAN_DAYS.find(d => d.d !== 'start' && d.d > today);
+  const st = PLAN_DAYS.find(d => d.d === 'start');
+  const stOpen = st && st.tasks.some((t, i) => !planDone[planKey('start', i)]);
   if (!next.length && !day) { box.innerHTML = ''; return; }
   const { n, k } = planStats();
   box.innerHTML = `<div class="home-plan-card">
     <div class="hp-head"><span class="hp-title">📅 Exam plan 期末复习计划</span><button class="hp-open" onclick="goPlan()">Open full plan 完整计划 →</button></div>
     <div class="hp-exams">${next.map(e => { const s = subjectById[e.sid]; const l = daysUntil(e.date); return `<span class="hp-ex" style="--ec:${(s && s.accent) || '#6366f1'}"><b>${l === 0 ? 'TODAY' : l + 'd'}</b> ${e.code}</span>`; }).join('')}</div>
+    ${stOpen ? `<div class="hp-day"><div class="hp-dlabel">Start 起步</div>${st.tasks.map((t, i) => taskHtml(st, t, i)).join('')}</div>` : ''}
     ${day ? `<div class="hp-day"><div class="hp-dlabel">${day.d === today ? 'Today 今天' : 'Next 下一天'} · ${fmtDay(day.d)} — ${esc(day.title)}</div>${day.tasks.map((t, i) => taskHtml(day, t, i)).join('')}</div>` : ''}
     <div class="progress-row"><div class="progress-bar"><i class="plan-prog-fill" style="width:${n ? k / n * 100 : 0}%;background:linear-gradient(90deg,#6366f1,#10b981)"></i></div><span class="progress-text plan-prog-text">${k} / ${n} tasks 已完成</span></div>
   </div>`;
