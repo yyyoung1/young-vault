@@ -819,6 +819,45 @@ html[data-theme="dark"] .ec-tags span.hot { color: #fca5a5; }
 .hp-dlabel { font-size: 12px; font-weight: 700; color: var(--muted); margin: 2px 0 4px; }
 
 @media (max-width: 768px) { #view-plan { padding: 24px 14px 70px; } .plan-day.today { transform: none; } .pt-open { padding: 3px 8px; } }
+
+/* ===== 计划编辑 ===== */
+.plan-toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 14px 0 0; max-width: 980px; }
+.pl-sp { flex: 1; }
+.pl-btn { border: 1px solid var(--line-2); background: var(--surface); color: var(--text); border-radius: 10px; padding: 7px 12px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all .2s var(--ease); display: inline-flex; align-items: center; gap: 4px; }
+.pl-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+.pl-btn.primary { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; box-shadow: 0 6px 14px -6px var(--accent-strong); }
+#view-plan.editing .pl-btn.primary { background: #10b981; border-color: #10b981; box-shadow: 0 6px 14px -6px #10b981; }
+.pl-tag { font-size: 11px; font-weight: 700; color: var(--accent-ink); background: color-mix(in srgb, var(--accent) 12%, transparent); padding: 3px 9px; border-radius: 99px; }
+.plan-task { position: relative; }
+.plan-task.mine .pt-text::after { content: '✦ mine'; font-size: 10px; font-weight: 700; color: #8b5cf6; margin-left: 8px; vertical-align: 1px; }
+.plan-task.flash { animation: ptFlash 1.2s var(--ease); }
+@keyframes ptFlash { 0%, 40% { background: color-mix(in srgb, #f59e0b 22%, transparent); } 100% { background: transparent; } }
+.pt-grip { cursor: grab; color: var(--faint); font-size: 13px; letter-spacing: -2px; padding: 0 2px; user-select: none; }
+.pt-grip:active { cursor: grabbing; }
+.plan-task.dragging { opacity: .35; }
+.pt-drop { height: 3px; border-radius: 3px; background: var(--accent); margin: 2px 8px; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
+.pt-acts { display: inline-flex; gap: 3px; align-items: center; flex-shrink: 0; }
+.pt-acts button, .pt-acts select { border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); border-radius: 8px; height: 26px; min-width: 26px; padding: 0 6px; font-size: 12px; cursor: pointer; transition: all .15s; }
+.pt-acts select { max-width: 120px; padding: 0 4px; }
+.pt-acts button:hover, .pt-acts select:hover { color: var(--text); border-color: var(--accent); }
+.pt-acts button[data-act="del"]:hover { background: #ef4444; border-color: #ef4444; color: #fff; }
+.pt-edit { flex: 1; font: inherit; font-size: 13.5px; padding: 4px 8px; border: 1.5px solid var(--accent); border-radius: 8px; background: var(--surface); color: var(--text); outline: none; }
+.pd-add input { width: 100%; margin-top: 4px; border: 1px dashed transparent; background: transparent; color: var(--text); font-size: 13px; padding: 6px 8px 6px 36px; border-radius: 10px; outline: none; transition: all .2s; }
+.pd-add input::placeholder { color: var(--faint); }
+.pd-add input:hover { border-color: var(--line-2); }
+.pd-add input:focus { border: 1px solid var(--accent); background: var(--surface-2); padding-left: 10px; }
+.pd-note-btn { border: none; background: none; cursor: pointer; font-size: 14px; opacity: .35; padding: 2px 4px; border-radius: 6px; transition: opacity .2s, background .2s; }
+.pd-note-btn:hover, .pd-note-btn.has { opacity: 1; }
+.pd-note-btn:hover { background: var(--surface-2); }
+.pd-note { display: none; margin-top: 6px; }
+.pd-note.open { display: block; animation: popIn .25s var(--ease); }
+.pd-note textarea { width: 100%; resize: vertical; min-height: 54px; font: inherit; font-size: 13px; line-height: 1.6; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line-2); background: color-mix(in srgb, #f59e0b 5%, var(--surface)); color: var(--text); outline: none; }
+.pd-note textarea:focus { border-color: var(--accent); }
+#plan-toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; z-index: 600; background: #0f172a; color: #f1f5f9; border-radius: 12px; padding: 10px 14px; font-size: 13px; box-shadow: var(--shadow-lg); transition: all .35s var(--ease); display: flex; gap: 10px; align-items: center; }
+#plan-toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+#plan-toast button { border: none; background: #6366f1; color: #fff; border-radius: 8px; padding: 4px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
+html[data-theme="dark"] #plan-toast { background: #e8ecf7; color: #0f172a; }
+@media (max-width: 768px) { .pt-acts { flex-wrap: wrap; } .plan-task { flex-wrap: wrap; } .pt-acts select { max-width: 96px; } }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
@@ -899,7 +938,15 @@ html[data-theme="dark"] .ec-tags span.hot { color: #fca5a5; }
         <p class="home-subtitle">Tick each task when it is done — progress is saved on this device. 每完成一项就打勾（进度只保存在本机浏览器）。</p>
         <div class="exam-grid" id="plan-exams"></div>
         <div class="progress-row plan-total"><div class="progress-bar"><i class="plan-prog-fill" style="background:linear-gradient(90deg,#6366f1,#10b981)"></i></div><span class="progress-text plan-prog-text"></span></div>
-        <div class="plan-legend">How to study one module (≈ 1 hour): read every tab → do the quiz until all correct → write 3 lines in your own words. Behind? Do today’s list first, push the rest to the buffer. 学一个模块：读完所有标签 → 测验全对 → 用自己的话写 3 行。落后了就先做"今天"，其余往后挪。</div>
+        <div class="plan-toolbar">
+          <button type="button" id="plan-edit-btn" class="pl-btn primary" onclick="togglePlanEdit()">✏️ Edit plan 编辑计划</button>
+          <span id="plan-custom-tag" class="pl-tag" style="display:none">customised 已自定义</span>
+          <span class="pl-sp"></span>
+          <button type="button" class="pl-btn" onclick="exportPlan()" title="Download a backup file 下载备份">⬇ Export 导出</button>
+          <label class="pl-btn" title="Load a backup file 导入备份">⬆ Import 导入<input type="file" accept="application/json,.json" hidden onchange="if(this.files[0])importPlan(this.files[0]);this.value=''"></label>
+          <button type="button" class="pl-btn" onclick="resetPlan()" title="Back to the default plan 恢复默认">↺ Reset 恢复默认</button>
+        </div>
+        <div class="plan-legend"><b>Edit mode 编辑模式:</b> drag ⋮⋮ to move a task to any day (computer) · ↑ ↓ / “Move to…” (phone) · ✎ rename · 🗑 delete · type in “+ Add” to add your own tasks · 📝 notes per day. Saved on this device only — use Export/Import to copy it to another device. 拖动 ⋮⋮ 可把任务移到任意一天（手机用 ↑↓ 或"Move to…"），✎ 改名，🗑 删除，"+ Add" 加自己的任务，📝 写当天笔记；只保存在本机，换设备用导出/导入。<br>How to study one module (≈ 1 hour): read every tab → do the quiz until all correct → write 3 lines in your own words. Behind? Do today’s list first, push the rest to the buffer. 学一个模块：读完所有标签 → 测验全对 → 用自己的话写 3 行。落后了就先做"今天"，其余往后挪。</div>
       </div>
       <div id="plan-days"></div>
     </section>
@@ -1948,29 +1995,130 @@ const PLAN_DAYS = [
   { d: '2026-11-16', ph: 'exam', title: 'EXAM · MGMT90025 08:30', tasks: [
     { t: 'Bring the two A4 sheets + student ID + charged laptop' }, { t: 'MGMT90025 exam 08:30' } ] }
 ];
-let planDone = {};
-try { planDone = JSON.parse(lsGet('yv-plan') || '{}'); } catch (e) {}
-if (lsGet('yv-plan-v') !== '2') {
-  const old = '2026-10-23#', map = { 0: 'start#0', 1: 'start#1', 2: 'start#2', 3: 'start#3', 4: old + 0, 5: 'start#4', 6: old + 1, 7: old + 2, 8: old + 3 };
-  const moved = {};
-  Object.keys(planDone).forEach(k => { if (k.startsWith(old)) { const t = map[k.slice(old.length)]; if (t) moved[t] = true; } else moved[k] = planDone[k]; });
-  planDone = moved; lsSet('yv-plan', JSON.stringify(planDone)); lsSet('yv-plan-v', '2');
-}
-const planKey = (d, i) => d + '#' + i;
+// ===== 计划状态：可编辑、可拖动、可添加（全部存在本机浏览器）=====
+const PLAN_KEY = 'yv-plan3';
 const todayStr = () => { const t = new Date(); return t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0'); };
 const daysUntil = ds => Math.round((new Date(ds + 'T00:00:00') - new Date(todayStr() + 'T00:00:00')) / 86400000);
-const fmtDay = ds => new Date(ds + 'T00:00:00').toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short' });
+const fmtDay = ds => ds === 'start' ? 'START' : new Date(ds + 'T00:00:00').toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short' });
+const defId = (d, i) => 'd:' + d + ':' + i;
+function defaultLayout() {
+  const days = {};
+  PLAN_DAYS.forEach(d => { days[d.d] = d.tasks.map((t, i) => ({ id: defId(d.d, i), t: t.t, m: t.m || null })); });
+  return days;
+}
+let planState = null;
+try { planState = JSON.parse(lsGet(PLAN_KEY) || 'null'); } catch (e) {}
+if (!planState || typeof planState !== 'object') {
+  planState = { custom: false, days: null, done: {}, notes: {} };
+  // 迁移旧版打勾（'日期#序号' → 'd:日期:序号'）
+  try {
+    let old = JSON.parse(lsGet('yv-plan') || '{}');
+    if (lsGet('yv-plan-v') !== '2') {
+      const o = '2026-10-23#', map = { 0: 'start#0', 1: 'start#1', 2: 'start#2', 3: 'start#3', 4: o + 0, 5: 'start#4', 6: o + 1, 7: o + 2, 8: o + 3 };
+      const moved = {}; Object.keys(old).forEach(k => { if (k.startsWith(o)) { const t = map[k.slice(o.length)]; if (t) moved[t] = true; } else moved[k] = old[k]; });
+      old = moved;
+    }
+    Object.keys(old).forEach(k => { const i = k.lastIndexOf('#'); if (i > 0 && old[k]) planState.done[defId(k.slice(0, i), k.slice(i + 1))] = true; });
+  } catch (e) {}
+}
+planState.done = planState.done || {}; planState.notes = planState.notes || {};
+function savePlan() { lsSet(PLAN_KEY, JSON.stringify(planState)); }
+function planLayout() {
+  if (!planState.custom || !planState.days) return defaultLayout();
+  PLAN_DAYS.forEach(d => { if (!planState.days[d.d]) planState.days[d.d] = []; });
+  return planState.days;
+}
+function ensureCustom() { if (!planState.custom || !planState.days) { planState.days = defaultLayout(); planState.custom = true; } }
+function findTask(id) {
+  const L = planLayout();
+  for (const d of Object.keys(L)) { const i = L[d].findIndex(t => t.id === id); if (i >= 0) return { day: d, i, task: L[d][i] }; }
+  return null;
+}
 function planStats() {
-  let n = 0, k = 0;
-  PLAN_DAYS.forEach(day => day.tasks.forEach((t, i) => { n++; if (planDone[planKey(day.d, i)]) k++; }));
+  const L = planLayout(); let n = 0, k = 0;
+  Object.values(L).forEach(arr => arr.forEach(t => { n++; if (planState.done[t.id]) k++; }));
   return { n, k };
 }
-function togglePlanTask(key, el) {
-  planDone[key] = !planDone[key]; if (!planDone[key]) delete planDone[key];
-  lsSet('yv-plan', JSON.stringify(planDone));
-  document.querySelectorAll('[data-pk="' + key + '"]').forEach(b => b.classList.toggle('done', !!planDone[key]));
+
+// ----- 操作 -----
+function togglePlanTask(id) {
+  if (planState.done[id]) delete planState.done[id]; else planState.done[id] = true;
+  savePlan();
+  document.querySelectorAll('.plan-task[data-id="' + CSS.escape(id) + '"]').forEach(b => b.classList.toggle('done', !!planState.done[id]));
   updatePlanProgress();
 }
+function moveTask(id, toDay, toIndex) {
+  ensureCustom();
+  const f = findTask(id); if (!f) return;
+  const [task] = planState.days[f.day].splice(f.i, 1);
+  const arr = planState.days[toDay]; if (toIndex == null || toIndex > arr.length) toIndex = arr.length;
+  arr.splice(toIndex, 0, task);
+  savePlan(); rerenderPlan(id);
+}
+function addTask(day, text) {
+  text = (text || '').trim(); if (!text) return;
+  ensureCustom();
+  const id = 'u:' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  planState.days[day].push({ id, t: text, m: null, mine: true });
+  savePlan(); rerenderPlan(id);
+}
+let lastDeleted = null;
+function deleteTask(id) {
+  ensureCustom();
+  const f = findTask(id); if (!f) return;
+  planState.days[f.day].splice(f.i, 1);
+  lastDeleted = { day: f.day, i: f.i, task: f.task, done: !!planState.done[id] };
+  delete planState.done[id];
+  savePlan(); rerenderPlan();
+  planToast('Deleted 已删除', 'Undo 撤销', () => {
+    if (!lastDeleted) return;
+    planState.days[lastDeleted.day].splice(lastDeleted.i, 0, lastDeleted.task);
+    if (lastDeleted.done) planState.done[lastDeleted.task.id] = true;
+    lastDeleted = null; savePlan(); rerenderPlan();
+  });
+}
+function editTask(id, text) {
+  text = (text || '').trim(); if (!text) return;
+  ensureCustom();
+  const f = findTask(id); if (!f) return;
+  f.task.t = text; savePlan(); rerenderPlan(id);
+}
+function setNote(day, text) {
+  if (text.trim()) planState.notes[day] = text; else delete planState.notes[day];
+  savePlan();
+}
+function resetPlan() {
+  if (!confirm('Reset the plan to the default layout? 恢复成默认计划？\nYour own tasks and moves will be removed; ticks on default tasks are kept.')) return;
+  Object.keys(planState.done).forEach(k => { if (k.startsWith('u:')) delete planState.done[k]; });
+  planState.custom = false; planState.days = null; savePlan(); rerenderPlan();
+}
+function exportPlan() {
+  const blob = new Blob([JSON.stringify({ app: 'young-vault-plan', version: 3, state: planState }, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'young-vault-plan-' + todayStr() + '.json';
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+function importPlan(file) {
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const j = JSON.parse(r.result);
+      if (!j || j.app !== 'young-vault-plan' || !j.state) throw new Error('bad');
+      planState = Object.assign({ custom: false, days: null, done: {}, notes: {} }, j.state);
+      savePlan(); rerenderPlan(); planToast('Imported 已导入');
+    } catch (e) { planToast('Not a Young Vault plan file 不是计划备份文件'); }
+  };
+  r.readAsText(file);
+}
+let toastTimer = 0;
+function planToast(msg, actLabel, act) {
+  let t = document.getElementById('plan-toast');
+  if (!t) { t = document.createElement('div'); t.id = 'plan-toast'; document.body.appendChild(t); }
+  t.innerHTML = esc(msg) + (actLabel ? ' <button type="button">' + esc(actLabel) + '</button>' : '');
+  if (act) t.querySelector('button').onclick = () => { act(); t.classList.remove('show'); };
+  t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 5000);
+}
+
+// ----- 渲染 -----
 function updatePlanProgress() {
   const { n, k } = planStats();
   document.querySelectorAll('.plan-prog-fill').forEach(f => f.style.width = (n ? k / n * 100 : 0) + '%');
@@ -1991,42 +2139,60 @@ function examChip(e) {
     <div class="ec-tags"><span>${e.fmt}</span><span class="${/Closed/.test(e.rule) ? 'hot' : ''}">${e.rule}</span><span>${e.weight}</span></div>
   </div>`;
 }
-function taskHtml(day, t, i) {
-  const key = planKey(day.d, i), mod = t.m && moduleById[t.m];
-  const link = mod ? `<button class="pt-open" style="--mc:${mod.color}" onclick="event.stopPropagation();goModule('${mod.id}')">${esc(subjectById[mod.subject_id].code)} · ${esc(mod.week.replace('Week ', 'W'))} →</button>` : '';
-  return `<div class="plan-task${planDone[key] ? ' done' : ''}" data-pk="${key}" onclick="togglePlanTask('${key}', this)" role="checkbox" tabindex="0">
-    <span class="pt-box"></span><span class="pt-text">${esc(t.t)}</span>${link}</div>`;
+let dayOptions = '';
+function taskHtml(t, opts) {
+  const mod = t.m && moduleById[t.m], done = planState.done[t.id] ? ' done' : '';
+  const link = mod ? `<button type="button" class="pt-open" data-mod="${mod.id}" style="--mc:${mod.color}">${esc(subjectById[mod.subject_id].code)} · ${esc(mod.week.replace('Week ', 'W'))} →</button>` : '';
+  const acts = opts && opts.edit ? `<span class="pt-acts">
+      <button type="button" data-act="up" title="Move up 上移">↑</button><button type="button" data-act="down" title="Move down 下移">↓</button>
+      <select data-act="move" title="Move to another day 移到其他天">${dayOptions}</select>
+      <button type="button" data-act="edit" title="Edit 编辑">✎</button><button type="button" data-act="del" title="Delete 删除">🗑</button></span>` : '';
+  return `<div class="plan-task${done}${t.mine ? ' mine' : ''}" data-id="${esc(t.id)}" role="checkbox" tabindex="0"${opts && opts.edit ? ' draggable="true"' : ''}>
+    ${opts && opts.edit ? '<span class="pt-grip" title="Drag 拖动">⋮⋮</span>' : ''}<span class="pt-box"></span><span class="pt-text">${esc(t.t)}</span>${link}${acts}</div>`;
 }
+function planEditing() { return document.getElementById('view-plan').classList.contains('editing'); }
 function renderPlan() {
-  const today = todayStr();
+  const today = todayStr(), L = planLayout(), edit = planEditing();
   document.getElementById('plan-exams').innerHTML = PLAN_EXAMS.map(examChip).join('');
+  dayOptions = '<option value="" disabled selected>⇄ Move to…</option>' + PLAN_DAYS.map(d => `<option value="${d.d}">${fmtDay(d.d)} — ${esc(d.title.slice(0, 34))}</option>`).join('');
   let html = '', lastPh = '';
   PLAN_DAYS.forEach(day => {
-    const ph = PLAN_PHASES[day.ph];
+    const ph = PLAN_PHASES[day.ph], tasks = L[day.d] || [];
     if (day.ph !== lastPh) { html += `<div class="plan-phase" style="--pc:${ph.color}">${ph.label}</div>`; lastPh = day.ph; }
     const isStart = day.d === 'start';
     const rel = isStart ? '' : day.d < today ? ' past' : day.d === today ? ' today' : '';
-    html += `<div class="plan-day${rel}${day.ph === 'exam' ? ' examday' : ''}" style="--pc:${ph.color}" id="pd-${day.d}">
-      <div class="pd-head"><span class="pd-date">${isStart ? 'START' : fmtDay(day.d)}</span>${day.d === today ? '<span class="pd-today">TODAY 今天</span>' : ''}<span class="pd-title">${esc(day.title)}</span><span class="pd-count"></span></div>
-      <div class="pd-tasks">${day.tasks.map((t, i) => taskHtml(day, t, i)).join('')}</div></div>`;
+    const note = planState.notes[day.d] || '';
+    html += `<div class="plan-day${rel}${day.ph === 'exam' ? ' examday' : ''}" style="--pc:${ph.color}" id="pd-${day.d}" data-day="${day.d}">
+      <div class="pd-head"><span class="pd-date">${fmtDay(day.d)}</span>${day.d === today ? '<span class="pd-today">TODAY 今天</span>' : ''}<span class="pd-title">${esc(day.title)}</span>
+        <button type="button" class="pd-note-btn${note ? ' has' : ''}" title="Notes 今日记录">📝</button><span class="pd-count"></span></div>
+      <div class="pd-tasks" data-day="${day.d}">${tasks.map(t => taskHtml(t, { edit })).join('')}</div>
+      <div class="pd-add"><input type="text" data-day="${day.d}" placeholder="+ Add a task or what you did 添加任务 / 记录今天做了什么（回车）" maxlength="200"></div>
+      <div class="pd-note${note ? ' open' : ''}"><textarea data-day="${day.d}" rows="2" placeholder="Notes for this day 当天笔记 / 心得…">${esc(note)}</textarea></div>
+    </div>`;
   });
   document.getElementById('plan-days').innerHTML = html;
+  const custom = document.getElementById('plan-custom-tag'); if (custom) custom.style.display = planState.custom ? '' : 'none';
   updatePlanProgress();
+}
+function rerenderPlan(flashId) {
+  const main = document.getElementById('main'), y = main.scrollTop;
+  if (currentView === 'plan') { renderPlan(); main.scrollTop = y; }
+  renderHomePlan();
+  if (flashId) document.querySelectorAll('.plan-task[data-id="' + CSS.escape(flashId) + '"]').forEach(el => { el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 1200); });
 }
 function renderHomePlan() {
   const box = document.getElementById('home-plan'); if (!box) return;
-  const today = todayStr();
+  const today = todayStr(), L = planLayout();
   const next = PLAN_EXAMS.filter(e => daysUntil(e.date) >= 0);
   const day = PLAN_DAYS.find(d => d.d === today) || PLAN_DAYS.find(d => d.d !== 'start' && d.d > today);
-  const st = PLAN_DAYS.find(d => d.d === 'start');
-  const stOpen = st && st.tasks.some((t, i) => !planDone[planKey('start', i)]);
+  const stTasks = L.start || [], stOpen = stTasks.some(t => !planState.done[t.id]);
   if (!next.length && !day) { box.innerHTML = ''; return; }
   const { n, k } = planStats();
   box.innerHTML = `<div class="home-plan-card">
     <div class="hp-head"><span class="hp-title">📅 Exam plan 期末复习计划</span><button class="hp-open" onclick="goPlan()">Open full plan 完整计划 →</button></div>
     <div class="hp-exams">${next.map(e => { const s = subjectById[e.sid]; const l = daysUntil(e.date); return `<span class="hp-ex" style="--ec:${(s && s.accent) || '#6366f1'}"><b>${l === 0 ? 'TODAY' : l + 'd'}</b> ${e.code}</span>`; }).join('')}</div>
-    ${stOpen ? `<div class="hp-day"><div class="hp-dlabel">Start 起步</div>${st.tasks.map((t, i) => taskHtml(st, t, i)).join('')}</div>` : ''}
-    ${day ? `<div class="hp-day"><div class="hp-dlabel">${day.d === today ? 'Today 今天' : 'Next 下一天'} · ${fmtDay(day.d)} — ${esc(day.title)}</div>${day.tasks.map((t, i) => taskHtml(day, t, i)).join('')}</div>` : ''}
+    ${stOpen ? `<div class="hp-day plan-list"><div class="hp-dlabel">Start 起步</div>${stTasks.map(t => taskHtml(t)).join('')}</div>` : ''}
+    ${day ? `<div class="hp-day plan-list"><div class="hp-dlabel">${day.d === today ? 'Today 今天' : 'Next 下一天'} · ${fmtDay(day.d)} — ${esc(day.title)}</div>${(L[day.d] || []).map(t => taskHtml(t)).join('')}</div>` : ''}
     <div class="progress-row"><div class="progress-bar"><i class="plan-prog-fill" style="width:${n ? k / n * 100 : 0}%;background:linear-gradient(90deg,#6366f1,#10b981)"></i></div><span class="progress-text plan-prog-text">${k} / ${n} tasks 已完成</span></div>
   </div>`;
 }
@@ -2038,7 +2204,76 @@ function goPlan() {
   collapseSidebarOnMobile();
   setTimeout(() => { const t = document.querySelector('.plan-day.today') || document.querySelector('.plan-day:not(.past)'); if (t) t.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 350);
 }
-document.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && e.target.classList && e.target.classList.contains('plan-task')) { e.preventDefault(); e.target.click(); } });
+function togglePlanEdit() {
+  const v = document.getElementById('view-plan'), on = !v.classList.contains('editing');
+  v.classList.toggle('editing', on);
+  document.getElementById('plan-edit-btn').textContent = on ? '✓ Done 完成编辑' : '✏️ Edit plan 编辑计划';
+  rerenderPlan();
+}
+
+// ----- 交互（事件委托）-----
+document.addEventListener('click', e => {
+  const open = e.target.closest('.pt-open');
+  if (open) { e.stopPropagation(); goModule(open.dataset.mod); return; }
+  const act = e.target.closest('.pt-acts button');
+  if (act) {
+    e.stopPropagation();
+    const row = act.closest('.plan-task'), id = row.dataset.id, f = findTask(id); if (!f) return;
+    if (act.dataset.act === 'up') { if (f.i > 0) moveTask(id, f.day, f.i - 1); else { const k = PLAN_DAYS.findIndex(d => d.d === f.day); if (k > 0) moveTask(id, PLAN_DAYS[k - 1].d, null); } }
+    else if (act.dataset.act === 'down') { const len = planLayout()[f.day].length; if (f.i < len - 1) moveTask(id, f.day, f.i + 1); else { const k = PLAN_DAYS.findIndex(d => d.d === f.day); if (k < PLAN_DAYS.length - 1) moveTask(id, PLAN_DAYS[k + 1].d, 0); } }
+    else if (act.dataset.act === 'del') deleteTask(id);
+    else if (act.dataset.act === 'edit') startEditTask(row, f.task);
+    return;
+  }
+  const nb = e.target.closest('.pd-note-btn');
+  if (nb) { const n = nb.closest('.plan-day').querySelector('.pd-note'); n.classList.toggle('open'); if (n.classList.contains('open')) n.querySelector('textarea').focus(); return; }
+  const row = e.target.closest('.plan-task');
+  if (row && !e.target.closest('select,input,.pt-grip')) togglePlanTask(row.dataset.id);
+});
+document.addEventListener('change', e => {
+  const sel = e.target.closest('.pt-acts select');
+  if (sel && sel.value) { moveTask(sel.closest('.plan-task').dataset.id, sel.value, null); planToast('Moved to ' + fmtDay(sel.value) + ' 已移动'); }
+});
+document.addEventListener('keydown', e => {
+  if (e.target.matches && e.target.matches('.pd-add input') && e.key === 'Enter') { addTask(e.target.dataset.day, e.target.value); e.target.value = ''; return; }
+  if ((e.key === ' ' || e.key === 'Enter') && e.target.classList && e.target.classList.contains('plan-task')) { e.preventDefault(); togglePlanTask(e.target.dataset.id); }
+});
+document.addEventListener('input', e => { if (e.target.matches && e.target.matches('.pd-note textarea')) setNote(e.target.dataset.day, e.target.value); });
+function startEditTask(row, task) {
+  const span = row.querySelector('.pt-text'); if (!span || row.querySelector('.pt-edit')) return;
+  const inp = document.createElement('input'); inp.className = 'pt-edit'; inp.value = task.t; inp.maxLength = 200;
+  span.replaceWith(inp); inp.focus(); inp.select();
+  let doneEdit = false;
+  const finish = save => { if (doneEdit) return; doneEdit = true; if (save && inp.value.trim() && inp.value.trim() !== task.t) editTask(task.id, inp.value); else rerenderPlan(); };
+  inp.addEventListener('keydown', ev => { if (ev.key === 'Enter') { ev.preventDefault(); finish(true); } if (ev.key === 'Escape') finish(false); ev.stopPropagation(); });
+  inp.addEventListener('blur', () => finish(true));
+  inp.addEventListener('click', ev => ev.stopPropagation());
+}
+// 拖动排序（电脑端；手机用 ↑ ↓ 和"移到…"）
+let dragId = null; const dropMark = document.createElement('div'); dropMark.className = 'pt-drop';
+document.addEventListener('dragstart', e => {
+  const row = e.target.closest && e.target.closest('#plan-days .plan-task'); if (!row) return;
+  dragId = row.dataset.id; row.classList.add('dragging');
+  try { e.dataTransfer.setData('text/plain', dragId); e.dataTransfer.effectAllowed = 'move'; } catch (err) {}
+});
+document.addEventListener('dragend', () => { document.querySelectorAll('.plan-task.dragging').forEach(r => r.classList.remove('dragging')); dropMark.remove(); dragId = null; });
+document.addEventListener('dragover', e => {
+  if (!dragId) return;
+  const box = e.target.closest && (e.target.closest('.pd-tasks') || (e.target.closest('.plan-day') && e.target.closest('.plan-day').querySelector('.pd-tasks')));
+  if (!box) return;
+  e.preventDefault();
+  const rows = [...box.querySelectorAll('.plan-task:not(.dragging)')];
+  const after = rows.find(r => { const b = r.getBoundingClientRect(); return e.clientY < b.top + b.height / 2; });
+  if (after) box.insertBefore(dropMark, after); else box.appendChild(dropMark);
+});
+document.addEventListener('drop', e => {
+  if (!dragId || !dropMark.parentNode) return;
+  e.preventDefault();
+  const box = dropMark.parentNode, day = box.dataset.day;
+  const idx = [...box.children].filter(c => c === dropMark || (c.classList.contains('plan-task') && !c.classList.contains('dragging'))).indexOf(dropMark);
+  const id = dragId; dropMark.remove(); dragId = null;
+  moveTask(id, day, idx);
+});
 
 // 浏览器自动填充兜底：加载后清掉被塞进搜索框的内容
 [300, 1200].forEach(ms => setTimeout(() => {
