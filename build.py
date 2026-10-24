@@ -1050,9 +1050,10 @@ html.lb-lock, html.lb-lock body { overflow: hidden; }
 .sb-wrong.sb-guess { color: #d97706; }
 .sb-wrong + .sb-guess { margin-left: 0; padding-left: 5px; }
 .card-wrong.card-guess { color: #d97706; }
-.yv-std .q-guess { display: inline-block; margin-top: 10px; padding: 5px 12px; border-radius: 99px; border: 1px dashed color-mix(in srgb, #f59e0b 60%, var(--line)); background: transparent; color: #b45309; font: inherit; font-size: 12.5px; font-weight: 650; cursor: pointer; }
-.yv-std .q-guess:hover { background: color-mix(in srgb, #f59e0b 10%, var(--surface)); }
-.yv-std .q-guess.on { border-style: solid; background: color-mix(in srgb, #f59e0b 14%, var(--surface)); }
+.yv-std .q-fb.ok { position: relative; }
+.yv-std .q-guess { position: absolute; top: 8px; right: 10px; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 8px; background: transparent; font-size: 17px; line-height: 30px; cursor: pointer; filter: grayscale(1); opacity: .35; transition: opacity .15s, filter .15s, background .15s; }
+.yv-std .q-guess:hover { opacity: .8; filter: none; }
+.yv-std .q-guess.on { opacity: 1; filter: none; background: color-mix(in srgb, #f59e0b 16%, var(--surface)); }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
@@ -1819,7 +1820,9 @@ function setupQuiz(root) {
     const g = b.querySelector('.q-guess'); if (!g) return;
     const on = st.w[inf.q] === 'g';
     g.classList.toggle('on', on);
-    g.textContent = on ? '↩ 取消"蒙的"标记' : '🎲 这题是蒙的（标记复习）';
+    g.textContent = '🎲';
+    g.title = on ? '取消"蒙的"标记' : '这题是蒙的（标记复习）';
+    g.setAttribute('aria-label', g.title);
     g.onclick = () => {
       if (st.w[inf.q] === 'g') delete st.w[inf.q]; else st.w[inf.q] = 'g';
       tagWrong(b, st.w[inf.q]); guessBtn(b, inf);
