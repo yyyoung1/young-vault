@@ -1036,6 +1036,13 @@ html.lb-lock, html.lb-lock body { overflow: hidden; }
 .sb-wrong { margin-left: auto; padding-left: 6px; color: #ef4444; font-size: 11.5px; font-weight: 700; white-space: nowrap; }
 .sb-wrong + .sb-done { margin-left: 0; padding-left: 5px; }
 .card-wrong { float: right; margin-left: 8px; color: #dc2626; font-weight: 700; text-transform: none; letter-spacing: 0; }
+
+/* ===== 课堂活动完整参考答案 ===== */
+.yv-std .model-ans { margin-top: 18px; padding: 16px 18px 6px; border: 1.5px dashed color-mix(in srgb, var(--tabc) 45%, var(--line)); border-radius: 16px; background: color-mix(in srgb, var(--tabc) 4%, var(--surface)); }
+.yv-std .model-ans .ma-head { font-size: 15px; font-weight: 750; margin-bottom: 10px; color: color-mix(in srgb, var(--tabc) 65%, var(--text)); }
+.yv-std .model-ans .ma-head .zh { font-weight: 600; margin-left: 4px; }
+.yv-std .model-ans .ma-fmt { font-size: 13px; color: var(--muted); }
+.yv-std .model-ans h4 { margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--line); }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
