@@ -1043,6 +1043,16 @@ html.lb-lock, html.lb-lock body { overflow: hidden; }
 .yv-std .model-ans .ma-head .zh { font-weight: 600; margin-left: 4px; }
 .yv-std .model-ans .ma-fmt { font-size: 13px; color: var(--muted); }
 .yv-std .model-ans h4 { margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--line); }
+
+/* ===== "蒙的"标记（答对但没把握，算第二遍复习） ===== */
+.yv-std .q-wrongtag.guess { color: #b45309; background: color-mix(in srgb, #f59e0b 16%, var(--surface)); }
+.yv-std .qb-guess { color: #d97706; font-weight: 700; }
+.sb-wrong.sb-guess { color: #d97706; }
+.sb-wrong + .sb-guess { margin-left: 0; padding-left: 5px; }
+.card-wrong.card-guess { color: #d97706; }
+.yv-std .q-guess { display: inline-block; margin-top: 10px; padding: 5px 12px; border-radius: 99px; border: 1px dashed color-mix(in srgb, #f59e0b 60%, var(--line)); background: transparent; color: #b45309; font: inherit; font-size: 12.5px; font-weight: 650; cursor: pointer; }
+.yv-std .q-guess:hover { background: color-mix(in srgb, #f59e0b 10%, var(--surface)); }
+.yv-std .q-guess.on { border-style: solid; background: color-mix(in srgb, #f59e0b 14%, var(--surface)); }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
@@ -1264,7 +1274,8 @@ try { quizState = JSON.parse(lsGet('yv-quiz') || '{}') || {}; } catch (e) {}
 const saveQuiz = () => lsSet('yv-quiz', JSON.stringify(quizState));
 function quizInfo(id) {
   const st = quizState[id]; if (!st || !st.n) return null;
-  return { n: st.n, done: Object.keys(st.a || {}).length, wrong: Object.keys(st.w || {}).length };
+  const w = Object.values(st.w || {});
+  return { n: st.n, done: Object.keys(st.a || {}).length, wrong: w.filter(v => v !== 'g').length, guess: w.filter(v => v === 'g').length };
 }
 function isDone(id) {
   const q = quizInfo(id); if (q) return q.done >= q.n;
@@ -1276,6 +1287,7 @@ const readCount = s => s.modules.filter(m => isDone(m.id)).length;
 function sbMarks(id) {
   const q = quizInfo(id); let h = '';
   if (q && q.wrong) h += '<span class="sb-wrong" title="' + q.wrong + ' 道错题待复习">✗' + q.wrong + '</span>';
+  if (q && q.guess) h += '<span class="sb-wrong sb-guess" title="' + q.guess + ' 道蒙对的题待复习">🎲' + q.guess + '</span>';
   if (isDone(id)) h += '<span class="sb-done" title="测验已全部完成">✓</span>';
   return h;
 }
@@ -1283,6 +1295,7 @@ function cardMarks(id) {
   const q = quizInfo(id); let h = '';
   if (isDone(id)) h += '<span class="card-done">✓ 已完成</span>';
   if (q && q.wrong) h += '<span class="card-wrong">✗ ' + q.wrong + ' 错题</span>';
+  if (q && q.guess) h += '<span class="card-wrong card-guess">🎲 ' + q.guess + ' 蒙的</span>';
   return h;
 }
 
@@ -1771,10 +1784,13 @@ function setupQuiz(root) {
   const persist = () => { if (mid) { saveQuiz(); renderSidebar(); } };
   persist();
   const labelOf = (b, v) => { const i = b.querySelector('input[value="' + v + '"]'); return i && i.closest('label'); };
-  const tagWrong = (b, on) => {
+  // 标签：w[qid] = 1 是错题，'g' 是蒙对的（都算第二遍要复习）
+  const tagWrong = (b, mark) => {
     let t = b.querySelector('.q-wrongtag');
-    if (on && !t) { t = document.createElement('div'); t.className = 'q-wrongtag'; t.textContent = '✗ 错题 · 第二遍重点复习'; b.insertBefore(t, b.firstChild); }
-    if (!on && t) t.remove();
+    if (mark && !t) { t = document.createElement('div'); b.insertBefore(t, b.firstChild); }
+    if (!mark) { if (t) t.remove(); return; }
+    t.className = 'q-wrongtag' + (mark === 'g' ? ' guess' : '');
+    t.textContent = mark === 'g' ? '🎲 蒙对的 · 第二遍重点复习' : '✗ 错题 · 第二遍重点复习';
   };
   const lock = (b, info, pick) => {
     const ok = pick === info.c;
@@ -1786,7 +1802,8 @@ function setupQuiz(root) {
     const ans = right ? right.textContent.trim() : info.c;
     fb.className = 'q-fb ' + (ok ? 'ok' : 'err');
     fb.innerHTML = (ok ? '✅ Correct! 答对了' : '❌ Not quite. 答错了 — Correct answer 正确答案：<b>' + esc(ans) + '</b>') +
-      (info.e ? '<div class="q-expl">' + esc(info.e) + '</div>' : '');
+      (info.e ? '<div class="q-expl">' + esc(info.e) + '</div>' : '') +
+      (ok ? '<button type="button" class="q-guess"></button>' : '');
     b.classList.add('locked');
     const btn = b.querySelector('.q-check'); if (btn) btn.hidden = true;
   };
@@ -1796,6 +1813,18 @@ function setupQuiz(root) {
     b.querySelectorAll('.opt-right, .opt-wrong').forEach(l => l.classList.remove('opt-right', 'opt-wrong'));
     const fb = b.querySelector('.q-fb'); if (fb) { fb.className = 'q-fb'; fb.textContent = ''; }
     const btn = b.querySelector('.q-check'); if (btn) btn.hidden = false;
+  };
+  // 答对的题可以手动标成"蒙的"，再点一次取消
+  const guessBtn = (b, inf) => {
+    const g = b.querySelector('.q-guess'); if (!g) return;
+    const on = st.w[inf.q] === 'g';
+    g.classList.toggle('on', on);
+    g.textContent = on ? '↩ 取消"蒙的"标记' : '🎲 这题是蒙的（标记复习）';
+    g.onclick = () => {
+      if (st.w[inf.q] === 'g') delete st.w[inf.q]; else st.w[inf.q] = 'g';
+      tagWrong(b, st.w[inf.q]); guessBtn(b, inf);
+      persist(); b.dispatchEvent(new Event('yv-answer', { bubbles: true }));
+    };
   };
   const info = new Map();
   all.forEach(b => {
@@ -1810,11 +1839,12 @@ function setupQuiz(root) {
       if (!sel) { fb.className = 'q-fb warn'; fb.textContent = 'Please select an answer first. 请先选择一个答案。'; return; }
       st.a[inf.q] = sel.value;
       if (sel.value === inf.c) delete st.w[inf.q]; else st.w[inf.q] = 1;
-      lock(b, inf, sel.value); tagWrong(b, !!st.w[inf.q]);
+      lock(b, inf, sel.value); tagWrong(b, st.w[inf.q]); guessBtn(b, inf);
       persist(); b.dispatchEvent(new Event('yv-answer', { bubbles: true }));
     });
     if (st.a[inf.q] != null) lock(b, inf, st.a[inf.q]);
-    tagWrong(b, !!st.w[inf.q]);
+    tagWrong(b, st.w[inf.q]);
+    guessBtn(b, inf);
   });
   root.querySelectorAll('.sec').forEach(sec => {
     const blocks = [...sec.querySelectorAll('.qblock')].filter(b => info.has(b));
@@ -1825,26 +1855,27 @@ function setupQuiz(root) {
     const okEl = bar.querySelector('.qb-ok'), errEl = bar.querySelector('.qb-err'), txt = bar.querySelector('.qb-text');
     let wasPerfect = null;
     const upd = () => {
-      let ok = 0, err = 0, wrongTotal = 0;
+      let ok = 0, err = 0, wrongTotal = 0, guessTotal = 0;
       blocks.forEach(b => {
         const inf = info.get(b), pick = st.a[inf.q];
         const isOk = pick != null && pick === inf.c, isErr = pick != null && pick !== inf.c;
         b.classList.toggle('is-ok', isOk); b.classList.toggle('is-err', isErr);
-        if (isOk) ok++; if (isErr) err++; if (st.w[inf.q]) wrongTotal++;
+        if (isOk) ok++; if (isErr) err++; if (st.w[inf.q] === 'g') guessTotal++; else if (st.w[inf.q]) wrongTotal++;
       });
       const n = blocks.length;
       okEl.style.width = ok / n * 100 + '%'; errEl.style.left = ok / n * 100 + '%'; errEl.style.width = err / n * 100 + '%';
       const perfect = ok === n;
       bar.classList.toggle('perfect', perfect);
       txt.innerHTML = (perfect ? '🎉 <b>' + n + ' / ' + n + '</b> Perfect! 全对' : '<b>' + ok + '</b> / ' + n + ' correct 答对 · ' + (ok + err) + ' answered 已答') +
-        (wrongTotal ? ' · <span class="qb-wrong">✗ ' + wrongTotal + ' 错题待复习</span>' : '');
+        (wrongTotal ? ' · <span class="qb-wrong">✗ ' + wrongTotal + ' 错题待复习</span>' : '') +
+        (guessTotal ? ' · <span class="qb-guess">🎲 ' + guessTotal + ' 蒙的</span>' : '');
       if (perfect && wasPerfect === false) burst(bar);
       wasPerfect = perfect;
     };
     sec.addEventListener('yv-answer', upd);
     bar.querySelector('button').addEventListener('click', () => {
       if (!blocks.some(b => st.a[info.get(b).q] != null)) return;
-      if (!confirm('重做这一组测验？已答记录会清空；错题标记会保留，直到你重新答对。')) return;
+      if (!confirm('重做这一组测验？已答记录会清空；错题和"蒙的"标记会保留，直到你重新答对。')) return;
       blocks.forEach(b => { delete st.a[info.get(b).q]; unlock(b); });
       persist(); wasPerfect = false; upd();
     });
