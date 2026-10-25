@@ -2255,7 +2255,7 @@ rpill.addEventListener('click', async () => {
 // ===== 期末复习计划（打勾进度只存在本机浏览器）=====
 const PLAN_EXAMS = [
   { sid: 'mktg90004', code: 'MKTG90004', name: 'Marketing Management', date: '2026-11-11', time: '08:30', fmt: 'LMS quiz · LockDown Browser 机考', rule: '2 × A4 notes, double sided 两张双面 A4', weight: '50% · 25 MCQ + 3 short + 1 long 选择+简答+长答' },
-  { sid: 'mgmt90030', code: 'MGMT90030', name: 'Managing Innovation', date: '2026-11-11', time: '16:30', fmt: 'Digital exam · typed 机考打字', rule: 'Open book · paper limit TBC 开卷，带纸限制待定', weight: '40%' },
+  { sid: 'mgmt90030', code: 'MGMT90030', name: 'Managing Innovation', date: '2026-11-11', time: '16:30', fmt: 'Digital exam · typed 机考打字', rule: 'Open book · unlimited paper materials 开卷，纸质材料不限', weight: '40%' },
   { sid: 'mgmt90032', code: 'MGMT90032', name: 'Operations & Process Mgmt', date: '2026-11-13', time: '16:30', fmt: 'Written exam · paper 纸笔考试', rule: 'Closed book — memorise! 闭卷，要背', weight: '50%' },
   { sid: 'mgmt90025', code: 'MGMT90025', name: 'People & Change', date: '2026-11-16', time: '08:30', fmt: 'Digital exam · typed 机考打字', rule: 'Max two A4 cheat sheets 最多两张 A4', weight: '50%' }
 ];
@@ -2335,7 +2335,7 @@ const PLAN_DAYS = [
   { d: '2026-11-09', ph: 'p2', title: 'MGMT90030 exam prep 创新考前冲刺', tasks: [
     { t: 'Practice exam: write Tasks 1–3 timed (≈ 30 min each)', zh: '练习题：限时写 Task 1–3（每题约 30 分钟）', m: 'mgmt90030_w12_exam_review' },
     { t: 'Compare with the answer frames; fill gaps via the 📚 links', zh: '对照答题框架，用 📚 链接补漏' },
-    { t: 'Build an open-book index: author → concept → week', zh: '做开卷索引：作者 → 概念 → 第几周' }, { t: '90032 flashcards 30 min', zh: '90032 闪卡 30 分钟', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-11-09', t: 'Review & sort (10 min): what still feels shaky? Add it to your cheat sheet or notes', zh: '复盘整理（10 分钟）：哪里还不熟？补进 cheat sheet 或笔记' } ] },
+    { t: 'Build an open-book index: author → concept → week', zh: '做开卷索引：作者 → 概念 → 第几周' }, { t: '90032 flashcards 30 min', zh: '90032 闪卡 30 分钟', m: 'mgmt90032_w12_exam_review' }, { id: 'x:print90030', t: 'Print your 90030 notes by week + add week tabs; put the index on top (unlimited paper allowed)', zh: '打印 90030 笔记（按周分好）、贴周次标签，索引页放最上面（纸质材料不限）', m: 'mgmt90030_w12_exam_review' }, { id: 'r:2026-11-09', t: 'Review & sort (10 min): what still feels shaky? Add it to your cheat sheet or notes', zh: '复盘整理（10 分钟）：哪里还不熟？补进 cheat sheet 或笔记' } ] },
   { d: '2026-11-10', ph: 'p2', title: 'Light review · pack · sleep early 轻复习 · 收拾东西 · 早睡', tasks: [
     { t: 'Skim your MKTG90004 2 × A4 notes + 90030 index (no new material)', zh: '快速看 MKTG90004 的 2 张 A4 和 90030 索引（不学新内容）' }, { t: 'Check LockDown Browser works; pack student ID, pen, charged laptop + charger, the 2 × A4 notes', zh: '检查 LockDown Browser 能用；带学生证、笔、充满电的电脑和充电器、2 张 A4 笔记' }, { t: 'Sleep early — first exam at 08:30', zh: '早睡，第一场 08:30' }, { id: 'r:2026-11-10', t: 'Review & sort (10 min): what still feels shaky? Add it to your cheat sheet or notes', zh: '复盘整理（10 分钟）：哪里还不熟？补进 cheat sheet 或笔记' } ] },
   { d: '2026-11-11', ph: 'exam', title: 'EXAM DAY · MKTG90004 08:30 · MGMT90030 16:30 考试日：两门', tasks: [
@@ -2391,6 +2391,19 @@ if ((planState.patch || 0) < 4) {
     PLAN_DAYS.forEach(d => d.tasks.forEach(t => { if (t.id && t.id.startsWith('r:') && !has.has(t.id)) (planState.days[d.d] = planState.days[d.d] || []).push({ id: t.id, t: t.t, m: null }); }));
   }
   planState.patch = 4; lsSet(PLAN_KEY, JSON.stringify(planState));
+}
+// 补丁 5：MGMT90030 确认纸质材料不限 → 已自定义的计划在 11/9 加"打印笔记"任务（只加一次）
+if ((planState.patch || 0) < 5) {
+  if (planState.custom && planState.days) {
+    const has = new Set(); Object.values(planState.days).forEach(a => a.forEach(t => has.add(t.id)));
+    if (!has.has('x:print90030')) {
+      const day = planState.days['2026-11-09'] = planState.days['2026-11-09'] || [];
+      const t = { id: 'x:print90030', t: PLAN_DEFAULTS['x:print90030'].t, m: 'mgmt90030_w12_exam_review' };
+      const ri = day.findIndex(x => x.id === 'r:2026-11-09');
+      if (ri >= 0) day.splice(ri, 0, t); else day.push(t);
+    }
+  }
+  planState.patch = 5; lsSet(PLAN_KEY, JSON.stringify(planState));
 }
 function savePlan() { lsSet(PLAN_KEY, JSON.stringify(planState)); }
 function planLayout() {
