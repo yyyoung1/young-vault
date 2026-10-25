@@ -1054,6 +1054,7 @@ html.lb-lock, html.lb-lock body { overflow: hidden; }
 .yv-std .q-guess { position: absolute; top: 8px; right: 10px; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 8px; background: transparent; font-size: 17px; line-height: 30px; cursor: pointer; filter: grayscale(1); opacity: .35; transition: opacity .15s, filter .15s, background .15s; }
 .yv-std .q-guess:hover { opacity: .8; filter: none; }
 .yv-std .q-guess.on { opacity: 1; filter: none; background: color-mix(in srgb, #f59e0b 16%, var(--surface)); }
+@media (max-width: 600px) { .yv-std .model-ans { padding: 12px 8px 4px; border-radius: 12px; } }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
@@ -1849,6 +1850,11 @@ function setupQuiz(root) {
     tagWrong(b, st.w[inf.q]);
     guessBtn(b, inf);
   });
+  // 题目换过（qid 不存在了）就清掉旧的作答和错题记录
+  const valid = new Set([...info.values()].map(i => i.q));
+  for (const k of Object.keys(st.a)) if (!valid.has(k)) delete st.a[k];
+  for (const k of Object.keys(st.w)) if (!valid.has(k)) delete st.w[k];
+  persist();
   root.querySelectorAll('.sec').forEach(sec => {
     const blocks = [...sec.querySelectorAll('.qblock')].filter(b => info.has(b));
     if (!blocks.length) return;
