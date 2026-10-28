@@ -1077,6 +1077,25 @@ html.lb-lock, html.lb-lock body { overflow: hidden; }
 .yv-std .exam-lens pre { margin: 4px 0 0; padding: 8px 10px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); font-size: 12.5px; line-height: 1.45; overflow-x: auto; }
 @media (max-width: 600px) { .yv-std .exam-lens { padding: 10px 10px 8px; } }
 .yv-std .exam-lens .xbb { text-decoration: overline; text-decoration-style: double; text-decoration-thickness: 1px; text-underline-offset: 0; }
+
+/* ===== 计算题逐步讲解（calc walkthrough）===== */
+.yv-std .calc-walk { margin-top: 14px; display: flex; flex-direction: column; gap: 12px; }
+.yv-std .calc-walk .cw-step { border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px 10px; background: var(--surface); }
+.yv-std .calc-walk .cw-h { display: flex; align-items: center; gap: 8px; font-weight: 750; font-size: 15.5px; margin-bottom: 6px; }
+.yv-std .calc-walk .cw-n { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--tabc); color: #fff; display: inline-grid; place-items: center; font-size: 13px; font-weight: 750; }
+.yv-std .calc-walk .cw-read { list-style: none; margin: 0; padding: 0; }
+.yv-std .calc-walk .cw-read li { padding: 6px 0; border-bottom: 1px dashed var(--line); }
+.yv-std .calc-walk .cw-read li:last-child { border-bottom: 0; }
+.yv-std .calc-walk .cw-read q { display: block; quotes: none; font-style: italic; color: var(--muted); margin-bottom: 2px; }
+.yv-std .calc-walk .cw-ask { margin: 2px 0; padding: 9px 12px; border-radius: 10px; font-weight: 700; background: color-mix(in srgb, var(--tabc) 10%, var(--surface)); }
+.yv-std .calc-walk .cw-en { font-style: italic; }
+.yv-std .calc-walk ul, .yv-std .calc-walk ol { margin: 2px 0; padding-left: 20px; }
+.yv-std .calc-walk li { margin: 3px 0; }
+.yv-std .calc-walk table { margin: 6px 0; }
+.yv-std .calc-walk td.cw-hl { background: color-mix(in srgb, #f59e0b 20%, var(--surface)); font-weight: 700; }
+.yv-std .calc-walk td.cw-ok { font-weight: 750; }
+.yv-std .calc-walk pre { margin: 6px 0; padding: 8px 12px; border-radius: 10px; background: var(--surface-2, var(--surface)); border: 1px solid var(--line); font-size: 13px; line-height: 1.5; overflow-x: auto; white-space: pre; }
+@media (max-width: 600px) { .yv-std .calc-walk .cw-step { padding: 10px 10px 8px; } }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
