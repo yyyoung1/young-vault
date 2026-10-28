@@ -1055,6 +1055,27 @@ html.lb-lock, html.lb-lock body { overflow: hidden; }
 .yv-std .q-guess:hover { opacity: .8; filter: none; }
 .yv-std .q-guess.on { opacity: 1; filter: none; background: color-mix(in srgb, #f59e0b 16%, var(--surface)); }
 @media (max-width: 600px) { .yv-std .model-ans { padding: 12px 8px 4px; border-radius: 12px; } }
+
+/* ===== 考点透视（exam lens）===== */
+.yv-std .exam-lens { --lc: #8b5cf6; margin-top: 16px; padding: 12px 16px 10px; border: 1.5px solid color-mix(in srgb, var(--lc) 38%, var(--line)); border-radius: 14px; background: color-mix(in srgb, var(--lc) 5%, var(--surface)); font-size: 14.5px; line-height: 1.65; }
+.yv-std .exam-lens.lv3 { --lc: #e11d48; }
+.yv-std .exam-lens.lv2 { --lc: #f59e0b; }
+.yv-std .exam-lens.lv1 { --lc: #64748b; }
+.yv-std .exam-lens.lv0 { --lc: #94a3b8; }
+.yv-std .exam-lens .el-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-bottom: 6px; }
+.yv-std .exam-lens .el-title { font-weight: 750; color: color-mix(in srgb, var(--lc) 70%, var(--text)); }
+.yv-std .exam-lens .el-badge { font-size: 12.5px; font-weight: 750; padding: 1px 9px; border-radius: 999px; color: #fff; background: var(--lc); }
+.yv-std .exam-lens .el-basis { font-size: 12.5px; color: var(--muted); }
+.yv-std .exam-lens .el-lab { display: block; margin-top: 8px; font-size: 12.5px; font-weight: 750; letter-spacing: .04em; color: color-mix(in srgb, var(--lc) 70%, var(--text)); }
+.yv-std .exam-lens .el-q { margin: 2px 0 0; padding: 6px 10px; border-radius: 10px; background: color-mix(in srgb, var(--lc) 7%, var(--surface)); font-style: italic; }
+.yv-std .exam-lens .el-q .zh { display: block; font-style: normal; }
+.yv-std .exam-lens ul, .yv-std .exam-lens ol { margin: 2px 0 0; padding-left: 20px; }
+.yv-std .exam-lens li { margin: 2px 0; }
+.yv-std .exam-lens .el-one { margin-top: 8px; padding-top: 7px; border-top: 1px dashed color-mix(in srgb, var(--lc) 35%, var(--line)); font-weight: 650; }
+.yv-std .exam-lens .el-note { margin: 4px 0 0; color: var(--muted); }
+.yv-std .exam-lens code { font-size: 13px; }
+.yv-std .exam-lens pre { margin: 4px 0 0; padding: 8px 10px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); font-size: 12.5px; line-height: 1.45; overflow-x: auto; }
+@media (max-width: 600px) { .yv-std .exam-lens { padding: 10px 10px 8px; } }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
