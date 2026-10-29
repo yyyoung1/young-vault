@@ -2344,19 +2344,22 @@ const PLAN_DAYS = [
     { t: '90032 W1 — Planned vs Lean big picture', zh: '学第 1 周：计划型 vs 精益型大图', m: 'mgmt90032_w1_intro' },
     { t: '90032 W2 — do the EOQ example by hand', zh: '学第 2 周，并手算一遍 EOQ 例题', m: 'mgmt90032_w2_forecast_inventory' },
     { t: '90032 W3 — do the AP + MPS tables by hand', zh: '学第 3 周，并手算综合计划（AP）和主生产计划（MPS）表', m: 'mgmt90032_w3_aggregate_mps' }, { id: 'r:2026-10-27', t: 'Review & sort (10 min): write today’s formulas and lists into your 90032 summary; redo one example from memory', zh: '复盘整理（10 分钟）：把今天的公式和清单整理进 90032 总结，凭记忆重做一道例题' } ] },
-  { d: '2026-10-28', ph: 'p1', title: 'MGMT90032 · W4–W6 (+ MRP) 运营第 4–6 周 + MRP', tasks: [
+  { d: '2026-10-28', ph: 'p1', title: 'MGMT90032 · W4–W5 (+ MRP) 运营第 4–5 周 + MRP', tasks: [
     { t: '90032 W4 — do the MRP component J table by hand', zh: '学第 4 周，并手算 MRP 零件 J 那张表', m: 'mgmt90032_w4_mrp_erp' },
-    { t: '90032 W5', zh: '学第 5 周：读完所有标签 + 测验全对', m: 'mgmt90032_w5_jit_lean' }, { t: '90032 W6', zh: '学第 6 周：读完所有标签 + 测验全对', m: 'mgmt90032_w6_strategy' }, { id: 'r:2026-10-28', t: 'Review & sort (10 min): write today’s formulas and lists into your 90032 summary; redo one example from memory', zh: '复盘整理（10 分钟）：把今天的公式和清单整理进 90032 总结，凭记忆重做一道例题' } ] },
-  { d: '2026-10-29', ph: 'p1', title: 'MGMT90032 · W7–W8 (+ line balancing) 运营第 7–8 周 + 生产线平衡', tasks: [
-    { t: '90032 W7 — do a line-balancing question by hand', zh: '学第 7 周，并手算一道生产线平衡题', m: 'mgmt90032_w7_process_layout' },
-    { t: '90032 W8', zh: '学第 8 周：读完所有标签 + 测验全对', m: 'mgmt90032_w8_scm' }, { id: 'r:2026-10-29', t: 'Review & sort (10 min): write today’s formulas and lists into your 90032 summary; redo one example from memory', zh: '复盘整理（10 分钟）：把今天的公式和清单整理进 90032 总结，凭记忆重做一道例题' } ] },
-  { d: '2026-10-30', ph: 'p1', title: 'MGMT90032 · W9–W10 (+ SPC) 运营第 9–10 周 + 控制图，开始闪卡', tasks: [
-    { t: '90032 W9', zh: '学第 9 周：读完所有标签 + 测验全对', m: 'mgmt90032_w9_quality' }, { t: '90032 W10 — do the X̄/R chart question by hand', zh: '学第 10 周，并手算一遍 X̄/R 控制图题', m: 'mgmt90032_w10_spc_sixsigma' },
-    { t: '90032 W12 — read “Section 1 Answers” and do the Flashcards once (from now on 30 min every day)', zh: '读第 12 周"Section 1 参考答案"，过一遍闪卡（从今天起每天 30 分钟）', m: 'mgmt90032_w12_exam_review' }, { id: 'r:2026-10-30', t: 'Review & sort (10 min): write today’s formulas and lists into your 90032 summary; redo one example from memory', zh: '复盘整理（10 分钟）：把今天的公式和清单整理进 90032 总结，凭记忆重做一道例题' } ] },
-  { d: '2026-10-31', ph: 'p1', title: 'MGMT90032 · Day 5: whole-course review + one of each calc 运营第 5 天：整体回顾 + 每种计算题各做一道', tasks: [
-    { id: 'v6:1031a', t: '90032 W12 Course Map + Must-Memorize: read through once and mark what is still unclear', zh: '读一遍第 12 周"课程总图"和"必背清单"，标出还不清楚的', m: 'mgmt90032_w12_exam_review' },
+    { t: '90032 W5', zh: '学第 5 周：读完所有标签 + 测验全对', m: 'mgmt90032_w5_jit_lean' }, { id: 'r:2026-10-28', t: 'Review & sort (10 min): write today’s formulas and lists into your 90032 summary; redo one example from memory', zh: '复盘整理（10 分钟）：把今天的公式和清单整理进 90032 总结，凭记忆重做一道例题' } ] },
+  { d: '2026-10-29', ph: 'p1', title: 'MGMT90032 · W6 started (ran a day late) 运营第 6 周开头（进度顺延一天）', tasks: [
+    { id: 'v7:1029a', t: '90032 W6 — started; the rest moved to 10/30', zh: '开始学第 6 周；剩下的挪到 10/30', m: 'mgmt90032_w6_strategy' } ] },
+  { d: '2026-10-30', ph: 'p1', title: 'MGMT90032 · finish W6 + W7–W9 (+ line balancing) 运营：W6 收尾 + 第 7–9 周 + 生产线平衡', tasks: [
+    { id: 'd:2026-10-28:2', t: '90032 W6 — finish the remaining tabs', zh: '学完第 6 周剩下的标签 + 测验全对', m: 'mgmt90032_w6_strategy' },
+    { id: 'd:2026-10-29:0', t: '90032 W7 — do a line-balancing question by hand (top priority: sample Q5)', zh: '学第 7 周，并手算一道生产线平衡题（最优先：样卷 Q5）', m: 'mgmt90032_w7_process_layout' },
+    { id: 'd:2026-10-29:1', t: '90032 W8', zh: '学第 8 周：读完所有标签 + ★★★ 考点框的"可能问法"', m: 'mgmt90032_w8_scm' },
+    { id: 'd:2026-10-30:0', t: '90032 W9 (if not done today, do it first thing on 10/31)', zh: '学第 9 周（今天没学完就放到 10/31 上午先看）', m: 'mgmt90032_w9_quality' },
+    { id: 'v7:1030a', t: 'If time: start W10', zh: '有余力：开个头 W10', m: 'mgmt90032_w10_spc_sixsigma' },
+    { id: 'r:2026-10-30', t: 'Review & sort (10 min): write today’s formulas and lists into your 90032 summary; redo one example from memory', zh: '复盘整理（10 分钟）：把今天的公式和清单整理进 90032 总结，凭记忆重做一道例题' } ] },
+  { d: '2026-10-31', ph: 'p1', title: 'MGMT90032 · W10 (+ SPC) + W12 + one of each calc 运营：第 10 周 + 控制图 + W12 + 每种计算题各一道', tasks: [
+    { id: 'd:2026-10-30:1', t: '90032 W10 — do the X̄/R chart question by hand (sample Q3)', zh: '学第 10 周，并手算一遍 X̄/R 控制图题（样卷 Q3）', m: 'mgmt90032_w10_spc_sixsigma' },
+    { id: 'd:2026-10-30:2', t: '90032 W12 — read “Section 1 Answers” and do the Flashcards once (from now on 30 min every day)', zh: '读第 12 周"Section 1 参考答案"，过一遍闪卡（从今天起每天 30 分钟）', m: 'mgmt90032_w12_exam_review' },
     { id: 'v6:1031b', t: 'Do one of each calc type by hand: EOQ, AP, MPS, MRP, line balancing, SPC', zh: '六类计算题各手算一道：EOQ、AP、MPS、MRP、生产线平衡、SPC', m: 'mgmt90032_w12_exam_review' },
-    { id: 'v6:1031c', t: 'Go through the ★★★ exam-lens boxes in W1–W10 and answer each “possible question” in your head first', zh: '过一遍 W1–W10 的 ★★★ 考点框，每道"可能问法"先在心里答', m: 'mgmt90032_w1_intro' },
     { id: 'r:2026-10-31', t: 'Review & sort (10 min): write today’s formulas and lists into your 90032 summary; redo one example from memory', zh: '复盘整理（10 分钟）：把今天的公式和清单整理进 90032 总结，凭记忆重做一道例题' } ] },
   { d: '2026-11-01', ph: 'p1', title: 'MGMT90030 · W1–W4 (framework + core theory) 创新第 1–4 周（全课框架 + 核心理论）', tasks: [
     { id: 'v6:1101a', t: '90030 W1 (course framework!)', zh: '学第 1 周（全课框架，最重要！）', m: 'mgmt90030_w1_intro' },
@@ -2394,6 +2397,7 @@ const PLAN_DAYS = [
     { id: 'v6:1107b', t: 'Redo one of each calc type without looking at the answer first (EOQ, AP, MPS, MRP, line balancing, SPC)', zh: '六类计算题各重做一道，先别看答案（EOQ、AP、MPS、MRP、生产线平衡、SPC）', m: 'mgmt90032_w12_exam_review' },
     { id: 'v6:1107c', t: 'Section 1: answer the 7 sample questions in note form, then compare', zh: 'Section 1：7 道例题先写要点，再对照参考答案', m: 'mgmt90032_w12_exam_review' },
     { id: 'v6:1107d', t: 'Flashcards: all 52', zh: '闪卡：52 张全部过一遍', m: 'mgmt90032_w12_exam_review' },
+    { id: 'v6:1031c', t: 'Go through the ★★★ exam-lens boxes in W1–W10 and answer each “possible question” in your head first', zh: '过一遍 W1–W10 的 ★★★ 考点框，每道"可能问法"先在心里答', m: 'mgmt90032_w1_intro' },
     { id: 'r:2026-11-07', t: 'Review & sort (10 min): what still feels shaky? Add it to your cheat sheet or notes', zh: '复盘整理（10 分钟）：哪里还不熟？补进 cheat sheet 或笔记' } ] },
   { d: '2026-11-08', ph: 'p2', title: 'Mixed 1 · 90030 materials + MKTG mock 混合 1：90030 打印资料 + MKTG 模拟卷', tasks: [
     { id: 'x:print90030', t: 'Print your 90030 notes by week + add week tabs; put the index on top (unlimited paper allowed)', zh: '打印 90030 笔记（按周分好）、贴周次标签，索引页放最上面（纸质材料不限）', m: 'mgmt90030_w12_exam_review' },
@@ -2503,6 +2507,37 @@ if ((planState.patch || 0) < 6) {
     });
   }
   planState.patch = 6; lsSet(PLAN_KEY, JSON.stringify(planState));
+}
+// 补丁 7（2026-10-30 调整）：90032 进度顺延一天——W6 收尾 + W7–W9 挪到 10/30，W10 + W12 挪到 10/31，★★★ 考点框挪到 11/7。
+// 已自定义的计划：只挪还在原来那天的默认任务（用户自己挪过的不动），打勾、笔记、自己加的任务都保留。
+if ((planState.patch || 0) < 7) {
+  if (planState.custom && planState.days) {
+    const days = planState.days;
+    const MOVES = [['d:2026-10-28:2', '2026-10-28', '2026-10-30'], ['d:2026-10-29:0', '2026-10-29', '2026-10-30'], ['d:2026-10-29:1', '2026-10-29', '2026-10-30'],
+      ['d:2026-10-30:1', '2026-10-30', '2026-10-31'], ['d:2026-10-30:2', '2026-10-30', '2026-10-31'], ['v6:1031c', '2026-10-31', '2026-11-07']];
+    const OLD_TEXT = { 'd:2026-10-28:2': '90032 W6', 'd:2026-10-29:0': '90032 W7 — do a line-balancing question by hand', 'd:2026-10-29:1': '90032 W8',
+      'd:2026-10-30:0': '90032 W9', 'd:2026-10-30:1': '90032 W10 — do the X̄/R chart question by hand' };
+    // 去掉：10/31 的"课程总图"（11/7 的必背清单已覆盖）、10/29 的复盘——都只删没打勾的
+    ['v6:1031a', 'r:2026-10-29'].forEach(id => Object.keys(days).forEach(d => { days[d] = days[d].filter(t => !(t.id === id && !planState.done[id])); }));
+    const putBeforeReview = (d, task) => { const day = days[d] = days[d] || []; const ri = day.findIndex(x => x.id === 'r:' + d); if (ri >= 0) day.splice(ri, 0, task); else day.push(task); };
+    MOVES.forEach(([id, from, to]) => {
+      const day = days[from] || [], i = day.findIndex(t => t.id === id);
+      if (i < 0) return;
+      const [task] = day.splice(i, 1);
+      if (OLD_TEXT[id] === task.t) task.t = PLAN_DEFAULTS[id].t;   // 文字没改过就换成新默认
+      putBeforeReview(to, task);
+    });
+    Object.values(days).forEach(a => a.forEach(t => { if (t.id === 'd:2026-10-30:0' && OLD_TEXT[t.id] === t.t) t.t = PLAN_DEFAULTS[t.id].t; }));
+    const has = new Set(); Object.values(days).forEach(a => a.forEach(t => has.add(t.id)));
+    [['v7:1029a', '2026-10-29'], ['v7:1030a', '2026-10-30']].forEach(([id, d]) => { if (!has.has(id)) putBeforeReview(d, { id, t: PLAN_DEFAULTS[id].t, m: PLAN_DEFAULTS[id].m || null }); });
+    // 10/30、10/31 按新默认顺序排；用户自己加的任务排在默认任务后面、复盘前面
+    ['2026-10-30', '2026-10-31'].forEach(d => {
+      const order = PLAN_DAYS.find(x => x.d === d).tasks.map(t => t.id), day = days[d] || [];
+      const key = (t, i) => t.id === 'r:' + d ? 1e4 : order.indexOf(t.id) >= 0 ? order.indexOf(t.id) : 100 + i;
+      days[d] = day.map((t, i) => [key(t, i), t]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+    });
+  }
+  planState.patch = 7; lsSet(PLAN_KEY, JSON.stringify(planState));
 }
 function savePlan() { lsSet(PLAN_KEY, JSON.stringify(planState)); }
 function planLayout() {
