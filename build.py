@@ -1106,7 +1106,9 @@ html.lb-lock, html.lb-lock body { overflow: hidden; }
 .yv-std .exam-lens .el-m-body { padding: 2px 14px 6px; font-size: 14.5px; line-height: 1.7; }
 .yv-std .exam-lens .el-m-body p { margin: 8px 0; }
 .yv-std .exam-lens .el-m-body b { color: color-mix(in srgb, var(--lc) 60%, var(--text)); }
-.yv-std .exam-lens .el-m-zh { display: block; margin-top: 2px; font-size: 13px; color: var(--muted); }
+.yv-std .exam-lens .el-m-zh { display: block; margin-top: 1px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+.yv-std .exam-lens .el-m-body p { margin: 10px 0 14px; }
+.yv-std .exam-lens .el-s { display: block; margin-bottom: 7px; }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
