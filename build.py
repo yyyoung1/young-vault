@@ -1109,6 +1109,11 @@ html.lb-lock, html.lb-lock body { overflow: hidden; }
 .yv-std .exam-lens .el-m-zh { display: block; margin-top: 1px; font-size: 13px; line-height: 1.6; color: var(--muted); }
 .yv-std .exam-lens .el-m-body p { margin: 10px 0 14px; }
 .yv-std .exam-lens .el-s { display: block; margin-bottom: 7px; }
+/* 上下结构的分式（frac_90032.py 生成）：分子在上、分母在下 */
+.frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; text-align: center; margin: 2px .2em; line-height: 1.3; font-size: .95em; }
+.frac > .fn { padding: 0 .3em 2px; }
+.frac > .fd { padding: 2px .3em 0; border-top: 1.3px solid currentColor; }
+.frac .frac { font-size: .92em; margin: 1px .1em; }
 </style>
 <script>(function(){try{var t=localStorage.getItem("yv-theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);if(innerWidth<=768||localStorage.getItem("sb-collapsed")==="1")document.documentElement.classList.add("sb-init")}catch(e){}})()</script>
 </head>
