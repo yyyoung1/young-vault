@@ -261,6 +261,13 @@
         "title": "Final Exam Review",
         "subtitle": "Exam format · Section 1 model answers · Worked calculations · Formulas",
         "color": "#6366F1"
+      },
+      {
+        "file": "mgmt90032_w13_question_bank.html",
+        "week": "Question Bank",
+        "title": "All Questions 题库",
+        "subtitle": "Sample exam · Scenario · Concept · Calculation — answers folded",
+        "color": "#6366F1"
       }
     ]
   },
