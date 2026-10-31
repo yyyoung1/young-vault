@@ -1076,7 +1076,8 @@ html.lb-lock, html.lb-lock body { overflow: hidden; }
 .yv-std .exam-lens code { font-size: 13px; }
 .yv-std .exam-lens pre { margin: 4px 0 0; padding: 8px 10px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); font-size: 12.5px; line-height: 1.45; overflow-x: auto; }
 @media (max-width: 600px) { .yv-std .exam-lens { padding: 10px 10px 8px; } }
-.yv-std .exam-lens .xbb { text-decoration: overline; text-decoration-style: double; text-decoration-thickness: 1px; text-underline-offset: 0; }
+.xbb { position: relative; display: inline-block; line-height: 1; }
+.xbb::before { content: ""; position: absolute; left: .04em; right: .04em; top: .1em; border-top: 3px double currentColor; }
 
 /* ===== 计算题逐步讲解（calc walkthrough）===== */
 .yv-std .calc-walk { margin-top: 14px; display: flex; flex-direction: column; gap: 12px; }
